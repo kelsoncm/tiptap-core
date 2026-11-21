@@ -244,3 +244,36 @@ export {
   type AutosaveStatus,
 } from './editor/autosave.js';
 export { StatusBar } from './ui/status-bar.js';
+export {
+  buildSearchPattern,
+  findMatches,
+  InvisibleCharacters,
+  SearchReplace,
+  TextLanguage,
+  type SearchOptions,
+  type SearchResult,
+  type SearchStorage,
+} from './extensions/view-tools.js';
+export { TEXT_LANGUAGES } from './editor/view-setup.js';
+export {
+  createDictation,
+  isDictationSupported,
+  type DictationController,
+} from './editor/dictation.js';
+export {
+  buildFullPage,
+  documentForPrint,
+  printHTML,
+  PRINT_CSS,
+  splitFullPage,
+  type FullPageOptions,
+  type FullPageParts,
+} from './utils/document.js';
+export {
+  DragHandle,
+  FindBar,
+  formatHtml,
+  Minimap,
+  OutlinePanel,
+  SourceEditor,
+} from './ui/panels.js';

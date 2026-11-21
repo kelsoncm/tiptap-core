@@ -12,7 +12,9 @@ import {
 import { RestrictedEdit } from '../extensions/restricted-edit.js';
 import { createI18n, type I18n } from '../i18n/i18n.js';
 import type { IconRenderer } from './icons.js';
+import { DragHandle, FindBar, Minimap, OutlinePanel, SourceEditor } from './panels.js';
 import { StatusBar } from './status-bar.js';
+import { Extension } from '@tiptap/core';
 import {
   BALLOON_PRESET,
   TABLE_MENU_PRESET,
@@ -37,6 +39,8 @@ export interface EditorUIOptions extends Omit<KelsonEditorOptions, 'element'> {
   toolbar?: readonly ToolbarItem[] | keyof typeof TOOLBAR_PRESETS;
   /** Balloon items; `false` disables the balloon in `toolbar` mode. Default: balloon preset. */
   balloon?: readonly ToolbarItem[] | false;
+  /** Handle to drag blocks (hover left of a block). Default: true. */
+  dragHandle?: boolean;
   /** Footer with counters, limits and autosave state. Default: true. */
   statusBar?: boolean;
   /** Minimum and maximum height of the content (CSS length); grows in between. */
@@ -80,7 +84,10 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
   const tableBubble = document.createElement('div');
   tableBubble.className = 'kt-bubble kt-table-bubble';
   // Bubble elements are attached and detached by the BubbleMenu plugin itself.
-  root.append(toolbarHost, content);
+  const body = document.createElement('div');
+  body.className = 'kt-body';
+  body.append(content);
+  root.append(toolbarHost, body);
   host.append(root);
 
   const balloonItems = options.balloon === false ? null : (options.balloon ?? BALLOON_PRESET);
@@ -98,6 +105,9 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
 
   // Created up front: the placeholder reads it while the editor is being constructed.
   const i18n: I18n = options.i18n && 't' in options.i18n ? options.i18n : createI18n(options.i18n);
+
+  // UI actions bound after the panels exist (keyboard shortcuts call them).
+  const uiCommands = { findReplace: (): boolean => false, exitFullscreen: (): boolean => false };
 
   // Set once the editor exists; plugin callbacks may run during construction.
   let editorRef: Editor | null = null;
@@ -154,6 +164,14 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
         return null;
       },
     }),
+    Extension.create({
+      name: 'ktUiShortcuts',
+      addKeyboardShortcuts: () => ({
+        'Mod-f': () => uiCommands.findReplace(),
+        'Mod-h': () => uiCommands.findReplace(),
+        Escape: () => uiCommands.exitFullscreen(),
+      }),
+    }),
     ...(options.restrictedEdit !== undefined
       ? [RestrictedEdit.configure({ enabled: options.restrictedEdit })]
       : []),
@@ -171,6 +189,117 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
   });
 
   editorRef = kelson.editor;
+
+  // ---- view panels
+  const findBar = new FindBar(kelson);
+  root.insertBefore(findBar.element, body);
+  const source = new SourceEditor(kelson, content);
+  body.append(source.element);
+  const outline = new OutlinePanel(kelson);
+  const minimap = new Minimap(kelson, content);
+  body.append(outline.element, minimap.element);
+  const dragHandle =
+    options.dragHandle === false
+      ? null
+      : new DragHandle(kelson.editor, root, i18n.t('editor.view.dragHandle'));
+
+  const refreshToolbars = (): void => {
+    toolbar.update();
+    balloon?.update();
+  };
+  const uiCommand = (
+    id: string,
+    labelKey: string,
+    icon: string,
+    run: () => boolean,
+    isActive?: () => boolean,
+    shortcut?: string,
+  ): void => {
+    kelson.commands.register(
+      {
+        id,
+        labelKey,
+        icon,
+        group: 'view',
+        ...(shortcut ? { shortcut } : {}),
+        ...(isActive ? { isActive: () => isActive() } : {}),
+        run: () => {
+          const result = run();
+          refreshToolbars();
+          return result;
+        },
+      },
+      true,
+    );
+  };
+  uiCommand(
+    'findReplace',
+    'editor.find.title',
+    'search',
+    () => {
+      if (findBar.open) findBar.close();
+      else findBar.show();
+      return true;
+    },
+    () => findBar.open,
+    'Mod-f',
+  );
+  uiCommand(
+    'sourceCode',
+    'editor.view.source',
+    'source',
+    () => {
+      source.toggle();
+      root.classList.toggle('is-source', source.active);
+      return true;
+    },
+    () => source.active,
+  );
+  uiCommand(
+    'showBlocks',
+    'editor.view.blocks',
+    'blocks',
+    () => {
+      root.classList.toggle('kt-show-blocks');
+      return true;
+    },
+    () => root.classList.contains('kt-show-blocks'),
+  );
+  uiCommand(
+    'outline',
+    'editor.view.outline',
+    'outline',
+    () => {
+      outline.toggle();
+      return true;
+    },
+    () => !outline.element.hidden,
+  );
+  uiCommand(
+    'minimap',
+    'editor.view.minimap',
+    'minimap',
+    () => {
+      minimap.toggle();
+      return true;
+    },
+    () => !minimap.element.hidden,
+  );
+  uiCommand(
+    'fullscreen',
+    'editor.view.fullscreen',
+    'fullscreen',
+    () => {
+      root.classList.toggle('is-fullscreen');
+      return true;
+    },
+    () => root.classList.contains('is-fullscreen'),
+  );
+  uiCommands.findReplace = () => kelson.run('findReplace');
+  uiCommands.exitFullscreen = () => {
+    if (!root.classList.contains('is-fullscreen')) return false;
+    return kelson.run('fullscreen');
+  };
 
   const statusBar =
     options.statusBar === false
@@ -254,6 +383,11 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
       balloon?.destroy();
       tableMenu?.destroy();
       statusBar?.destroy();
+      findBar.destroy();
+      source.destroy();
+      outline.destroy();
+      minimap.destroy();
+      dragHandle?.destroy();
       kelson.destroy();
       root.remove();
     },

@@ -21,6 +21,9 @@ import {
   type DocumentLimits,
 } from '../extensions/limits.js';
 import { createAutosave, type AutosaveController, type AutosaveOptions } from './autosave.js';
+import { buildFullPage, splitFullPage, type FullPageParts } from '../utils/document.js';
+import { createDictation, registerViewCommands, viewExtensions } from './view-setup.js';
+import type { DictationController } from './dictation.js';
 import { featureExtensions, resolveFeatures, type EditorFeatures } from './features.js';
 import {
   insertionExtensions,
@@ -74,6 +77,8 @@ export interface KelsonEditorOptions {
   autocorrect?: boolean | Partial<AutocorrectOptions>;
   /** Debounced saving (callback and/or localStorage draft). */
   autosave?: AutosaveOptions;
+  /** Accept a full HTML document as content and keep its head for `getFullPageHTML()`. */
+  fullPage?: boolean;
   /** Start from the local draft when one exists (needs `autosave.storageKey`). */
   restoreDraft?: boolean;
   /** Mermaid renderer, custom widgets and templates. */
@@ -102,6 +107,8 @@ export interface KelsonEditor {
   readonly limits: Readonly<DocumentLimits>;
   /** Present when `autosave` was configured. */
   readonly autosave: AutosaveController | null;
+  /** The content as a complete HTML document (head kept from a full-page input). */
+  getFullPageHTML(): string;
   /** Runs a registered command by id. */
   run<Payload = void>(id: string, payload?: Payload): boolean;
   setEditable(editable: boolean): void;
@@ -110,6 +117,12 @@ export interface KelsonEditor {
 
 const isI18n = (value: I18n | I18nOptions | undefined): value is I18n =>
   typeof value === 'object' && value !== null && 't' in value && 'setLocale' in value;
+
+function fullPageParts(options: KelsonEditorOptions): FullPageParts {
+  const content = initialContent(options);
+  if (options.fullPage && typeof content === 'string') return splitFullPage(content);
+  return { head: '', body: content as string, lang: null, title: null };
+}
 
 function initialContent(options: KelsonEditorOptions): Content {
   const key = options.autosave?.storageKey;
@@ -183,6 +196,7 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
   extra.push(...linkExtensions(commands));
   registerLinkCommands(commands, i18n, options.links);
 
+  const page: FullPageParts = fullPageParts(options);
   const limits = options.limits ?? {};
   if (Object.keys(limits).length) extra.push(DocumentLimitsExtension.configure(limits));
 
@@ -202,6 +216,10 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
       );
     }
   }
+
+  let dictation: DictationController | null = null;
+  extra.push(...viewExtensions());
+  registerViewCommands(commands, i18n, (e) => (dictation ??= createDictation(e)));
 
   if (features.insertions) {
     extra.push(...insertionExtensions(options.insertions ?? {}, i18n));
@@ -241,7 +259,7 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
   const editor = new Editor({
     ...options.editorOptions,
     element: options.element ?? null,
-    content: initialContent(options),
+    content: page.body,
     editable: options.editable ?? true,
     extensions: [
       StarterKit.configure({
@@ -268,6 +286,12 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
     features,
     limits,
     autosave,
+    getFullPageHTML: () =>
+      buildFullPage(editor.getHTML(), {
+        head: page.head,
+        lang: page.lang ?? i18n.locale,
+        title: page.title,
+      }),
     run: (id, payload) => commands.run(editor, id, payload),
     setEditable: (editable) => editor.setEditable(editable),
     destroy: () => {

@@ -2,6 +2,18 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.12.0] - 2026-11-21
+
+### Adicionado
+
+- Localizar e substituir (`SearchReplace`): diferenciar maiúsculas, palavra inteira, expressão regular, navegação, substituir um/todos, destaque dos resultados; barra no `createEditorUI` (Mod-F/Mod-H, Enter/Shift+Enter, Esc).
+- Caracteres invisíveis (espaços, espaço não separável, ¶, quebra de linha).
+- Idioma do trecho (`<span lang>`) com códigos validados.
+- Ditado por voz (Web Speech API), desabilitado quando o navegador não oferece.
+- Impressão/visualização de impressão por iframe, com estilos de impressão e lista de notas de rodapé.
+- HTML de página inteira: `fullPage` aceita documento completo e `getFullPageHTML()` devolve o documento com o `<head>` original (sem scripts); `splitFullPage`/`buildFullPage`.
+- No `createEditorUI`: código-fonte HTML editável, mostrar blocos, estrutura do documento (painel), minimapa, tela cheia (Esc sai) e alça para arrastar blocos (`dragHandle`).
+
 ## [0.11.0] - 2026-11-21
 
 ### Adicionado
