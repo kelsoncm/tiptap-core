@@ -1,4 +1,5 @@
 import { Editor, type AnyExtension, type Content, type EditorOptions } from '@tiptap/core';
+import { Typography } from '@tiptap/extension-typography';
 import StarterKit, { type StarterKitOptions } from '@tiptap/starter-kit';
 
 import { defaultCommands, HEADING_LEVELS } from '../commands/defaults.js';
@@ -13,6 +14,13 @@ import {
 import { MergeField, type MergeFieldDefinition } from '../extensions/merge-field.js';
 import { DEFAULT_SLASH_COMMANDS, SlashCommands } from '../extensions/slash-commands.js';
 import type { CustomStyle } from '../extensions/custom-styles.js';
+import {
+  Autocorrect,
+  DocumentLimitsExtension,
+  type AutocorrectOptions,
+  type DocumentLimits,
+} from '../extensions/limits.js';
+import { createAutosave, type AutosaveController, type AutosaveOptions } from './autosave.js';
 import { featureExtensions, resolveFeatures, type EditorFeatures } from './features.js';
 import {
   insertionExtensions,
@@ -60,6 +68,14 @@ export interface KelsonEditorOptions {
   slashCommands?: boolean | readonly string[];
   /** Syntax highlighting in code blocks (highlight.js grammars via lowlight). */
   codeHighlight?: boolean | CodeHighlightOptions;
+  /** Maximum (enforced) and minimum (reported) characters, words and paragraphs. */
+  limits?: DocumentLimits;
+  /** Typographic replacements and word corrections; `false` disables. Default: typography on. */
+  autocorrect?: boolean | Partial<AutocorrectOptions>;
+  /** Debounced saving (callback and/or localStorage draft). */
+  autosave?: AutosaveOptions;
+  /** Start from the local draft when one exists (needs `autosave.storageKey`). */
+  restoreDraft?: boolean;
   /** Mermaid renderer, custom widgets and templates. */
   insertions?: InsertionOptions;
   /** Optional bundles such as `mathPlugin()` from `@kelsoncm/tiptap-core/math`. */
@@ -83,6 +99,9 @@ export interface KelsonEditor {
   readonly commands: CommandRegistry;
   readonly i18n: I18n;
   readonly features: Readonly<EditorFeatures>;
+  readonly limits: Readonly<DocumentLimits>;
+  /** Present when `autosave` was configured. */
+  readonly autosave: AutosaveController | null;
   /** Runs a registered command by id. */
   run<Payload = void>(id: string, payload?: Payload): boolean;
   setEditable(editable: boolean): void;
@@ -91,6 +110,19 @@ export interface KelsonEditor {
 
 const isI18n = (value: I18n | I18nOptions | undefined): value is I18n =>
   typeof value === 'object' && value !== null && 't' in value && 'setLocale' in value;
+
+function initialContent(options: KelsonEditorOptions): Content {
+  const key = options.autosave?.storageKey;
+  if (options.restoreDraft && key) {
+    try {
+      const draft = typeof localStorage === 'undefined' ? null : localStorage.getItem(key);
+      if (draft) return draft;
+    } catch {
+      // Storage unavailable: fall back to the given content.
+    }
+  }
+  return options.content ?? '';
+}
 
 export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
   const i18n = isI18n(options.i18n) ? options.i18n : createI18n(options.i18n);
@@ -151,6 +183,26 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
   extra.push(...linkExtensions(commands));
   registerLinkCommands(commands, i18n, options.links);
 
+  const limits = options.limits ?? {};
+  if (Object.keys(limits).length) extra.push(DocumentLimitsExtension.configure(limits));
+
+  if (options.autocorrect !== false) {
+    const config =
+      options.autocorrect === true || options.autocorrect === undefined ? {} : options.autocorrect;
+    if (config.typography ?? true) {
+      // Brazilian quotes and dashes; the angle-quote rules (<< >>) would clash with HTML habits.
+      extra.push(Typography.configure({ laquo: false, raquo: false }));
+    }
+    if (config.replacements || config.capitalizeSentences) {
+      extra.push(
+        Autocorrect.configure({
+          replacements: config.replacements ?? {},
+          capitalizeSentences: config.capitalizeSentences ?? false,
+        }),
+      );
+    }
+  }
+
   if (features.insertions) {
     extra.push(...insertionExtensions(options.insertions ?? {}, i18n));
     registerInsertionCommands(commands, options.insertions ?? {}, i18n);
@@ -189,7 +241,7 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
   const editor = new Editor({
     ...options.editorOptions,
     element: options.element ?? null,
-    content: options.content ?? '',
+    content: initialContent(options),
     editable: options.editable ?? true,
     extensions: [
       StarterKit.configure({
@@ -207,13 +259,20 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
     ],
   });
 
+  const autosave = options.autosave ? createAutosave(editor, options.autosave) : null;
+
   return {
     editor,
     commands,
     i18n,
     features,
+    limits,
+    autosave,
     run: (id, payload) => commands.run(editor, id, payload),
     setEditable: (editable) => editor.setEditable(editable),
-    destroy: () => editor.destroy(),
+    destroy: () => {
+      autosave?.destroy();
+      editor.destroy();
+    },
   };
 }

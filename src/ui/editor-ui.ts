@@ -12,6 +12,7 @@ import {
 import { RestrictedEdit } from '../extensions/restricted-edit.js';
 import { createI18n, type I18n } from '../i18n/i18n.js';
 import type { IconRenderer } from './icons.js';
+import { StatusBar } from './status-bar.js';
 import {
   BALLOON_PRESET,
   TABLE_MENU_PRESET,
@@ -36,6 +37,11 @@ export interface EditorUIOptions extends Omit<KelsonEditorOptions, 'element'> {
   toolbar?: readonly ToolbarItem[] | keyof typeof TOOLBAR_PRESETS;
   /** Balloon items; `false` disables the balloon in `toolbar` mode. Default: balloon preset. */
   balloon?: readonly ToolbarItem[] | false;
+  /** Footer with counters, limits and autosave state. Default: true. */
+  statusBar?: boolean;
+  /** Minimum and maximum height of the content (CSS length); grows in between. */
+  minHeight?: string;
+  maxHeight?: string;
   /** Contextual menu shown while the cursor is in a table; `false` disables it. */
   tableMenu?: readonly ToolbarItem[] | false;
   /** Placeholder for an empty document (i18n key or text). */
@@ -166,6 +172,14 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
 
   editorRef = kelson.editor;
 
+  const statusBar =
+    options.statusBar === false
+      ? null
+      : new StatusBar(kelson, kelson.limits, kelson.autosave ?? undefined);
+  if (statusBar) root.append(statusBar.element);
+  if (options.minHeight) root.style.setProperty('--kt-min-height', options.minHeight);
+  if (options.maxHeight) root.style.setProperty('--kt-max-height', options.maxHeight);
+
   const toolbarItems =
     typeof options.toolbar === 'string'
       ? TOOLBAR_PRESETS[options.toolbar]
@@ -239,6 +253,7 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
       toolbar.destroy();
       balloon?.destroy();
       tableMenu?.destroy();
+      statusBar?.destroy();
       kelson.destroy();
       root.remove();
     },
