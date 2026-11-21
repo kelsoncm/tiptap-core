@@ -292,3 +292,33 @@ export {
 } from './extensions/paste.js';
 export { downloadFile, inlineStyles, safeFilename, toWordDocument } from './utils/export.js';
 export { getMarkdown, type IoOptions } from './editor/io-setup.js';
+export {
+  commentRanges,
+  Comments,
+  listComments,
+  newId,
+  type CommentMessage,
+  type CommentsOptions,
+  type CommentStorage,
+  type CommentThread,
+  type RevisionUser,
+} from './extensions/comments.js';
+export {
+  Deletion,
+  Insertion,
+  listChanges,
+  TRACK_CHANGES_BYPASS,
+  TrackChanges,
+  trackChangesKey,
+  type TrackChangesOptions,
+  type TrackedChange,
+} from './extensions/track-changes.js';
+export {
+  createRevisionController,
+  USER_ROLES,
+  type DocumentVersion,
+  type RevisionController,
+  type RevisionOptions,
+  type UserRole,
+} from './editor/revision-setup.js';
+export { RevisionPanel } from './ui/revision-panel.js';

@@ -161,6 +161,15 @@ export const TOOLBAR_PRESETS: Readonly<
     'exportPdf',
     'exportHtml',
     'exportMarkdown',
+    SEPARATOR,
+    'comment',
+    'trackChanges',
+    'acceptChange',
+    'rejectChange',
+    'acceptAllChanges',
+    'rejectAllChanges',
+    'saveVersion',
+    'revisionPanel',
   ],
 };
 

@@ -1136,3 +1136,108 @@
     display: none !important;
   }
 }
+
+/* Revision: comments, suggestions, versions */
+.kt-editor .tiptap .kt-comment {
+  border-bottom: 2px solid #f0b400;
+  background: #fff4cc;
+}
+
+.kt-editor .tiptap .kt-comment.is-resolved,
+.kt-editor .tiptap .is-resolved .kt-comment {
+  border-bottom-color: transparent;
+  background: transparent;
+}
+
+.kt-editor .tiptap .kt-insertion {
+  background: #dff3e4;
+  color: #116329;
+  text-decoration: underline;
+}
+
+.kt-editor .tiptap .kt-deletion {
+  background: #fde2e1;
+  color: #a40e26;
+  text-decoration: line-through;
+}
+
+.kt-revision-panel {
+  flex-basis: 280px;
+}
+
+.kt-revision-panel h3 {
+  margin: 12px 0 6px;
+  font-size: 13px;
+}
+
+.kt-thread {
+  margin-bottom: 8px;
+  padding: 8px;
+  border: 1px solid var(--kt-border);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.kt-thread.is-resolved {
+  opacity: 0.6;
+}
+
+.kt-thread-quote {
+  margin: 0 0 6px;
+  padding-left: 6px;
+  border-left: 3px solid #f0b400;
+  color: var(--kt-muted);
+  cursor: pointer;
+}
+
+.kt-thread-message time,
+.kt-change small,
+.kt-version small {
+  display: block;
+  color: var(--kt-muted);
+  font-size: 11px;
+}
+
+.kt-thread-message p {
+  margin: 2px 0 6px;
+}
+
+.kt-thread-reply input {
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid var(--kt-border);
+  border-radius: 4px;
+  font: inherit;
+}
+
+.kt-thread-actions,
+.kt-change,
+.kt-version {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.kt-change span,
+.kt-version span {
+  flex: 1 1 100%;
+  cursor: pointer;
+}
+
+.kt-change-insertion span {
+  color: #116329;
+}
+
+.kt-change-deletion span {
+  color: #a40e26;
+  text-decoration: line-through;
+}
+
+@media print {
+  .kt-editor .tiptap .kt-comment {
+    border: 0;
+    background: none;
+  }
+}

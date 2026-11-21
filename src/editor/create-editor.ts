@@ -24,6 +24,13 @@ import { createAutosave, type AutosaveController, type AutosaveOptions } from '.
 import { buildFullPage, splitFullPage, type FullPageParts } from '../utils/document.js';
 import { createDictation, registerViewCommands, viewExtensions } from './view-setup.js';
 import { getMarkdown, ioExtensions, registerIoCommands, type IoOptions } from './io-setup.js';
+import {
+  createRevisionController,
+  registerRevisionCommands,
+  revisionExtensions,
+  type RevisionController,
+  type RevisionOptions,
+} from './revision-setup.js';
 import type { DictationController } from './dictation.js';
 import { featureExtensions, resolveFeatures, type EditorFeatures } from './features.js';
 import {
@@ -78,6 +85,8 @@ export interface KelsonEditorOptions {
   autocorrect?: boolean | Partial<AutocorrectOptions>;
   /** Debounced saving (callback and/or localStorage draft). */
   autosave?: AutosaveOptions;
+  /** Comments, suggestions (track changes), versions and user role. */
+  revision?: RevisionOptions;
   /** Paste cleanup, Markdown and export settings. */
   io?: IoOptions;
   /** Accept a full HTML document as content and keep its head for `getFullPageHTML()`. */
@@ -114,6 +123,8 @@ export interface KelsonEditor {
   getFullPageHTML(): string;
   /** The content as Markdown. */
   getMarkdown(): string;
+  /** Present when `revision` was configured. */
+  readonly revision: RevisionController | null;
   /** Runs a registered command by id. */
   run<Payload = void>(id: string, payload?: Payload): boolean;
   setEditable(editable: boolean): void;
@@ -222,6 +233,12 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
     }
   }
 
+  let revision: RevisionController | null = null;
+  if (options.revision) {
+    extra.push(...revisionExtensions(options.revision));
+    registerRevisionCommands(commands, i18n, () => revision, options.revision);
+  }
+
   extra.push(...ioExtensions(options.io ?? {}));
   registerIoCommands(commands, i18n, options.io ?? {});
 
@@ -286,6 +303,7 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
   });
 
   const autosave = options.autosave ? createAutosave(editor, options.autosave) : null;
+  if (options.revision) revision = createRevisionController(editor, options.revision);
 
   return {
     editor,
@@ -294,6 +312,7 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
     features,
     limits,
     autosave,
+    revision,
     getMarkdown: () => getMarkdown(editor),
     getFullPageHTML: () =>
       buildFullPage(editor.getHTML(), {
