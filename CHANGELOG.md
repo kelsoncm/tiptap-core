@@ -2,6 +2,17 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.4.0] - 2026-11-21
+
+### Adicionado
+
+- Menções (`mentions`): autocomplete com `@` (lista estática ou fonte assíncrona, busca sem acentos) e comando `mention` (insere um item ou abre o autocomplete).
+- Merge fields (`mergeFields`): nó `mergeField` (`<span data-merge-field="chave">{{Rótulo}}</span>`), menu com `{{`, comando `mergeField` e utilitários `listMergeFields`, `fillMergeFields` (JSON, mantém marcas) e `fillMergeFieldsHTML` (escapa valores).
+- Slash commands (`slashCommands`): menu com `/` a partir do registro de comandos, filtrado pelos rótulos traduzidos; ligado por padrão no `createEditorUI`.
+- `createSuggestionMenu`: lista acessível (`role="listbox"`, `aria-activedescendant`) posicionada com floating-ui, usada pelos três menus.
+- Botões `mention` e `mergeField` no preset `full` (aparecem só quando configurados).
+- `CommandRegistry.register` genérico no tipo do payload.
+
 ## [0.3.0] - 2026-11-21
 
 ### Adicionado

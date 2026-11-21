@@ -128,6 +128,7 @@ export const ptBR: Messages = {
   'editor.toolbar.lineHeight': 'Altura da linha',
   'editor.toolbar.link': 'Inserir link',
   'editor.toolbar.mention': 'Inserir menção',
+  'editor.toolbar.mergeField': 'Inserir campo',
   'editor.toolbar.orderedList': 'Lista numerada',
   'editor.toolbar.orderedListType': 'Tipo de numeração',
   'editor.toolbar.outdent': 'Diminuir recuo',

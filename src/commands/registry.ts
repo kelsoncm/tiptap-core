@@ -38,7 +38,7 @@ export class CommandRegistry {
   }
 
   /** Adds a command. Throws when the id is taken, unless `replace` is true. */
-  register(command: AnyCommand, replace = false): this {
+  register<Payload = never>(command: CommandDefinition<Payload>, replace = false): this {
     if (!command.id) throw new Error('Comando sem "id".');
     if (!replace && this.#commands.has(command.id)) {
       throw new Error(`Comando "${command.id}" já registrado. Use replace=true para substituir.`);
