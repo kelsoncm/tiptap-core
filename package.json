@@ -1,6 +1,6 @@
 {
   "name": "@kelsoncm/tiptap-core",
-  "version": "0.15.0",
+  "version": "0.15.1",
   "description": "Núcleo framework-agnóstico do editor KelsonCM TipTap: extensões, comandos, i18n e UI em DOM.",
   "license": "MIT",
   "author": "Kelson da Costa Medeiros <kelsoncm@gmail.com>",
@@ -55,9 +55,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepublishOnly": "npm run clean && npm run build",
-    "prepare": "npm run build",
-    "demo": "vite demo --port 5180 --strictPort"
+    "demo": "vite demo --port 5180 --strictPort",
+    "prepack": "npm run clean && npm run build"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.8.0",
