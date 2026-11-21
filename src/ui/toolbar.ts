@@ -2,6 +2,7 @@ import type { CommandDefinition } from '../commands/registry.js';
 import type { KelsonEditor } from '../editor/create-editor.js';
 import {
   BULLET_LIST_OPTIONS,
+  CODE_LANGUAGES,
   FONT_FAMILIES,
   FONT_SIZES,
   HIGHLIGHT_COLORS,
@@ -78,6 +79,7 @@ export const TOOLBAR_PRESETS: Readonly<
     'redo',
     SEPARATOR,
     BLOCK_TYPE_SELECT,
+    select('codeBlockLanguage', CODE_LANGUAGES),
     select('fontFamily', FONT_FAMILIES),
     select('fontSize', FONT_SIZES),
     SEPARATOR,
@@ -91,6 +93,7 @@ export const TOOLBAR_PRESETS: Readonly<
     select('textColor', TEXT_COLORS),
     select('highlight', HIGHLIGHT_COLORS),
     'removeFormat',
+    'formatPainter',
     SEPARATOR,
     'align-left',
     'align-center',

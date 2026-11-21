@@ -50,6 +50,7 @@ export {
 } from './extensions/table.js';
 export {
   BULLET_LIST_OPTIONS,
+  CODE_LANGUAGES,
   FONT_FAMILIES,
   FONT_SIZES,
   HIGHLIGHT_COLORS,
@@ -113,3 +114,16 @@ export {
 } from './extensions/slash-commands.js';
 export { createSuggestionMenu, type SuggestionMenuOptions } from './ui/suggestion-menu.js';
 export { matches, normalizeSearch } from './utils/search.js';
+export {
+  CustomStyles,
+  InlineStyle,
+  validateCustomStyles,
+  type CustomStyle,
+  type CustomStylesOptions,
+} from './extensions/custom-styles.js';
+export {
+  FormatPainter,
+  formatPainterKey,
+  type FormatPainterStorage,
+} from './extensions/format-painter.js';
+export { type CodeHighlightOptions } from './editor/styling.js';

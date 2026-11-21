@@ -106,3 +106,21 @@ export const BULLET_LIST_OPTIONS: readonly OptionItem<BulletListType>[] = BULLET
     preview: BULLET_PREVIEW[value],
   }),
 );
+
+/** Languages offered in the code block language select (subset of `common`). */
+export const CODE_LANGUAGES: readonly OptionItem[] = [
+  { value: '', labelKey: 'editor.codeLanguages.auto' },
+  { value: 'plaintext', labelKey: 'editor.codeLanguages.plaintext' },
+  { value: 'bash', label: 'Bash' },
+  { value: 'css', label: 'CSS' },
+  { value: 'java', label: 'Java' },
+  { value: 'javascript', label: 'JavaScript' },
+  { value: 'json', label: 'JSON' },
+  { value: 'markdown', label: 'Markdown' },
+  { value: 'php', label: 'PHP' },
+  { value: 'python', label: 'Python' },
+  { value: 'sql', label: 'SQL' },
+  { value: 'typescript', label: 'TypeScript' },
+  { value: 'xml', label: 'HTML/XML' },
+  { value: 'yaml', label: 'YAML' },
+];

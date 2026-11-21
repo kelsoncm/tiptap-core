@@ -2,6 +2,19 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.5.0] - 2026-11-21
+
+### Adicionado
+
+- Realce de sintaxe em blocos de código (`codeHighlight`), com lowlight/highlight.js (`common` por padrão ou gramáticas próprias), comando `codeBlockLanguage` e seletor de linguagem no preset `full`. Desligado por padrão para não pesar no bundle.
+- Estilos customizados (`customStyles`): estilos de bloco (`data-block-style` + classe) e de trecho (marca `inlineStyle`), comando `customStyle`; classes validadas contra injeção.
+- Pincel de formatação (`formatPainter`, ligado por padrão): copia as marcas da seleção e aplica na próxima seleção feita com o mouse; modo contínuo (`copyFormat(true)`) e Esc para cancelar.
+- Tema de cores para o realce e cursor de cópia no modo pincel.
+
+### Dependências
+
+- `@tiptap/extension-code-block-lowlight`, `lowlight` e `highlight.js`: exigidos pelo realce de sintaxe (motivo: o Tiptap não realça código sem eles).
+
 ## [0.4.0] - 2026-11-21
 
 ### Adicionado
