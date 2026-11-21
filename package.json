@@ -1,6 +1,6 @@
 {
   "name": "@kelsoncm/tiptap-core",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Núcleo framework-agnóstico do editor KelsonCM TipTap: extensões, comandos, i18n e UI em DOM.",
   "license": "MIT",
   "author": "Kelson da Costa Medeiros <kelsoncm@gmail.com>",

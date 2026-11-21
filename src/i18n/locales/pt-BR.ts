@@ -149,6 +149,7 @@ export const ptBR: Messages = {
   'editor.toolbar.superscript': 'Sobrescrito',
   'editor.toolbar.table': 'Tabela',
   'editor.toolbar.tableOfContents': 'Sumário',
+  'editor.toolbar.taskList': 'Lista de tarefas',
   'editor.toolbar.textAlign': 'Alinhamento de texto',
   'editor.toolbar.textColor': 'Cor do texto',
   'editor.toolbar.textFormatting': 'Formatação de texto',

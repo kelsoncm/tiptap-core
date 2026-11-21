@@ -149,6 +149,7 @@ export const en: Messages = {
   'editor.toolbar.superscript': 'Superscript',
   'editor.toolbar.table': 'Table',
   'editor.toolbar.tableOfContents': 'Table of Contents',
+  'editor.toolbar.taskList': 'Checklist',
   'editor.toolbar.textAlign': 'Text alignment',
   'editor.toolbar.textColor': 'Text color',
   'editor.toolbar.textFormatting': 'Text formatting',
