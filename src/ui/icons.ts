@@ -29,6 +29,7 @@ export const DEFAULT_ICONS: Readonly<Record<string, string>> = {
   'page-break': '✂',
   table: '▦',
   mention: '@',
+  'task-list': '☑',
   'format-painter': '🖌',
   style: 'Aa',
   'merge-field': '{ }',

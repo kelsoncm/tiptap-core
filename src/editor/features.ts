@@ -1,5 +1,6 @@
 import type { AnyExtension } from '@tiptap/core';
 import { Highlight } from '@tiptap/extension-highlight';
+import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Subscript } from '@tiptap/extension-subscript';
 import { Superscript } from '@tiptap/extension-superscript';
 import { TableRow } from '@tiptap/extension-table';
@@ -32,6 +33,8 @@ export interface EditorFeatures {
   tableOfContents: boolean;
   /** Copy the formatting of one selection to another. */
   formatPainter: boolean;
+  /** Interactive checklist (`<ul data-type="taskList">` with checkboxes). */
+  taskList: boolean;
 }
 
 export const DEFAULT_FEATURES: Readonly<EditorFeatures> = {
@@ -49,6 +52,7 @@ export const DEFAULT_FEATURES: Readonly<EditorFeatures> = {
   pageBreak: true,
   tableOfContents: false,
   formatPainter: true,
+  taskList: true,
 };
 
 export function resolveFeatures(features: Partial<EditorFeatures> = {}): EditorFeatures {
@@ -59,6 +63,12 @@ export function resolveFeatures(features: Partial<EditorFeatures> = {}): EditorF
 export function featureExtensions(features: Readonly<EditorFeatures>): AnyExtension[] {
   const out: AnyExtension[] = [];
   if (features.listTypes) out.push(TypedBulletList, TypedOrderedList);
+  if (features.taskList) {
+    out.push(
+      TaskList,
+      TaskItem.configure({ nested: true, HTMLAttributes: { class: 'kt-task-item' } }),
+    );
+  }
   if (features.subscript) out.push(Subscript);
   if (features.superscript) out.push(Superscript);
   if (features.fontFamily || features.fontSize || features.textColor) out.push(TextStyle);

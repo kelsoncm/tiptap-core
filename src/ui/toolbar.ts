@@ -107,6 +107,7 @@ export const TOOLBAR_PRESETS: Readonly<
     select('bulletListType', BULLET_LIST_OPTIONS),
     'orderedList',
     select('orderedListType', ORDERED_LIST_OPTIONS),
+    'taskList',
     SEPARATOR,
     'insertTable',
     'horizontalRule',

@@ -220,6 +220,18 @@ export function featureCommands(features: Readonly<EditorFeatures>): CommandDefi
       run: (e, type) => e.chain().focus().setBulletListType(type).run(),
     });
   }
+  if (features.taskList) {
+    add({
+      id: 'taskList',
+      labelKey: 'editor.toolbar.taskList',
+      icon: 'task-list',
+      shortcut: 'Mod-Shift-9',
+      group: 'lists',
+      isActive: (e) => e.isActive('taskList'),
+      isEnabled: editable,
+      run: (e) => e.chain().focus().toggleTaskList().run(),
+    });
+  }
   if (features.pageBreak) {
     add({
       id: 'pageBreak',

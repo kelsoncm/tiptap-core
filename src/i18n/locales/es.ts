@@ -149,6 +149,7 @@ export const es: Messages = {
   'editor.toolbar.superscript': 'Superíndice',
   'editor.toolbar.table': 'Tabla',
   'editor.toolbar.tableOfContents': 'Tabla de Contenidos',
+  'editor.toolbar.taskList': 'Lista de tareas',
   'editor.toolbar.textAlign': 'Alineación de texto',
   'editor.toolbar.textColor': 'Color del texto',
   'editor.toolbar.textFormatting': 'Formato de texto',

@@ -2,6 +2,13 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.6.0] - 2026-11-21
+
+### Adicionado
+
+- Checklist interativo (`taskList`, ligado por padrão): TaskList/TaskItem oficiais com itens aninháveis, comando `taskList` (Mod-Shift-9), atalho markdown `[ ] `, botão no preset `full` e no menu `/`.
+- Estilo do checklist (item marcado riscado).
+
 ## [0.5.0] - 2026-11-21
 
 ### Adicionado
