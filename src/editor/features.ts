@@ -3,7 +3,6 @@ import { Highlight } from '@tiptap/extension-highlight';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Subscript } from '@tiptap/extension-subscript';
 import { Superscript } from '@tiptap/extension-superscript';
-import { TableRow } from '@tiptap/extension-table';
 import { TableOfContents } from '@tiptap/extension-table-of-contents';
 import { TextAlign } from '@tiptap/extension-text-align';
 import { Color, FontFamily, FontSize, TextStyle } from '@tiptap/extension-text-style';
@@ -12,7 +11,12 @@ import { BlockLineHeight } from '../extensions/block-line-height.js';
 import { Indent } from '../extensions/indent.js';
 import { TypedBulletList, TypedOrderedList } from '../extensions/list-types.js';
 import { PageBreak } from '../extensions/page-break.js';
-import { CaptionTable, StyledTableCell, StyledTableHeader } from '../extensions/table.js';
+import {
+  CaptionTable,
+  FooterTableRow,
+  StyledTableCell,
+  StyledTableHeader,
+} from '../extensions/table.js';
 
 /** Optional features. All default to `true` except `tableOfContents`. */
 export interface EditorFeatures {
@@ -89,7 +93,7 @@ export function featureExtensions(features: Readonly<EditorFeatures>): AnyExtens
   if (features.table) {
     out.push(
       CaptionTable.configure({ resizable: true, HTMLAttributes: { class: 'tiptap-table' } }),
-      TableRow,
+      FooterTableRow,
       StyledTableHeader,
       StyledTableCell,
     );

@@ -170,7 +170,7 @@
   position: relative;
   min-width: 2em;
   padding: 4px 8px;
-  border: 1px solid var(--kt-border);
+  border: 1px solid var(--kt-table-border, var(--kt-border));
   vertical-align: top;
 }
 
@@ -410,4 +410,35 @@
 .kt-editor .tiptap ul[data-type='taskList'] li[data-checked='true'] > div {
   color: var(--kt-muted);
   text-decoration: line-through;
+}
+
+/* Table styles and footer row */
+.kt-editor .tiptap table.kt-table-striped tr:nth-child(even) td {
+  background: #f6f8fb;
+}
+
+.kt-editor .tiptap table.kt-table-borderless td,
+.kt-editor .tiptap table.kt-table-borderless th {
+  border-color: transparent;
+}
+
+.kt-editor .tiptap table.kt-table-compact td,
+.kt-editor .tiptap table.kt-table-compact th {
+  padding: 1px 4px;
+}
+
+.kt-editor .tiptap table.kt-table-grid td,
+.kt-editor .tiptap table.kt-table-grid th {
+  border-width: 2px;
+}
+
+.kt-editor .tiptap tr.kt-table-footer td,
+.kt-editor .tiptap tr.kt-table-footer th {
+  border-top-width: 2px;
+  background: #f4f4f4;
+  font-weight: 600;
+}
+
+.kt-table-bubble .kt-toolbar {
+  max-width: min(720px, 90vw);
 }

@@ -8,7 +8,13 @@ import {
   HIGHLIGHT_COLORS,
   LINE_HEIGHTS,
   ORDERED_LIST_OPTIONS,
+  TABLE_ALIGN_OPTIONS,
+  TABLE_COLORS,
+  TABLE_LAYOUT_OPTIONS,
+  TABLE_STYLE_OPTIONS,
+  TABLE_WIDTH_OPTIONS,
   TEXT_COLORS,
+  VERTICAL_ALIGN_OPTIONS,
   type OptionItem,
 } from '../options.js';
 import { defaultIconRenderer, type IconRenderer } from './icons.js';
@@ -128,6 +134,41 @@ export const BALLOON_PRESET: readonly ToolbarItem[] = [
   'subscript',
   'superscript',
   'removeFormat',
+];
+
+/** Items of the contextual menu shown while the cursor is in a table. */
+export const TABLE_MENU_PRESET: readonly ToolbarItem[] = [
+  'addRowBefore',
+  'addRowAfter',
+  'deleteRow',
+  'selectRow',
+  SEPARATOR,
+  'addColumnBefore',
+  'addColumnAfter',
+  'deleteColumn',
+  'selectColumn',
+  SEPARATOR,
+  'mergeCells',
+  'splitCell',
+  'toggleHeaderRow',
+  'toggleFooterRow',
+  SEPARATOR,
+  select('cellVerticalAlign', VERTICAL_ALIGN_OPTIONS),
+  select('cellBackground', TABLE_COLORS),
+  select('cellBorderColor', TABLE_COLORS),
+  SEPARATOR,
+  select('tableStyle', TABLE_STYLE_OPTIONS),
+  select('tableWidth', TABLE_WIDTH_OPTIONS),
+  select('tableAlign', TABLE_ALIGN_OPTIONS),
+  select('tableLayout', TABLE_LAYOUT_OPTIONS),
+  select('tableBorderColor', TABLE_COLORS),
+  SEPARATOR,
+  'tableCaption',
+  'paragraphBeforeTable',
+  'paragraphAfterTable',
+  'duplicateTable',
+  'selectTable',
+  'deleteTable',
 ];
 
 export interface ToolbarOptions {
@@ -287,13 +328,10 @@ export class Toolbar {
       element,
       update: () => {
         element.disabled = command.isEnabled ? !command.isEnabled(editor) : false;
-        const value = command.getValue?.(editor) ?? '';
-        const known = item.options.some((o) => o.value === value);
-        element.value = known
-          ? value
-          : item.options.some((o) => o.value === '') && !value
-            ? ''
-            : '__placeholder__';
+        // null = no value: show the command name; '' selects an explicit "default" option.
+        const value = command.getValue?.(editor) ?? null;
+        element.value =
+          value !== null && item.options.some((o) => o.value === value) ? value : '__placeholder__';
       },
     };
   }

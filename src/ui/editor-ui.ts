@@ -2,6 +2,7 @@ import { BubbleMenu } from '@tiptap/extension-bubble-menu';
 import { Placeholder } from '@tiptap/extensions';
 import type { AnyExtension, Editor } from '@tiptap/core';
 import { NodeSelection } from '@tiptap/pm/state';
+import { CellSelection } from '@tiptap/pm/tables';
 
 import {
   createEditor,
@@ -11,7 +12,13 @@ import {
 import { RestrictedEdit } from '../extensions/restricted-edit.js';
 import { createI18n, type I18n } from '../i18n/i18n.js';
 import type { IconRenderer } from './icons.js';
-import { BALLOON_PRESET, Toolbar, TOOLBAR_PRESETS, type ToolbarItem } from './toolbar.js';
+import {
+  BALLOON_PRESET,
+  TABLE_MENU_PRESET,
+  Toolbar,
+  TOOLBAR_PRESETS,
+  type ToolbarItem,
+} from './toolbar.js';
 
 /**
  * - `toolbar`: fixed toolbar above the content (plus balloon if `balloon` is set).
@@ -29,6 +36,8 @@ export interface EditorUIOptions extends Omit<KelsonEditorOptions, 'element'> {
   toolbar?: readonly ToolbarItem[] | keyof typeof TOOLBAR_PRESETS;
   /** Balloon items; `false` disables the balloon in `toolbar` mode. Default: balloon preset. */
   balloon?: readonly ToolbarItem[] | false;
+  /** Contextual menu shown while the cursor is in a table; `false` disables it. */
+  tableMenu?: readonly ToolbarItem[] | false;
   /** Placeholder for an empty document (i18n key or text). */
   placeholder?: string;
   /** Load restricted editing; `true` also turns the restriction on. */
@@ -62,13 +71,17 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
   content.className = 'kt-content';
   const bubble = document.createElement('div');
   bubble.className = 'kt-bubble';
-  // The bubble element is attached and detached by the BubbleMenu plugin itself.
+  const tableBubble = document.createElement('div');
+  tableBubble.className = 'kt-bubble kt-table-bubble';
+  // Bubble elements are attached and detached by the BubbleMenu plugin itself.
   root.append(toolbarHost, content);
   host.append(root);
 
   const balloonItems = options.balloon === false ? null : (options.balloon ?? BALLOON_PRESET);
   const balloonActive = (): boolean =>
     balloonItems !== null && (mode === 'balloon' || mode === 'notion' || mode === 'toolbar');
+
+  const tableItems = options.tableMenu === false ? null : (options.tableMenu ?? TABLE_MENU_PRESET);
 
   const placeholderText = (): string => {
     const key =
@@ -79,6 +92,9 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
 
   // Created up front: the placeholder reads it while the editor is being constructed.
   const i18n: I18n = options.i18n && 't' in options.i18n ? options.i18n : createI18n(options.i18n);
+
+  // Set once the editor exists; plugin callbacks may run during construction.
+  let editorRef: Editor | null = null;
 
   const extensions: AnyExtension[] = [
     Placeholder.configure({ placeholder: () => placeholderText() }),
@@ -100,7 +116,36 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
         editor.isEditable &&
         from !== to &&
         !(state.selection instanceof NodeSelection) &&
-        !editor.isActive('codeBlock'),
+        !editor.isActive('codeBlock') &&
+        !(state.selection instanceof CellSelection),
+    }),
+    BubbleMenu.configure({
+      element: tableBubble,
+      pluginKey: 'ktTableMenu',
+      options: { placement: 'top-start' },
+      shouldShow: ({ editor, state }: { editor: Editor; state: Editor['state'] }) =>
+        tableItems !== null &&
+        mode !== 'readonly' &&
+        editor.isEditable &&
+        editor.isActive('table') &&
+        (state.selection.empty || state.selection instanceof CellSelection),
+      getReferencedVirtualElement: () => {
+        // Anchor the menu to the table, not to the cursor, so it does not cover the text.
+        if (!editorRef) return null;
+        const { view, state } = editorRef;
+        const { $from } = state.selection;
+        for (let depth = $from.depth; depth > 0; depth--) {
+          if ($from.node(depth).type.name !== 'table') continue;
+          const dom = view.nodeDOM($from.before(depth));
+          if (dom instanceof HTMLElement) {
+            return {
+              getBoundingClientRect: () => dom.getBoundingClientRect(),
+              getClientRects: () => dom.getClientRects(),
+            };
+          }
+        }
+        return null;
+      },
     }),
     ...(options.restrictedEdit !== undefined
       ? [RestrictedEdit.configure({ enabled: options.restrictedEdit })]
@@ -118,6 +163,8 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
     extensions,
   });
 
+  editorRef = kelson.editor;
+
   const toolbarItems =
     typeof options.toolbar === 'string'
       ? TOOLBAR_PRESETS[options.toolbar]
@@ -129,6 +176,14 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
     ? new Toolbar(kelson, balloonItems, { ...toolbarOptions, className: 'kt-toolbar-balloon' })
     : null;
   if (balloon) bubble.append(balloon.element);
+  const tableMenu = tableItems
+    ? new Toolbar(kelson, tableItems, {
+        ...toolbarOptions,
+        className: 'kt-toolbar-table',
+        ariaLabel: 'editor.table.menu',
+      })
+    : null;
+  if (tableMenu) tableBubble.append(tableMenu.element);
 
   const applyMode = (): void => {
     root.dataset['mode'] = mode;
@@ -182,6 +237,7 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
       root.removeEventListener('focusout', onFocusOut);
       toolbar.destroy();
       balloon?.destroy();
+      tableMenu?.destroy();
       kelson.destroy();
       root.remove();
     },

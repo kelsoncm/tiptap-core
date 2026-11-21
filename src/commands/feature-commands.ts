@@ -73,6 +73,8 @@ const VALUE_GETTERS: Record<string, (editor: Editor) => string | null> = {
   bulletListType: listValue('bulletList', 'disc'),
   cellVerticalAlign: (e) =>
     attr(e, 'tableCell', 'verticalAlign') ?? attr(e, 'tableHeader', 'verticalAlign'),
+  cellBorderColor: (e) =>
+    attr(e, 'tableCell', 'borderColor') ?? attr(e, 'tableHeader', 'borderColor'),
   cellBackground: (e) =>
     attr(e, 'tableCell', 'backgroundColor') ?? attr(e, 'tableHeader', 'backgroundColor'),
 };
@@ -305,12 +307,88 @@ export function featureCommands(features: Readonly<EditorFeatures>): CommandDefi
           .setCellAttribute('backgroundColor', color || null)
           .run(),
     });
-    add<TableCaptionPayload | null>({
+    const tableAttr =
+      (name: string) =>
+      (e: Editor): string | null =>
+        e.isActive('table')
+          ? ((e.getAttributes('table')[name] as string | null) ??
+            (name === 'borderColor' ? null : ''))
+          : null;
+    for (const [id, attr, labelKey] of [
+      ['tableWidth', 'width', 'width'],
+      ['tableAlign', 'align', 'align'],
+      ['tableLayout', 'layout', 'layout'],
+      ['tableStyle', 'tableStyle', 'style'],
+      ['tableBorderColor', 'borderColor', 'borderColor'],
+    ] as const) {
+      add<ValuePayload>({
+        ...tableCommand(id, labelKey, () => false),
+        getValue: tableAttr(attr),
+        run: (e, value) =>
+          e
+            .chain()
+            .focus()
+            .setTableProperties({ [attr]: value || null })
+            .run(),
+      });
+    }
+    add<ValuePayload>({
+      ...tableCommand('cellBorderColor', 'cellBorderColor', () => false),
+      run: (e, color) =>
+        e
+          .chain()
+          .focus()
+          .setCellProperties({ borderColor: color || null })
+          .run(),
+    });
+    add(
+      tableCommand('duplicateTable', 'duplicate', (e) => e.chain().focus().duplicateTable().run()),
+    );
+    add(tableCommand('selectTable', 'selectTable', (e) => e.chain().focus().selectTable().run()));
+    add(
+      tableCommand('paragraphBeforeTable', 'paragraphBefore', (e) =>
+        e.chain().focus().insertParagraphNearTable('before').run(),
+      ),
+    );
+    add(
+      tableCommand('paragraphAfterTable', 'paragraphAfter', (e) =>
+        e.chain().focus().insertParagraphNearTable('after').run(),
+      ),
+    );
+    add(tableCommand('selectRow', 'selectRow', (e) => e.chain().focus().selectTableRow().run()));
+    add(
+      tableCommand('selectColumn', 'selectColumn', (e) =>
+        e.chain().focus().selectTableColumn().run(),
+      ),
+    );
+    add({
+      ...tableCommand('toggleFooterRow', 'toggleFooter', (e) =>
+        e.chain().focus().toggleFooterRow().run(),
+      ),
+      isActive: (e) => {
+        const { $from } = e.state.selection;
+        for (let depth = $from.depth; depth > 0; depth--) {
+          const node = $from.node(depth);
+          if (node.type.name === 'table') return node.lastChild?.attrs['footer'] === true;
+        }
+        return false;
+      },
+    });
+    add<TableCaptionPayload | null | undefined>({
       ...tableCommand('tableCaption', 'addCaption', () => false),
-      run: (e, p) =>
-        p?.text
+      isActive: (e) => Boolean(e.isActive('table') && e.getAttributes('table')['caption']),
+      run: (e, p) => {
+        if (p === undefined) {
+          // Toolbar button: remove an existing caption, or ask for the text.
+          if (e.getAttributes('table')['caption'])
+            return e.chain().focus().unsetTableCaption().run();
+          const text = typeof window !== 'undefined' ? window.prompt?.('') : null;
+          return text ? e.chain().focus().setTableCaption(text).run() : false;
+        }
+        return p?.text
           ? e.chain().focus().setTableCaption(p.text, p.side).run()
-          : e.chain().focus().unsetTableCaption().run(),
+          : e.chain().focus().unsetTableCaption().run();
+      },
     });
   }
   return out;

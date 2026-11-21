@@ -2,6 +2,21 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.7.0] - 2026-11-21
+
+### Adicionado
+
+- Propriedades de tabela (`setTableProperties`): largura, alinhamento, layout (colunas automáticas ou fixas), cor da borda e estilos predefinidos (grade, listrada, sem bordas, compacta), com valores validados e aplicados também na visão editável.
+- Linha de rodapé (`toggleFooterRow`, atributo `data-footer`; `<tfoot>` é lido como rodapé).
+- Comandos `duplicateTable`, `selectTable`, `insertParagraphNearTable` (antes/depois), `selectTableRow`, `selectTableColumn` e `setCellProperties` (fundo, alinhamento vertical, cor da borda da célula).
+- Menu contextual de tabela no `createEditorUI` (`tableMenu`), ancorado na tabela, com linhas, colunas, mesclagem, cabeçalho/rodapé, propriedades de célula e de tabela, legenda e ações de bloco.
+- Listas de opções `TABLE_WIDTH_OPTIONS`, `TABLE_ALIGN_OPTIONS`, `TABLE_LAYOUT_OPTIONS`, `TABLE_STYLE_OPTIONS`, `VERTICAL_ALIGN_OPTIONS`, `TABLE_COLORS`.
+- Botão de legenda pede o texto (ou remove a legenda existente).
+
+### Alterado
+
+- Seletores da barra mostram o nome do comando quando não há valor (antes podiam exibir a primeira opção).
+
 ## [0.6.0] - 2026-11-21
 
 ### Adicionado
