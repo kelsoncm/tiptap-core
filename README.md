@@ -10,6 +10,14 @@ O roadmap de recursos está na [issue #1](https://github.com/kelsoncm/tiptap-cor
 
 ## Instalação
 
+Enquanto o pacote não está no registro do npm, instale o tarball da release:
+
+```bash
+npm install https://github.com/kelsoncm/tiptap-core/releases/download/v0.15.0/kelsoncm-tiptap-core-0.15.0.tgz @tiptap/core @tiptap/pm
+```
+
+Com o pacote publicado no npm:
+
 ```bash
 npm install @kelsoncm/tiptap-core @tiptap/core @tiptap/pm
 ```
@@ -386,8 +394,8 @@ Incremente `version` no `package.json`, atualize o `CHANGELOG.md` e envie a tag:
 git tag v0.1.0 && git push origin v0.1.0
 ```
 
-O workflow `release.yml` publica no npm com provenance e cria a release no GitHub. Requer trusted
-publishing configurado no npmjs.com para o pacote ou o secret `NPM_TOKEN`.
+O workflow `release.yml` cria a release no GitHub com o tarball (`.tgz`) e, se o secret `NPM_TOKEN`
+existir, publica no npm com provenance.
 
 ## Licença
 

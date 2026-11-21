@@ -4,6 +4,10 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); 
 
 ## [0.15.0] - 2026-11-21
 
+### Alterado
+
+- Release: a GitHub Release com o tarball é criada antes da publicação no npm, que só ocorre com `NPM_TOKEN` (o npm 12 recusa dependências git; o tarball da release é instalável por URL).
+
 ### Adicionado
 
 - Verificador de acessibilidade (`checkAccessibility`): imagem sem texto alternativo, salto de nível e título vazio, tabela sem cabeçalho, link vazio ou pouco descritivo ("clique aqui") e contraste de cor abaixo de 4,5:1 (WCAG AA, inclusive sobre realce).
