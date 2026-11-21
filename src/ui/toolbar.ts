@@ -170,6 +170,10 @@ export const TOOLBAR_PRESETS: Readonly<
     'rejectAllChanges',
     'saveVersion',
     'revisionPanel',
+    SEPARATOR,
+    'checkSpelling',
+    'checkAccessibility',
+    'checkerPanel',
   ],
 };
 

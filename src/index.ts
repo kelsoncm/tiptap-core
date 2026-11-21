@@ -322,3 +322,23 @@ export {
   type UserRole,
 } from './editor/revision-setup.js';
 export { RevisionPanel } from './ui/revision-panel.js';
+export {
+  checkAccessibility,
+  Checkers,
+  checkSpelling,
+  contrastRatio,
+  luminance,
+  matchesToIssues,
+  textWithPositions,
+  type AccessibilityOptions,
+  type DocumentIssue,
+  type IssueSeverity,
+  type LanguageToolOptions,
+  type TextMap,
+} from './extensions/checkers.js';
+export {
+  EditorAccessibility,
+  type CheckerOptions,
+  type SpellcheckOptions,
+} from './editor/checkers-setup.js';
+export { CheckerPanel } from './ui/checker-panel.js';

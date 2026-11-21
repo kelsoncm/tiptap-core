@@ -25,6 +25,12 @@ import { buildFullPage, splitFullPage, type FullPageParts } from '../utils/docum
 import { createDictation, registerViewCommands, viewExtensions } from './view-setup.js';
 import { getMarkdown, ioExtensions, registerIoCommands, type IoOptions } from './io-setup.js';
 import {
+  attachAutoCheck,
+  checkerExtensions,
+  registerCheckerCommands,
+  type CheckerOptions,
+} from './checkers-setup.js';
+import {
   createRevisionController,
   registerRevisionCommands,
   revisionExtensions,
@@ -85,6 +91,8 @@ export interface KelsonEditorOptions {
   autocorrect?: boolean | Partial<AutocorrectOptions>;
   /** Debounced saving (callback and/or localStorage draft). */
   autosave?: AutosaveOptions;
+  /** Spelling (native or LanguageTool) and accessibility checkers. */
+  checkers?: CheckerOptions;
   /** Comments, suggestions (track changes), versions and user role. */
   revision?: RevisionOptions;
   /** Paste cleanup, Markdown and export settings. */
@@ -233,6 +241,9 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
     }
   }
 
+  extra.push(...checkerExtensions(options.checkers ?? {}, i18n));
+  registerCheckerCommands(commands, i18n, options.checkers ?? {});
+
   let revision: RevisionController | null = null;
   if (options.revision) {
     extra.push(...revisionExtensions(options.revision));
@@ -304,6 +315,7 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
 
   const autosave = options.autosave ? createAutosave(editor, options.autosave) : null;
   if (options.revision) revision = createRevisionController(editor, options.revision);
+  const detachAutoCheck = attachAutoCheck(editor, commands);
 
   return {
     editor,
@@ -323,6 +335,7 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
     run: (id, payload) => commands.run(editor, id, payload),
     setEditable: (editable) => editor.setEditable(editable),
     destroy: () => {
+      detachAutoCheck();
       autosave?.destroy();
       editor.destroy();
     },
