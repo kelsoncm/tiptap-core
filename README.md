@@ -243,6 +243,27 @@ ui.run('acceptAllChanges');
 - Comandos: `comment`, `trackChanges`, `acceptChange`, `rejectChange`, `acceptAllChanges`, `rejectAllChanges`, `saveVersion`, `revisionPanel`.
 - O HTML salvo mantém `<ins>`/`<del>` (com autor e data) e `span[data-comment]`; as threads ficam no seu backend.
 
+### Verificadores
+
+```ts
+createEditorUI(host, {
+  checkers: {
+    spellcheck: {
+      native: true, // corretor do navegador
+      languageTool: { endpoint: 'https://api.languagetool.org/v2/check' }, // ou seu servidor
+      autoCheckDelay: 3000,
+    },
+    accessibility: { minContrast: 4.5 },
+    onIssues: (source, issues) => console.log(source, issues),
+  },
+});
+ui.run('checkAccessibility');
+ui.run('checkerPanel');
+```
+
+O texto do documento é enviado ao servidor LanguageTool configurado; use um servidor próprio para
+conteúdo sigiloso.
+
 ### Edição restrita
 
 ```ts

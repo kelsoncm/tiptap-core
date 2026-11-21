@@ -13,6 +13,7 @@ import { RestrictedEdit } from '../extensions/restricted-edit.js';
 import { createI18n, type I18n } from '../i18n/i18n.js';
 import type { IconRenderer } from './icons.js';
 import { DragHandle, FindBar, Minimap, OutlinePanel, SourceEditor } from './panels.js';
+import { CheckerPanel } from './checker-panel.js';
 import { RevisionPanel } from './revision-panel.js';
 import { StatusBar } from './status-bar.js';
 import { Extension } from '@tiptap/core';
@@ -312,6 +313,18 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
       () => !revisionPanel.element.hidden,
     );
   }
+  const checkerPanel = new CheckerPanel(kelson);
+  body.append(checkerPanel.element);
+  uiCommand(
+    'checkerPanel',
+    'editor.checkers.panel',
+    'checks',
+    () => {
+      checkerPanel.toggle();
+      return true;
+    },
+    () => !checkerPanel.element.hidden,
+  );
   uiCommands.findReplace = () => kelson.run('findReplace');
   uiCommands.exitFullscreen = () => {
     if (!root.classList.contains('is-fullscreen')) return false;
@@ -406,6 +419,7 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
       minimap.destroy();
       dragHandle?.destroy();
       revisionPanel?.destroy();
+      checkerPanel.destroy();
       kelson.destroy();
       root.remove();
     },

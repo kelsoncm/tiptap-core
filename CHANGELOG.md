@@ -2,6 +2,20 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.15.0] - 2026-11-21
+
+### Adicionado
+
+- Verificador de acessibilidade (`checkAccessibility`): imagem sem texto alternativo, salto de nível e título vazio, tabela sem cabeçalho, link vazio ou pouco descritivo ("clique aqui") e contraste de cor abaixo de 4,5:1 (WCAG AA, inclusive sobre realce).
+- Ortografia e gramática: verificação nativa do navegador (`spellcheck`, idioma do editor) e integração opcional com servidor LanguageTool (`checkers.spellcheck.languageTool`), com destaque, sugestões aplicáveis e verificação automática opcional (`autoCheckDelay`).
+- Painel de verificações no `createEditorUI` (acessibilidade e ortografia, clique leva ao trecho, botões de sugestão).
+- Área editável com `role="textbox"`, `aria-multiline`, `aria-label` traduzido e `lang` do idioma atual (atualizados ao trocar o idioma).
+- `contrastRatio`, `luminance`, `textWithPositions`, `matchesToIssues`.
+
+### Revisado
+
+- Textos de interface: todos via i18n (pt-BR, en, es, 298 chaves); só mensagens de erro para desenvolvedores ficam em português.
+
 ## [0.14.0] - 2026-11-21
 
 ### Adicionado

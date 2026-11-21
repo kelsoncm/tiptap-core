@@ -1241,3 +1241,60 @@
     background: none;
   }
 }
+
+/* Checkers */
+.kt-editor .tiptap .kt-issue-spelling.is-error {
+  text-decoration: wavy underline #c4161c;
+  text-decoration-skip-ink: none;
+}
+
+.kt-editor .tiptap .kt-issue-spelling.is-warning {
+  text-decoration: wavy underline #1351b4;
+  text-decoration-skip-ink: none;
+}
+
+.kt-editor .tiptap .kt-issue-accessibility {
+  outline: 2px dotted #b38c00;
+  outline-offset: 1px;
+}
+
+.kt-checker-panel h3 {
+  margin: 12px 0 6px;
+  font-size: 13px;
+}
+
+.kt-checker-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 6px;
+  padding: 6px;
+  border-left: 3px solid #b38c00;
+  background: #fff;
+}
+
+.kt-checker-item.is-error {
+  border-left-color: #c4161c;
+}
+
+.kt-checker-message {
+  flex: 1 1 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.kt-checker-ok {
+  color: #168821;
+}
+
+@media print {
+  .kt-editor .tiptap .kt-issue {
+    outline: 0;
+    text-decoration: none;
+  }
+}
