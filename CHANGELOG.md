@@ -2,6 +2,24 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.3.0] - 2026-11-21
+
+### Adicionado
+
+- `createEditorUI(host, options)`: editor completo em DOM puro com modos `toolbar`, `balloon`, `inline`, `notion` e `readonly`, trocáveis em tempo de execução (`setMode`).
+- `Toolbar`: barra gerada a partir do registro de comandos, com presets `minimal`, `basic` e `full`, seletores de valor (fonte, tamanho, cores, altura da linha, tipos de lista) e de tipo de bloco; `role="toolbar"`, `aria-label`, `aria-pressed` e navegação por setas/Home/End.
+- Balão (BubbleMenu) sobre a seleção, com preset próprio.
+- `RestrictedEdit`: edição restrita a regiões marcadas (`span[data-editable-region]`); fora delas, digitação, exclusão, formatação e mudanças estruturais são bloqueadas. Modo autor para marcar regiões.
+- Placeholder por modo (dica de “/” no modo notion).
+- `getValue` em `CommandDefinition` para mostrar o valor atual nos seletores.
+- Estilos base em `@kelsoncm/tiptap-core/styles.css`, personalizáveis por variáveis `--kt-*`.
+- Página de demonstração (`npm run demo`).
+
+### Alterado
+
+- `peerDependencies` passam a `^3.35.0` (as extensões oficiais exigem a mesma versão do `@tiptap/core`).
+- Script `prepare` permite instalar o pacote direto do GitHub.
+
 ## [0.2.0] - 2026-11-21
 
 ### Adicionado

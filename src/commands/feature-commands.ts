@@ -52,11 +52,38 @@ const tableCommand = (
   run,
 });
 
+const attr = (editor: Editor, type: string, name: string): string | null => {
+  const value: unknown = editor.getAttributes(type)[name];
+  return typeof value === 'string' && value ? value : null;
+};
+
+const listValue =
+  (type: string, fallback: string) =>
+  (editor: Editor): string | null =>
+    editor.isActive(type) ? (attr(editor, type, 'listType') ?? fallback) : null;
+
+/** Current-value readers for the value commands, used by selects in toolbars. */
+const VALUE_GETTERS: Record<string, (editor: Editor) => string | null> = {
+  fontFamily: (e) => attr(e, 'textStyle', 'fontFamily'),
+  fontSize: (e) => attr(e, 'textStyle', 'fontSize'),
+  textColor: (e) => attr(e, 'textStyle', 'color'),
+  highlight: (e) => attr(e, 'highlight', 'color'),
+  lineHeight: (e) => attr(e, 'paragraph', 'lineHeight') ?? attr(e, 'heading', 'lineHeight'),
+  orderedListType: listValue('orderedList', 'decimal'),
+  bulletListType: listValue('bulletList', 'disc'),
+  cellVerticalAlign: (e) =>
+    attr(e, 'tableCell', 'verticalAlign') ?? attr(e, 'tableHeader', 'verticalAlign'),
+  cellBackground: (e) =>
+    attr(e, 'tableCell', 'backgroundColor') ?? attr(e, 'tableHeader', 'backgroundColor'),
+};
+
 /** Commands for the optional features, registered by `createEditor` when enabled. */
 export function featureCommands(features: Readonly<EditorFeatures>): CommandDefinition<never>[] {
   const out: CommandDefinition<never>[] = [];
   const add = <P>(command: CommandDefinition<P>): void => {
-    out.push(command as unknown as CommandDefinition<never>);
+    const getValue = VALUE_GETTERS[command.id];
+    const withValue = getValue && !command.getValue ? { ...command, getValue } : command;
+    out.push(withValue as unknown as CommandDefinition<never>);
   };
 
   if (features.subscript) {

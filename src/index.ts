@@ -59,3 +59,30 @@ export {
   type OptionItem,
 } from './options.js';
 export { getDocumentStats, type DocumentStats } from './utils/stats.js';
+export {
+  RESTRICTED_EDIT_BYPASS,
+  RestrictedEdit,
+  restrictedEditKey,
+  type RestrictedEditOptions,
+  type RestrictedEditStorage,
+} from './extensions/restricted-edit.js';
+export { DEFAULT_ICONS, defaultIconRenderer, type IconRenderer } from './ui/icons.js';
+export {
+  BALLOON_PRESET,
+  BLOCK_TYPE_SELECT,
+  formatShortcut,
+  SEPARATOR,
+  Toolbar,
+  TOOLBAR_PRESETS,
+  type ToolbarCommandSelect,
+  type ToolbarItem,
+  type ToolbarOptions,
+  type ToolbarSelect,
+} from './ui/toolbar.js';
+export {
+  createEditorUI,
+  EDITOR_MODES,
+  type EditorMode,
+  type EditorUI,
+  type EditorUIOptions,
+} from './ui/editor-ui.js';

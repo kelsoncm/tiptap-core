@@ -1,6 +1,6 @@
 {
   "name": "@kelsoncm/tiptap-core",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Núcleo framework-agnóstico do editor KelsonCM TipTap: extensões, comandos, i18n e UI em DOM.",
   "license": "MIT",
   "author": "Kelson da Costa Medeiros <kelsoncm@gmail.com>",
@@ -18,7 +18,9 @@
     "rich-text"
   ],
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -26,7 +28,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./styles.css": "./dist/styles/kelson-editor.css"
   },
   "files": [
     "dist",
@@ -37,16 +40,19 @@
     "node": ">=22"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json && node scripts/copy-assets.mjs",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepublishOnly": "npm run clean && npm run build"
+    "prepublishOnly": "npm run clean && npm run build",
+    "prepare": "npm run build",
+    "demo": "vite demo --port 5180 --strictPort"
   },
   "dependencies": {
+    "@tiptap/extension-bubble-menu": "^3.35.0",
     "@tiptap/extension-highlight": "^3.35.0",
     "@tiptap/extension-list": "^3.35.0",
     "@tiptap/extension-subscript": "^3.35.0",
@@ -55,11 +61,12 @@
     "@tiptap/extension-table-of-contents": "^3.35.0",
     "@tiptap/extension-text-align": "^3.35.0",
     "@tiptap/extension-text-style": "^3.35.0",
+    "@tiptap/extensions": "^3.35.0",
     "@tiptap/starter-kit": "^3.35.0"
   },
   "peerDependencies": {
-    "@tiptap/core": "^3.13.0",
-    "@tiptap/pm": "^3.13.0"
+    "@tiptap/core": "^3.35.0",
+    "@tiptap/pm": "^3.35.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -73,6 +80,7 @@
     "prettier": "^3.10.1",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.73.0",
+    "vite": "^8.3.8",
     "vitest": "^5.1.1"
   }
 }
