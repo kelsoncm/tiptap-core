@@ -39,6 +39,8 @@ export interface EditorFeatures {
   formatPainter: boolean;
   /** Interactive checklist (`<ul data-type="taskList">` with checkboxes). */
   taskList: boolean;
+  /** Images (upload, paste, drop, resize), video, audio, embeds and file links. */
+  media: boolean;
 }
 
 export const DEFAULT_FEATURES: Readonly<EditorFeatures> = {
@@ -57,6 +59,7 @@ export const DEFAULT_FEATURES: Readonly<EditorFeatures> = {
   tableOfContents: false,
   formatPainter: true,
   taskList: true,
+  media: true,
 };
 
 export function resolveFeatures(features: Partial<EditorFeatures> = {}): EditorFeatures {

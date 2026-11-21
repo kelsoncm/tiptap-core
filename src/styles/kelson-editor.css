@@ -442,3 +442,170 @@
 .kt-table-bubble .kt-toolbar {
   max-width: min(720px, 90vw);
 }
+
+/* Dialogs (image, embed, link...) */
+.kt-dialog {
+  min-width: min(420px, 92vw);
+  padding: 20px;
+  border: 1px solid #c5c5c5;
+  border-radius: 8px;
+  color: #1b1b1b;
+  font:
+    14px/1.4 system-ui,
+    sans-serif;
+}
+
+.kt-dialog::backdrop {
+  background: rgb(0 0 0 / 35%);
+}
+
+.kt-dialog-title {
+  margin: 0 0 12px;
+  font-size: 1.1em;
+}
+
+.kt-dialog-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.kt-dialog-field-checkbox {
+  flex-direction: row;
+  align-items: center;
+}
+
+.kt-dialog-field input:not([type='checkbox']) {
+  padding: 6px 8px;
+  border: 1px solid #c5c5c5;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.kt-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.kt-dialog-actions button {
+  padding: 6px 14px;
+  border: 1px solid #c5c5c5;
+  border-radius: 4px;
+  background: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.kt-dialog-submit {
+  border-color: #1351b4 !important;
+  background: #1351b4 !important;
+  color: #fff;
+}
+
+.kt-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 8px;
+  max-height: 60vh;
+  margin-bottom: 12px;
+  overflow-y: auto;
+}
+
+.kt-picker-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid #c5c5c5;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.kt-picker-item:hover,
+.kt-picker-item:focus-visible {
+  border-color: #1351b4;
+}
+
+.kt-picker-item img {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+}
+
+.kt-picker-item span {
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Media */
+.kt-editor .tiptap img {
+  max-width: 100%;
+  height: auto;
+}
+
+.kt-editor .tiptap .ProseMirror-selectednode img,
+.kt-editor .tiptap img.ProseMirror-selectednode,
+.kt-editor .tiptap .ProseMirror-selectednode.kt-embed,
+.kt-editor .tiptap video.ProseMirror-selectednode,
+.kt-editor .tiptap audio.ProseMirror-selectednode {
+  outline: 2px solid var(--kt-accent);
+}
+
+.kt-editor .tiptap video {
+  max-width: 100%;
+}
+
+.kt-editor .tiptap audio {
+  width: 100%;
+}
+
+.kt-editor .tiptap .kt-embed iframe {
+  width: 100%;
+  border: 0;
+}
+
+/* Image resize handles (Tiptap renders them unstyled) */
+.kt-editor [data-resize-handle] {
+  z-index: 2;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #fff;
+  border-radius: 3px;
+  background: var(--kt-accent);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+}
+
+.kt-editor [data-resize-handle='top-right'],
+.kt-editor [data-resize-handle='bottom-right'] {
+  transform: translate(50%, -50%);
+}
+
+.kt-editor [data-resize-handle='bottom-left'] {
+  transform: translate(-50%, 50%);
+}
+
+.kt-editor [data-resize-handle='bottom-right'] {
+  transform: translate(50%, 50%);
+}
+
+.kt-editor [data-resize-handle='top-left'],
+.kt-editor [data-resize-handle='bottom-right'] {
+  cursor: nwse-resize;
+}
+
+.kt-editor [data-resize-handle='top-right'],
+.kt-editor [data-resize-handle='bottom-left'] {
+  cursor: nesw-resize;
+}
+
+.kt-editor .tiptap :hover > [data-resize-handle],
+.kt-editor .tiptap .ProseMirror-selectednode [data-resize-handle],
+.kt-editor .tiptap [data-resize-state='true'] [data-resize-handle] {
+  opacity: 1;
+}
