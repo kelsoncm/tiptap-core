@@ -13,7 +13,7 @@ O roadmap de recursos está na [issue #1](https://github.com/kelsoncm/tiptap-cor
 Enquanto o pacote não está no registro do npm, instale o tarball da release:
 
 ```bash
-npm install https://github.com/kelsoncm/tiptap-core/releases/download/v0.15.1/kelsoncm-tiptap-core-0.15.1.tgz @tiptap/core @tiptap/pm
+npm install https://github.com/kelsoncm/tiptap-core/releases/download/v0.15.2/kelsoncm-tiptap-core-0.15.2.tgz @tiptap/core @tiptap/pm
 ```
 
 Com o pacote publicado no npm:
