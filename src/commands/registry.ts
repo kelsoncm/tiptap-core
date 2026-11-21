@@ -21,6 +21,8 @@ export interface CommandDefinition<Payload = void> {
   readonly group?: string;
   isActive?(editor: Editor): boolean;
   isEnabled?(editor: Editor): boolean;
+  /** Current value for value commands (font, color...), shown as the selected option. */
+  getValue?(editor: Editor): string | null;
   run(editor: Editor, payload: Payload): boolean;
 }
 

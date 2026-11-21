@@ -17,7 +17,49 @@ npm install @kelsoncm/tiptap-core @tiptap/core @tiptap/pm
 `@tiptap/core` e `@tiptap/pm` são `peerDependencies` (3.x), para que a aplicação use uma única cópia
 do Tiptap. As extensões oficiais usadas (StarterKit, tabelas, listas, text-style...) vêm como dependências.
 
-## Uso
+## Editor pronto (DOM)
+
+```ts
+import { createEditorUI } from '@kelsoncm/tiptap-core';
+import '@kelsoncm/tiptap-core/styles.css';
+
+const ui = createEditorUI(document.querySelector('#editor')!, {
+  mode: 'toolbar', // toolbar | balloon | inline | notion | readonly
+  toolbar: 'full', // minimal | basic | full | lista de itens
+  content: '<p>Olá</p>',
+});
+
+ui.setMode('notion');
+ui.editor.on('update', () => console.log(ui.editor.getHTML()));
+```
+
+| Modo       | Comportamento                                                                    |
+| ---------- | -------------------------------------------------------------------------------- |
+| `toolbar`  | Barra fixa acima do conteúdo e balão sobre a seleção (`balloon: false` desliga). |
+| `balloon`  | Sem barra fixa; formatação no balão.                                             |
+| `inline`   | Sem moldura; a barra flutua acima do conteúdo enquanto ele tem foco.             |
+| `notion`   | Sem barra; balão e dica “/” em blocos vazios.                                    |
+| `readonly` | Sem barra e sem edição.                                                          |
+
+Itens da barra: id de comando, `'|'` (separador), `{ type: 'select', command, options }` ou
+`{ type: 'commands', labelKey, commands }`. Ícones padrão são texto; passe `renderIcon` para usar
+Font Awesome, SVG etc.
+
+### Edição restrita
+
+```ts
+const ui = createEditorUI(host, {
+  content: '<p>Contrato entre <span data-editable-region>NOME</span> e a empresa.</p>',
+  restrictedEdit: true, // só o texto das regiões pode mudar
+});
+ui.setRestricted(false); // modo autor
+ui.editor.chain().focus().setEditableRegion().run(); // marca a seleção como região
+```
+
+O texto pode ser digitado dentro da região ou logo após o seu fim; o início da região não aceita
+inserção. Transações com a meta `RESTRICTED_EDIT_BYPASS` ignoram o filtro (conteúdo gerado por código).
+
+## Uso (headless)
 
 ```ts
 import { createEditor } from '@kelsoncm/tiptap-core';
@@ -109,6 +151,7 @@ kelson.commands.register({
 
 ```bash
 npm ci
+npm run demo   # http://localhost:5180
 npm run lint
 npm run typecheck
 npm test
