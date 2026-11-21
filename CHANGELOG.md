@@ -2,6 +2,12 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.15.2] - 2026-11-21
+
+### Corrigido
+
+- `katex` volta para `^0.18.11`: a 0.19 (PR !38) fica fora da faixa aceita por `@tiptap/extension-mathematics` (`^0.16.4 || ^0.17.0 || ^0.18.0`). O Dependabot passa a ignorar `katex` >=0.19.
+
 ## [0.15.1] - 2026-11-21
 
 ### Alterado

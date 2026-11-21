@@ -1,6 +1,6 @@
 {
   "name": "@kelsoncm/tiptap-core",
-  "version": "0.15.1",
+  "version": "0.15.2",
   "description": "Núcleo framework-agnóstico do editor KelsonCM TipTap: extensões, comandos, i18n e UI em DOM.",
   "license": "MIT",
   "author": "Kelson da Costa Medeiros <kelsoncm@gmail.com>",
@@ -81,7 +81,7 @@
     "@tiptap/starter-kit": "^3.35.0",
     "@tiptap/suggestion": "^3.35.0",
     "highlight.js": "^11.12.0",
-    "katex": "^0.19.1",
+    "katex": "^0.18.11",
     "lowlight": "^3.3.0"
   },
   "peerDependencies": {
