@@ -9,8 +9,15 @@ const ui = createEditorUI($('host'), {
 <ul data-list-type="check"><li><p>Item ✔</p></li><li><p>Outro item</p></li></ul>
 <table><caption style="caption-side: bottom">Tabela 1</caption><tbody>
 <tr><th><p>A</p></th><th><p>B</p></th></tr><tr><td><p>1</p></td><td><p>2</p></td></tr></tbody></table>
+<pre><code class="language-python">def soma(a, b):
+    return a + b  # comentário</code></pre>
 <p></p>`,
   restrictedEdit: false,
+  codeHighlight: true,
+  customStyles: [
+    { id: 'lead', label: 'Destaque', kind: 'block', className: 'demo-lead' },
+    { id: 'marker', label: 'Marca-texto', kind: 'inline', className: 'demo-marker' },
+  ],
   mentions: {
     items: [
       { id: 'inicioEdital', label: 'Início do edital' },

@@ -12,7 +12,17 @@ import {
 } from '../extensions/mention.js';
 import { MergeField, type MergeFieldDefinition } from '../extensions/merge-field.js';
 import { DEFAULT_SLASH_COMMANDS, SlashCommands } from '../extensions/slash-commands.js';
+import type { CustomStyle } from '../extensions/custom-styles.js';
 import { featureExtensions, resolveFeatures, type EditorFeatures } from './features.js';
+import {
+  codeHighlightExtension,
+  customStylesExtension,
+  formatPainterExtension,
+  registerCodeHighlightCommands,
+  registerCustomStyleCommands,
+  registerFormatPainterCommand,
+  type CodeHighlightOptions,
+} from './styling.js';
 
 export interface KelsonEditorOptions {
   /** Element that will host the editor. Omit for headless use (tests, SSR). */
@@ -30,6 +40,10 @@ export interface KelsonEditorOptions {
   mergeFields?: readonly MergeFieldDefinition[];
   /** Slash menu (`/`): `true` for the default commands, or a list of command ids. */
   slashCommands?: boolean | readonly string[];
+  /** Syntax highlighting in code blocks (highlight.js grammars via lowlight). */
+  codeHighlight?: boolean | CodeHighlightOptions;
+  /** Named styles applied as CSS classes (blocks or text runs). */
+  customStyles?: readonly CustomStyle[];
   /** StarterKit configuration; merged over the defaults (H1–H6 enabled). */
   starterKit?: Partial<StarterKitOptions>;
   /** Extra extensions appended after StarterKit. */
@@ -97,6 +111,22 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
     });
   }
 
+  const codeHighlight = options.codeHighlight === true ? {} : options.codeHighlight || null;
+  if (codeHighlight) {
+    extra.push(codeHighlightExtension(codeHighlight));
+    registerCodeHighlightCommands(commands);
+  }
+
+  if (options.customStyles?.length) {
+    extra.push(customStylesExtension(options.customStyles));
+    registerCustomStyleCommands(commands, options.customStyles);
+  }
+
+  if (features.formatPainter) {
+    extra.push(formatPainterExtension());
+    registerFormatPainterCommand(commands);
+  }
+
   if (options.slashCommands) {
     extra.push(
       SlashCommands.configure({
@@ -117,6 +147,8 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
         heading: { levels: [...HEADING_LEVELS] },
         // Replaced by the typed lists of the `listTypes` feature.
         ...(features.listTypes ? { bulletList: false, orderedList: false } : {}),
+        // Replaced by CodeBlockLowlight.
+        ...(codeHighlight ? { codeBlock: false } : {}),
         ...options.starterKit,
       }),
       ...featureExtensions(features),

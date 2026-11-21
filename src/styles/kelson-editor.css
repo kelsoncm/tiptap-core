@@ -321,3 +321,66 @@
 .kt-editor .tiptap .ProseMirror-selectednode.kt-mention {
   outline: 2px solid #1351b4;
 }
+
+/* Code blocks with syntax highlighting (lowlight/highlight.js classes) */
+.kt-editor .tiptap pre {
+  padding: 12px 16px;
+  overflow-x: auto;
+  border-radius: 6px;
+  background: #1e1e2e;
+  color: #e6e6e6;
+  font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.kt-editor .tiptap pre code {
+  padding: 0;
+  background: none;
+  color: inherit;
+}
+
+.kt-editor .hljs-comment,
+.kt-editor .hljs-quote {
+  color: #8a8fa3;
+  font-style: italic;
+}
+
+.kt-editor .hljs-keyword,
+.kt-editor .hljs-selector-tag,
+.kt-editor .hljs-built_in {
+  color: #c792ea;
+}
+
+.kt-editor .hljs-string,
+.kt-editor .hljs-attr,
+.kt-editor .hljs-template-tag {
+  color: #a5e075;
+}
+
+.kt-editor .hljs-number,
+.kt-editor .hljs-literal,
+.kt-editor .hljs-symbol {
+  color: #f78c6c;
+}
+
+.kt-editor .hljs-title,
+.kt-editor .hljs-section,
+.kt-editor .hljs-name {
+  color: #82aaff;
+}
+
+.kt-editor .hljs-type,
+.kt-editor .hljs-class,
+.kt-editor .hljs-variable {
+  color: #ffcb6b;
+}
+
+.kt-editor .hljs-tag,
+.kt-editor .hljs-meta {
+  color: #89ddff;
+}
+
+/* Format painter */
+.kt-format-painter-active {
+  cursor: copy;
+}

@@ -30,6 +30,8 @@ export interface EditorFeatures {
   pageBreak: boolean;
   /** Tracks headings for an outline panel (`editor.storage.tableOfContents`). */
   tableOfContents: boolean;
+  /** Copy the formatting of one selection to another. */
+  formatPainter: boolean;
 }
 
 export const DEFAULT_FEATURES: Readonly<EditorFeatures> = {
@@ -46,6 +48,7 @@ export const DEFAULT_FEATURES: Readonly<EditorFeatures> = {
   table: true,
   pageBreak: true,
   tableOfContents: false,
+  formatPainter: true,
 };
 
 export function resolveFeatures(features: Partial<EditorFeatures> = {}): EditorFeatures {

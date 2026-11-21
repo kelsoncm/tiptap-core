@@ -64,6 +64,21 @@ createEditorUI(host, {
 - Preencher campos: `fillMergeFields(editor.getJSON(), { nomeEdital: 'Edital 1/2026' })` ou
   `fillMergeFieldsHTML(html, valores)`; `listMergeFields(json)` devolve as chaves usadas.
 
+### Código, estilos e pincel
+
+```ts
+createEditorUI(host, {
+  codeHighlight: true, // ou { languages: { python, sql } } com gramáticas do highlight.js
+  customStyles: [
+    { id: 'lead', label: 'Destaque', kind: 'block', className: 'lead' },
+    { id: 'marker', label: 'Marca-texto', kind: 'inline', className: 'marker' },
+  ],
+});
+```
+
+- `codeBlockLanguage` (payload: nome da linguagem) e `customStyle` (payload: id do estilo; `null` limpa).
+- `formatPainter`: clique no botão, depois selecione o texto de destino com o mouse. Esc cancela.
+
 ### Edição restrita
 
 ```ts

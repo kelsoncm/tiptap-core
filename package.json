@@ -1,6 +1,6 @@
 {
   "name": "@kelsoncm/tiptap-core",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Núcleo framework-agnóstico do editor KelsonCM TipTap: extensões, comandos, i18n e UI em DOM.",
   "license": "MIT",
   "author": "Kelson da Costa Medeiros <kelsoncm@gmail.com>",
@@ -54,6 +54,7 @@
   "dependencies": {
     "@floating-ui/dom": "^1.8.0",
     "@tiptap/extension-bubble-menu": "^3.35.0",
+    "@tiptap/extension-code-block-lowlight": "^3.35.0",
     "@tiptap/extension-highlight": "^3.35.0",
     "@tiptap/extension-list": "^3.35.0",
     "@tiptap/extension-mention": "^3.35.0",
@@ -65,7 +66,9 @@
     "@tiptap/extension-text-style": "^3.35.0",
     "@tiptap/extensions": "^3.35.0",
     "@tiptap/starter-kit": "^3.35.0",
-    "@tiptap/suggestion": "^3.35.0"
+    "@tiptap/suggestion": "^3.35.0",
+    "highlight.js": "^11.12.0",
+    "lowlight": "^3.3.0"
   },
   "peerDependencies": {
     "@tiptap/core": "^3.35.0",
