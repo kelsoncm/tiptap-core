@@ -277,3 +277,18 @@ export {
   OutlinePanel,
   SourceEditor,
 } from './ui/panels.js';
+export {
+  cleanPastedHtml,
+  isGoogleDocsHtml,
+  isOfficeHtml,
+  looksLikeMarkdown,
+  type CleanupOptions,
+} from './utils/paste-cleanup.js';
+export {
+  SmartPaste,
+  smartPasteKey,
+  type SmartPasteOptions,
+  type SmartPasteStorage,
+} from './extensions/paste.js';
+export { downloadFile, inlineStyles, safeFilename, toWordDocument } from './utils/export.js';
+export { getMarkdown, type IoOptions } from './editor/io-setup.js';

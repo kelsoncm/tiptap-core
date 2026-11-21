@@ -1,6 +1,7 @@
 import 'katex/dist/katex.min.css';
 import '../src/styles/kelson-editor.css';
 import { mathPlugin } from '../src/math.js';
+import * as core from '../src/index.js';
 import { createEditorUI, getDocumentStats, type EditorMode } from '../src/index.js';
 
 const $ = <T extends HTMLElement>(id: string): T => document.getElementById(id) as T;
@@ -62,4 +63,4 @@ $<HTMLInputElement>('restricted').addEventListener('change', (e) =>
 );
 $('region').addEventListener('click', () => ui.editor.chain().focus().setEditableRegion().run());
 
-Object.assign(window, { ui });
+Object.assign(window, { ui, core });
