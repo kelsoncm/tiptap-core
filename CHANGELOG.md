@@ -2,6 +2,21 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.11.0] - 2026-11-21
+
+### Adicionado
+
+- Limites (`limits`): máximo de caracteres, palavras e parágrafos aplicado de fato (transações que ultrapassam são bloqueadas; reduzir um documento acima do limite continua possível) e mínimos informados; `LIMITS_BYPASS` para carregar conteúdo por código.
+- Barra de status no `createEditorUI` (`statusBar`, padrão ligado): contadores, limites (acima em vermelho, abaixo do mínimo em amarelo) e estado do salvamento.
+- Salvamento automático (`autosave`): callback com debounce, rascunho em `localStorage` (`storageKey`, `restoreDraft`), estados `pending/saving/saved/error`, `flush()`.
+- Autocorreção (`autocorrect`): tipografia ligada por padrão (travessão, reticências, aspas curvas, ©, ®, ™, setas, frações), substituições de palavras (`replacements`, mantendo maiúscula inicial) e maiúscula no início de frases (`capitalizeSentences`).
+- Altura mínima e máxima do conteúdo (`minHeight`, `maxHeight`) com rolagem.
+- Testes da auto-formatação markdown do StarterKit (`#`, `>`, `-`, `1.`, ```, `**`).
+
+### Dependências
+
+- `@tiptap/extension-typography`: substituições tipográficas.
+
 ## [0.10.0] - 2026-11-21
 
 ### Adicionado

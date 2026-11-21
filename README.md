@@ -176,6 +176,27 @@ import 'katex/dist/katex.min.css';
 createEditorUI(host, { plugins: [mathPlugin()] });
 ```
 
+### Limites, salvamento e autocorreção
+
+```ts
+createEditorUI(host, {
+  limits: { maxWords: 500, minWords: 100, maxParagraphs: 20 },
+  autosave: {
+    save: ({ html }) => fetch('/api/rascunho', { method: 'PUT', body: html }),
+    delay: 2000,
+    storageKey: 'rascunho-edital-12',
+  },
+  restoreDraft: true,
+  autocorrect: { replacements: { vc: 'você', tb: 'também' }, capitalizeSentences: true },
+  minHeight: '200px',
+  maxHeight: '60vh',
+});
+```
+
+- Ao atingir o máximo, digitação e colagem que aumentariam o contador são bloqueadas.
+- `ui.autosave.flush()` salva imediatamente (por exemplo, antes de enviar o formulário).
+- `autocorrect: false` desliga também a tipografia.
+
 ### Edição restrita
 
 ```ts

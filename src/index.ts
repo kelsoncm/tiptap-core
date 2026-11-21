@@ -225,3 +225,22 @@ export {
 } from './data/symbols.js';
 export { openSymbolDialog } from './ui/symbol-dialog.js';
 export { escapeHtml } from './utils/html.js';
+export {
+  Autocorrect,
+  DocumentLimitsExtension,
+  documentLimitsKey,
+  limitStatus,
+  LIMITS_BYPASS,
+  type AutocorrectOptions,
+  type DocumentLimits,
+  type LimitKey,
+  type LimitStatus,
+} from './extensions/limits.js';
+export {
+  createAutosave,
+  type AutosaveContent,
+  type AutosaveController,
+  type AutosaveOptions,
+  type AutosaveStatus,
+} from './editor/autosave.js';
+export { StatusBar } from './ui/status-bar.js';
