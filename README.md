@@ -225,6 +225,24 @@ import { officePlugin } from '@kelsoncm/tiptap-core/office'; // npm install mamm
 createEditorUI(host, { plugins: [officePlugin()] });
 ```
 
+### Revisão: comentários, sugestões, versões e papéis
+
+```ts
+const ui = createEditorUI(host, {
+  revision: {
+    user: { id: '2080882', name: 'Kelson' },
+    role: 'suggester', // viewer | commenter | suggester | editor
+    comments: { threads: await api.threads(), onChange: (threads) => api.saveThreads(threads) },
+    versions: { initial: await api.versions(), onSave: (v) => api.saveVersion(v) },
+  },
+});
+ui.revision.setRole('editor');
+ui.run('acceptAllChanges');
+```
+
+- Comandos: `comment`, `trackChanges`, `acceptChange`, `rejectChange`, `acceptAllChanges`, `rejectAllChanges`, `saveVersion`, `revisionPanel`.
+- O HTML salvo mantém `<ins>`/`<del>` (com autor e data) e `span[data-comment]`; as threads ficam no seu backend.
+
 ### Edição restrita
 
 ```ts

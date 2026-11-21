@@ -13,6 +13,7 @@ import { RestrictedEdit } from '../extensions/restricted-edit.js';
 import { createI18n, type I18n } from '../i18n/i18n.js';
 import type { IconRenderer } from './icons.js';
 import { DragHandle, FindBar, Minimap, OutlinePanel, SourceEditor } from './panels.js';
+import { RevisionPanel } from './revision-panel.js';
 import { StatusBar } from './status-bar.js';
 import { Extension } from '@tiptap/core';
 import {
@@ -295,6 +296,22 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
     },
     () => root.classList.contains('is-fullscreen'),
   );
+  const revisionPanel = kelson.commands.has('comment')
+    ? new RevisionPanel(kelson, kelson.revision)
+    : null;
+  if (revisionPanel) {
+    body.append(revisionPanel.element);
+    uiCommand(
+      'revisionPanel',
+      'editor.revision.panel',
+      'review',
+      () => {
+        revisionPanel.toggle();
+        return true;
+      },
+      () => !revisionPanel.element.hidden,
+    );
+  }
   uiCommands.findReplace = () => kelson.run('findReplace');
   uiCommands.exitFullscreen = () => {
     if (!root.classList.contains('is-fullscreen')) return false;
@@ -388,6 +405,7 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
       outline.destroy();
       minimap.destroy();
       dragHandle?.destroy();
+      revisionPanel?.destroy();
       kelson.destroy();
       root.remove();
     },

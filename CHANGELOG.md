@@ -2,6 +2,17 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.14.0] - 2026-11-21
+
+### Adicionado
+
+- Revisão (`revision`), implementação própria sem TipTap Pro:
+  - Comentários em threads (marca `comment`): comentar a seleção, responder, resolver/reabrir, excluir; threads carregadas de fora (`comments.threads`) e persistidas por `comments.onChange`.
+  - Controle de alterações (modo sugestão): digitação vira `<ins>`, exclusão marca `<del>` sem apagar; as próprias sugestões ainda não aceitas somem de verdade; aceitar/rejeitar na seleção ou todas. Cobre edições de texto dentro de um bloco; mudanças estruturais (dividir parágrafo, listas) são aplicadas diretamente.
+  - Histórico de versões: salvar com nome, restaurar, limite em memória e `versions.onSave` para persistir.
+  - Papéis (`role`): `viewer`, `commenter`, `suggester` (sugestão obrigatória) e `editor` (aceita/rejeita), trocáveis com `revision.setRole()`.
+- Painel de revisão no `createEditorUI` (comentários com resposta, alterações com aceitar/rejeitar, versões com restaurar).
+
 ## [0.13.0] - 2026-11-21
 
 ### Adicionado

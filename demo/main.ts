@@ -17,6 +17,7 @@ const ui = createEditorUI($('host'), {
 <p></p>`,
   restrictedEdit: false,
   codeHighlight: true,
+  revision: { user: { id: 'demo', name: 'Pessoa Demo' } },
   plugins: [mathPlugin()],
   insertions: {
     templates: [
