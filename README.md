@@ -79,6 +79,27 @@ createEditorUI(host, {
 - `codeBlockLanguage` (payload: nome da linguagem) e `customStyle` (payload: id do estilo; `null` limpa).
 - `formatPainter`: clique no botão, depois selecione o texto de destino com o mouse. Esc cancela.
 
+### Tabelas
+
+Com o cursor numa tabela, o `createEditorUI` mostra um menu contextual (`tableMenu: false` desliga).
+Pela API:
+
+```ts
+editor.commands.setTableProperties({
+  width: '100%',
+  align: 'center',
+  layout: 'fixed',
+  tableStyle: 'striped',
+});
+editor.commands.setCellProperties({ backgroundColor: '#FFE4B5', verticalAlign: 'middle' });
+editor.commands.toggleFooterRow();
+editor.commands.duplicateTable();
+editor.commands.insertParagraphNearTable('after');
+```
+
+A legenda e as propriedades ficam em atributos da tabela (`data-width`, `data-table-style`...);
+a linha de rodapé usa `data-footer="true"` porque o ProseMirror não modela `<tfoot>`.
+
 ### Edição restrita
 
 ```ts

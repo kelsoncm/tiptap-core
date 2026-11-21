@@ -1,3 +1,4 @@
+import { TABLE_ALIGNS, TABLE_LAYOUTS, TABLE_STYLES } from './extensions/table.js';
 import {
   BULLET_LIST_TYPES,
   ORDERED_LIST_TYPES,
@@ -123,4 +124,40 @@ export const CODE_LANGUAGES: readonly OptionItem[] = [
   { value: 'typescript', label: 'TypeScript' },
   { value: 'xml', label: 'HTML/XML' },
   { value: 'yaml', label: 'YAML' },
+];
+
+export const TABLE_WIDTH_OPTIONS: readonly OptionItem[] = [
+  { value: '', labelKey: 'editor.table.widthAuto' },
+  { value: '50%', label: '50%' },
+  { value: '75%', label: '75%' },
+  { value: '100%', label: '100%' },
+];
+
+export const TABLE_ALIGN_OPTIONS: readonly OptionItem[] = TABLE_ALIGNS.map((value) => ({
+  value,
+  labelKey: `editor.table.align.${value}`,
+}));
+
+export const TABLE_LAYOUT_OPTIONS: readonly OptionItem[] = TABLE_LAYOUTS.map((value) => ({
+  value,
+  labelKey: `editor.table.layouts.${value}`,
+}));
+
+export const TABLE_STYLE_OPTIONS: readonly OptionItem[] = [
+  { value: '', labelKey: 'editor.table.styles.default' },
+  ...TABLE_STYLES.map((value) => ({ value, labelKey: `editor.table.styles.${value}` })),
+];
+
+export const VERTICAL_ALIGN_OPTIONS: readonly OptionItem[] = [
+  { value: 'top', labelKey: 'editor.table.alignTop' },
+  { value: 'middle', labelKey: 'editor.table.alignMiddle' },
+  { value: 'bottom', labelKey: 'editor.table.alignBottom' },
+];
+
+/** Light colors suited to cell backgrounds and table borders. */
+export const TABLE_COLORS: readonly OptionItem[] = [
+  { value: '', labelKey: 'editor.table.removeBackground' },
+  ...HIGHLIGHT_COLORS,
+  color('#808080', 'gray'),
+  color('#000000', 'black'),
 ];

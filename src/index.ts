@@ -42,10 +42,21 @@ export {
 export { PageBreak, type PageBreakOptions } from './extensions/page-break.js';
 export {
   CaptionTable,
+  CSS_COLOR,
+  FooterTableRow,
+  sanitizeTableProperties,
   StyledTableCell,
   StyledTableHeader,
+  TABLE_ALIGNS,
+  TABLE_LAYOUTS,
+  TABLE_STYLES,
   VERTICAL_ALIGNS,
   type CaptionSide,
+  type CellProperties,
+  type TableAlign,
+  type TableLayout,
+  type TableProperties,
+  type TableStyle,
   type VerticalAlign,
 } from './extensions/table.js';
 export {
@@ -56,7 +67,13 @@ export {
   HIGHLIGHT_COLORS,
   LINE_HEIGHTS,
   ORDERED_LIST_OPTIONS,
+  TABLE_ALIGN_OPTIONS,
+  TABLE_COLORS,
+  TABLE_LAYOUT_OPTIONS,
+  TABLE_STYLE_OPTIONS,
+  TABLE_WIDTH_OPTIONS,
   TEXT_COLORS,
+  VERTICAL_ALIGN_OPTIONS,
   type OptionItem,
 } from './options.js';
 export { getDocumentStats, type DocumentStats } from './utils/stats.js';
@@ -73,6 +90,7 @@ export {
   BLOCK_TYPE_SELECT,
   formatShortcut,
   SEPARATOR,
+  TABLE_MENU_PRESET,
   Toolbar,
   TOOLBAR_PRESETS,
   type ToolbarCommandSelect,
