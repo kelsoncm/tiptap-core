@@ -197,6 +197,21 @@ createEditorUI(host, {
 - `ui.autosave.flush()` salva imediatamente (por exemplo, antes de enviar o formulário).
 - `autocorrect: false` desliga também a tipografia.
 
+### Visualização e ferramentas
+
+| Comando                             | Efeito                                                              |
+| ----------------------------------- | ------------------------------------------------------------------- |
+| `findReplace` (Mod-F)               | Barra de localizar/substituir (maiúsculas, palavra inteira, regex). |
+| `sourceCode`                        | Edita o HTML; ao voltar, o conteúdo é aplicado.                     |
+| `showBlocks`, `invisibleCharacters` | Contornos dos blocos; espaços e ¶ visíveis.                         |
+| `outline`, `minimap`                | Painéis laterais de estrutura e miniatura.                          |
+| `fullscreen`                        | Tela cheia (Esc sai).                                               |
+| `print` (Mod-P)                     | Impressão com visualização do navegador.                            |
+| `textLanguage`                      | Marca um trecho com `lang` (ex.: `en`).                             |
+| `dictation`                         | Ditado por voz (Web Speech API).                                    |
+
+Documento completo: `createEditorUI(host, { content: htmlCompleto, fullPage: true })` e `ui.getFullPageHTML()`.
+
 ### Edição restrita
 
 ```ts
