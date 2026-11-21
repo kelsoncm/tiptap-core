@@ -193,3 +193,35 @@ export {
   type LinkOptions,
   type LinkPayload,
 } from './editor/links-setup.js';
+export {
+  BUTTON_VARIANTS,
+  Chart,
+  CHART_TYPES,
+  collectHeadings,
+  createWidget,
+  Footnote,
+  KtButton,
+  listFootnotes,
+  Mermaid,
+  parseChartLines,
+  renderChartSvg,
+  renderFootnotes,
+  TocBlock,
+  widgetContent,
+  type ButtonVariant,
+  type ChartData,
+  type ChartType,
+  type MermaidOptions,
+  type TocItem,
+  type WidgetDefinition,
+} from './extensions/insertions.js';
+export { type InsertionOptions, type TemplateDefinition } from './editor/insertions-setup.js';
+export { type EditorPlugin } from './editor/plugins.js';
+export {
+  CHARACTER_GROUPS,
+  EMOJI_GROUPS,
+  type SymbolGroup,
+  type SymbolItem,
+} from './data/symbols.js';
+export { openSymbolDialog } from './ui/symbol-dialog.js';
+export { escapeHtml } from './utils/html.js';

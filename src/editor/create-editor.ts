@@ -15,6 +15,12 @@ import { DEFAULT_SLASH_COMMANDS, SlashCommands } from '../extensions/slash-comma
 import type { CustomStyle } from '../extensions/custom-styles.js';
 import { featureExtensions, resolveFeatures, type EditorFeatures } from './features.js';
 import {
+  insertionExtensions,
+  registerInsertionCommands,
+  type InsertionOptions,
+} from './insertions-setup.js';
+import type { EditorPlugin } from './plugins.js';
+import {
   linkExtensions,
   registerLinkCommands,
   SAFE_LINK_CONFIG,
@@ -54,6 +60,10 @@ export interface KelsonEditorOptions {
   slashCommands?: boolean | readonly string[];
   /** Syntax highlighting in code blocks (highlight.js grammars via lowlight). */
   codeHighlight?: boolean | CodeHighlightOptions;
+  /** Mermaid renderer, custom widgets and templates. */
+  insertions?: InsertionOptions;
+  /** Optional bundles such as `mathPlugin()` from `@kelsoncm/tiptap-core/math`. */
+  plugins?: readonly EditorPlugin[];
   /** Link dialog and link checker settings. */
   links?: LinkOptions;
   /** Upload, gallery and embed settings for images, video, audio and files. */
@@ -140,6 +150,19 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
 
   extra.push(...linkExtensions(commands));
   registerLinkCommands(commands, i18n, options.links);
+
+  if (features.insertions) {
+    extra.push(...insertionExtensions(options.insertions ?? {}, i18n));
+    registerInsertionCommands(commands, options.insertions ?? {}, i18n);
+  }
+
+  for (const plugin of options.plugins ?? []) {
+    for (const [locale, messages] of Object.entries(plugin.messages ?? {})) {
+      i18n.addMessages(locale, messages);
+    }
+    extra.push(...(plugin.extensions?.(i18n) ?? []));
+    plugin.register?.(commands, i18n);
+  }
 
   if (features.media) {
     const mediaOptions = options.media ?? {};

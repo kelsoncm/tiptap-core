@@ -128,6 +128,18 @@ export const TOOLBAR_PRESETS: Readonly<
     'pageBreak',
     'mention',
     'mergeField',
+    SEPARATOR,
+    'emoji',
+    'characterMap',
+    'button',
+    'details',
+    'footnote',
+    'tocBlock',
+    'inlineMath',
+    'blockMath',
+    'mermaid',
+    'chart',
+    'templates',
   ],
 };
 

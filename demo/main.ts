@@ -1,4 +1,6 @@
+import 'katex/dist/katex.min.css';
 import '../src/styles/kelson-editor.css';
+import { mathPlugin } from '../src/math.js';
 import { createEditorUI, getDocumentStats, type EditorMode } from '../src/index.js';
 
 const $ = <T extends HTMLElement>(id: string): T => document.getElementById(id) as T;
@@ -14,6 +16,16 @@ const ui = createEditorUI($('host'), {
 <p></p>`,
   restrictedEdit: false,
   codeHighlight: true,
+  plugins: [mathPlugin()],
+  insertions: {
+    templates: [
+      {
+        id: 'oficio',
+        label: 'Ofício',
+        content: '<h2>Ofício nº __/2026</h2><p>Prezados,</p><p>Atenciosamente,</p>',
+      },
+    ],
+  },
   customStyles: [
     { id: 'lead', label: 'Destaque', kind: 'block', className: 'demo-lead' },
     { id: 'marker', label: 'Marca-texto', kind: 'inline', className: 'demo-marker' },
