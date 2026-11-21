@@ -140,6 +140,42 @@ createEditorUI(host, {
 ui.run('checkLinks'); // destaca links quebrados no texto
 ```
 
+### Inserções
+
+Emoji (`:` + palavra), mapa de caracteres, botão, acordeão, notas de rodapé, sumário, Mermaid, gráficos,
+widgets e modelos ficam no grupo "insert" da barra e no menu `/`.
+
+```ts
+import mermaid from 'mermaid';
+
+createEditorUI(host, {
+  insertions: {
+    mermaid: async (code) => (await mermaid.render(`m${Date.now()}`, code)).svg,
+    templates: [{ id: 'oficio', label: 'Ofício', content: '<h2>Ofício nº</h2><p>Prezados,</p>' }],
+    widgets: [
+      {
+        name: 'alerta',
+        label: 'Alerta',
+        defaults: { texto: 'Atenção' },
+        render: (a) => `⚠ ${a.texto}`,
+      },
+    ],
+  },
+});
+```
+
+- Notas de rodapé: `renderFootnotes(editor.state.doc)` devolve a lista `<ol>` para impressão/exportação.
+- Gráficos: o diálogo aceita linhas `Rótulo: valor`; o HTML salvo traz os dados (`data-chart`) e um SVG.
+
+### Fórmulas (KaTeX)
+
+```ts
+import { mathPlugin } from '@kelsoncm/tiptap-core/math';
+import 'katex/dist/katex.min.css';
+
+createEditorUI(host, { plugins: [mathPlugin()] });
+```
+
 ### Edição restrita
 
 ```ts

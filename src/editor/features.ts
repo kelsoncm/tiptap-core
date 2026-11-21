@@ -41,6 +41,8 @@ export interface EditorFeatures {
   taskList: boolean;
   /** Images (upload, paste, drop, resize), video, audio, embeds and file links. */
   media: boolean;
+  /** Emoji, character map, button, accordion, footnotes, TOC block, Mermaid, charts, widgets, templates. */
+  insertions: boolean;
 }
 
 export const DEFAULT_FEATURES: Readonly<EditorFeatures> = {
@@ -60,6 +62,7 @@ export const DEFAULT_FEATURES: Readonly<EditorFeatures> = {
   formatPainter: true,
   taskList: true,
   media: true,
+  insertions: true,
 };
 
 export function resolveFeatures(features: Partial<EditorFeatures> = {}): EditorFeatures {

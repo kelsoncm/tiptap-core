@@ -1,6 +1,6 @@
 {
   "name": "@kelsoncm/tiptap-core",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Núcleo framework-agnóstico do editor KelsonCM TipTap: extensões, comandos, i18n e UI em DOM.",
   "license": "MIT",
   "author": "Kelson da Costa Medeiros <kelsoncm@gmail.com>",
@@ -28,8 +28,12 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./package.json": "./package.json",
-    "./styles.css": "./dist/styles/kelson-editor.css"
+    "./math": {
+      "types": "./dist/math.d.ts",
+      "import": "./dist/math.js"
+    },
+    "./styles.css": "./dist/styles/kelson-editor.css",
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",
@@ -55,10 +59,12 @@
     "@floating-ui/dom": "^1.8.0",
     "@tiptap/extension-bubble-menu": "^3.35.0",
     "@tiptap/extension-code-block-lowlight": "^3.35.0",
+    "@tiptap/extension-details": "^3.35.0",
     "@tiptap/extension-file-handler": "^3.35.0",
     "@tiptap/extension-highlight": "^3.35.0",
     "@tiptap/extension-image": "^3.35.0",
     "@tiptap/extension-list": "^3.35.0",
+    "@tiptap/extension-mathematics": "^3.35.0",
     "@tiptap/extension-mention": "^3.35.0",
     "@tiptap/extension-subscript": "^3.35.0",
     "@tiptap/extension-superscript": "^3.35.0",
@@ -70,6 +76,7 @@
     "@tiptap/starter-kit": "^3.35.0",
     "@tiptap/suggestion": "^3.35.0",
     "highlight.js": "^11.12.0",
+    "katex": "^0.18.10",
     "lowlight": "^3.3.0"
   },
   "peerDependencies": {
@@ -90,5 +97,6 @@
     "typescript-eslint": "^8.73.0",
     "vite": "^8.3.8",
     "vitest": "^5.1.1"
-  }
+  },
+  "peerDependenciesMeta": {}
 }

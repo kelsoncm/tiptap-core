@@ -637,3 +637,198 @@
     display: none;
   }
 }
+
+/* Button, footnotes, TOC, accordion, diagrams, charts, widgets */
+.kt-editor .tiptap .kt-btn {
+  display: inline-block;
+  padding: 6px 16px;
+  border: 2px solid #1351b4;
+  border-radius: 20px;
+  background: #1351b4;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.kt-editor .tiptap .kt-btn-secondary {
+  border-color: #6b6b6b;
+  background: #6b6b6b;
+}
+
+.kt-editor .tiptap .kt-btn-outline {
+  background: transparent;
+  color: #1351b4;
+}
+
+.kt-editor .tiptap {
+  counter-reset: kt-footnote;
+}
+
+.kt-editor .tiptap .kt-footnote {
+  counter-increment: kt-footnote;
+  color: var(--kt-accent);
+  cursor: help;
+}
+
+.kt-editor .tiptap .kt-footnote::after {
+  content: '[' counter(kt-footnote) ']';
+}
+
+.kt-editor .tiptap .kt-toc {
+  margin: 8px 0;
+  padding: 8px 16px;
+  border-left: 3px solid var(--kt-accent);
+  background: #f6f8fb;
+}
+
+.kt-editor .tiptap .kt-toc ol {
+  margin: 0;
+  padding-left: 16px;
+}
+
+.kt-editor .tiptap .kt-toc .kt-toc-level-2 {
+  margin-left: 12px;
+}
+
+.kt-editor .tiptap .kt-toc .kt-toc-level-3 {
+  margin-left: 24px;
+}
+
+.kt-editor .tiptap .kt-toc .kt-toc-level-4,
+.kt-editor .tiptap .kt-toc .kt-toc-level-5,
+.kt-editor .tiptap .kt-toc .kt-toc-level-6 {
+  margin-left: 36px;
+}
+
+.kt-editor .tiptap .kt-details {
+  display: flex;
+  gap: 4px;
+  margin: 8px 0;
+  padding: 6px 8px;
+  border: 1px solid var(--kt-border);
+  border-radius: 6px;
+}
+
+.kt-editor .tiptap .kt-details > button {
+  width: 1.5em;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.kt-editor .tiptap .kt-details > button::before {
+  content: '▸';
+}
+
+.kt-editor .tiptap .kt-details.is-open > button::before {
+  content: '▾';
+}
+
+.kt-editor .tiptap .kt-details > div {
+  flex: 1;
+}
+
+.kt-editor .tiptap .kt-details summary {
+  font-weight: 600;
+  list-style: none;
+}
+
+.kt-editor .tiptap .kt-details:not(.is-open) [data-type='detailsContent'] {
+  display: none;
+}
+
+.kt-editor .tiptap .kt-mermaid,
+.kt-editor .tiptap .kt-mermaid-view pre {
+  padding: 8px;
+  border: 1px dashed var(--kt-border);
+  background: #fafafa;
+  color: #333;
+  font-family: ui-monospace, monospace;
+  white-space: pre-wrap;
+}
+
+.kt-editor .tiptap .kt-mermaid-view svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.kt-editor .tiptap .kt-chart {
+  margin: 8px 0;
+}
+
+.kt-editor .tiptap .kt-chart img {
+  max-width: 100%;
+}
+
+.kt-editor .tiptap .kt-widget {
+  padding: 4px 8px;
+  border: 1px dashed var(--kt-accent);
+  border-radius: 4px;
+}
+
+.kt-footnotes {
+  margin-top: 24px;
+  padding-top: 8px;
+  border-top: 1px solid #c5c5c5;
+  font-size: 0.9em;
+}
+
+/* Symbol picker */
+.kt-symbol-search {
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  border: 1px solid #c5c5c5;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.kt-symbol-groups {
+  max-height: 55vh;
+  margin-bottom: 12px;
+  overflow-y: auto;
+}
+
+.kt-symbol-groups h3 {
+  margin: 8px 0 4px;
+  color: #6b6b6b;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.kt-symbol-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
+  gap: 4px;
+}
+
+.kt-symbol {
+  height: 36px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: #f6f6f6;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.kt-symbol:hover,
+.kt-symbol:focus-visible {
+  border-color: #1351b4;
+  background: #dbe8fb;
+}
+
+.kt-dialog textarea {
+  padding: 6px 8px;
+  border: 1px solid #c5c5c5;
+  border-radius: 4px;
+  font:
+    13px/1.4 ui-monospace,
+    monospace;
+  resize: vertical;
+}
+
+@media print {
+  .kt-editor .tiptap .kt-details:not(.is-open) [data-type='detailsContent'] {
+    display: block;
+  }
+}

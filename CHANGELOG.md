@@ -2,6 +2,29 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.10.0] - 2026-11-21
+
+### Adicionado
+
+- Feature `insertions` (ligada por padrão):
+  - Emoji: seletor com busca (pt-BR/en) e sugestões com `:` + duas letras, sem base de emojis externa.
+  - Mapa de caracteres: letras acentuadas, pontuação, matemática, setas, moedas e grego.
+  - Botão (link com aparência de botão: primary, secondary, outline), com URL validada.
+  - Acordeão (seção recolhível) com `@tiptap/extension-details`.
+  - Notas de rodapé numeradas por CSS e `renderFootnotes` para gerar a lista.
+  - Bloco de sumário que acompanha os títulos (com links quando a feature `tableOfContents` está ativa).
+  - Diagramas Mermaid guardados como código; renderização opcional via `insertions.mermaid` (SVG sanitizado).
+  - Gráficos de barra, linha e pizza em SVG próprio (sem biblioteca), salvos como dados + imagem.
+  - Widgets customizados (`insertions.widgets`, `createWidget`).
+  - Galeria de modelos (`insertions.templates`, lista ou função assíncrona).
+- Plugins (`plugins: EditorPlugin[]`) com extensões, comandos e traduções.
+- Entrada separada `@kelsoncm/tiptap-core/math` com `mathPlugin()`: fórmulas LaTeX na linha e em bloco (KaTeX), edição por clique.
+- Campo `textarea` nos diálogos e `openSymbolDialog`.
+
+### Dependências
+
+- `@tiptap/extension-details` (acordeão), `@tiptap/extension-mathematics` e `katex` (somente pela entrada `/math`).
+
 ## [0.9.0] - 2026-11-21
 
 ### Adicionado

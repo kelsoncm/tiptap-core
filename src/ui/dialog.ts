@@ -4,7 +4,7 @@ export interface DialogField {
   name: string;
   /** i18n key of the label. */
   labelKey: string;
-  type?: 'text' | 'url' | 'checkbox' | 'file';
+  type?: 'text' | 'url' | 'checkbox' | 'file' | 'textarea';
   value?: string | boolean;
   required?: boolean;
   /** For file inputs, e.g. `image/*`. */
@@ -82,19 +82,27 @@ export function openFormDialog(options: FormDialogOptions): Promise<DialogValues
     options.titleKey,
     options.container ?? document.body,
   );
-  const inputs = new Map<string, HTMLInputElement>();
+  const inputs = new Map<string, HTMLInputElement | HTMLTextAreaElement>();
 
   for (const field of options.fields) {
     const label = document.createElement('label');
     label.className = `kt-dialog-field kt-dialog-field-${field.type ?? 'text'}`;
-    const input = document.createElement('input');
-    input.type = field.type ?? 'text';
+    let input: HTMLInputElement | HTMLTextAreaElement;
+    if (field.type === 'textarea') {
+      input = document.createElement('textarea');
+      input.rows = 6;
+    } else {
+      input = document.createElement('input');
+      input.type = field.type ?? 'text';
+      if (field.accept) input.accept = field.accept;
+      if (field.type === 'checkbox') input.checked = field.value === true;
+    }
     input.name = field.name;
     input.id = `${id}-${field.name}`;
     if (field.required) input.required = true;
-    if (field.accept) input.accept = field.accept;
-    if (field.type === 'checkbox') input.checked = field.value === true;
-    else if (field.type !== 'file' && typeof field.value === 'string') input.value = field.value;
+    if (field.type !== 'checkbox' && field.type !== 'file' && typeof field.value === 'string') {
+      input.value = field.value;
+    }
     const text = document.createElement('span');
     text.textContent = i18n.t(field.labelKey);
     if (field.type === 'checkbox') label.append(input, text);
@@ -126,9 +134,9 @@ export function openFormDialog(options: FormDialogOptions): Promise<DialogValues
       const values: DialogValues = {};
       for (const [name, input] of inputs) {
         values[name] =
-          input.type === 'checkbox'
+          input instanceof HTMLInputElement && input.type === 'checkbox'
             ? input.checked
-            : input.type === 'file'
+            : input instanceof HTMLInputElement && input.type === 'file'
               ? (input.files?.[0] ?? null)
               : input.value.trim();
       }

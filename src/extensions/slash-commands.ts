@@ -22,6 +22,11 @@ export const DEFAULT_SLASH_COMMANDS: readonly string[] = [
   'insertTable',
   'horizontalRule',
   'pageBreak',
+  'details',
+  'emoji',
+  'chart',
+  'mermaid',
+  'blockMath',
 ];
 
 export interface SlashCommandsOptions {
