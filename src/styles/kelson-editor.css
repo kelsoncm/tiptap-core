@@ -609,3 +609,31 @@
 .kt-editor .tiptap [data-resize-state='true'] [data-resize-handle] {
   opacity: 1;
 }
+
+/* Links and anchors */
+.kt-editor .tiptap a[href] {
+  color: var(--kt-accent);
+  text-decoration: underline;
+}
+
+.kt-editor .tiptap .kt-anchor {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin: 0 1px;
+  border-radius: 50%;
+  background: var(--kt-accent);
+  vertical-align: middle;
+  opacity: 0.5;
+}
+
+.kt-editor .tiptap .kt-link-broken {
+  background: #fde2e1;
+  text-decoration: wavy underline #c4161c;
+}
+
+@media print {
+  .kt-editor .tiptap .kt-anchor {
+    display: none;
+  }
+}

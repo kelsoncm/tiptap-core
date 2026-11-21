@@ -114,7 +114,8 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
       }) =>
         balloonActive() &&
         editor.isEditable &&
-        from !== to &&
+        // Over a selection, or with the cursor inside a link (edit/remove/open).
+        (from !== to || editor.isActive('link')) &&
         !(state.selection instanceof NodeSelection) &&
         !editor.isActive('codeBlock') &&
         !(state.selection instanceof CellSelection),

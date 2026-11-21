@@ -41,3 +41,18 @@ export function hostAllowed(url: string, hosts: readonly string[]): boolean {
   if (!host) return false;
   return hosts.some((allowed) => host === allowed || host.endsWith(`.${allowed}`));
 }
+
+/**
+ * Completes what users type in a link field: `ifrn.edu.br` -> `https://ifrn.edu.br`,
+ * `ana@ifrn.edu.br` -> `mailto:ana@ifrn.edu.br`. Relative paths, anchors and URLs with
+ * a scheme are returned unchanged.
+ */
+export function normalizeHref(value: string, defaultProtocol = 'https'): string {
+  const href = value.trim();
+  if (!href || /^[a-z][a-z0-9+.-]*:/i.test(href) || /^[/#?.]/.test(href)) return href;
+  if (/^[^\s@/]+@[^\s@/]+\.[^\s@/]+$/.test(href)) return `mailto:${href}`;
+  if (/^(www\.)?[\p{L}\d-]+(\.[\p{L}\d-]+)+(:\d+)?([/?#].*)?$/u.test(href)) {
+    return `${defaultProtocol}://${href}`;
+  }
+  return href;
+}

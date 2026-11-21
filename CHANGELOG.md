@@ -2,6 +2,17 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.9.0] - 2026-11-21
+
+### Adicionado
+
+- Link: diálogo próprio para inserir e editar (URL, texto, nova aba), atalho Mod-K, comandos `link`, `unlink` e `openLink`; balão mostra as ações com o cursor dentro de um link.
+- `normalizeHref`: `ifrn.edu.br` vira `https://ifrn.edu.br` e e-mails viram `mailto:`.
+- Link configurado com `openOnClick: false`, autolink, link ao colar e validação `isSafeUrl` (HTML com `javascript:` perde o link).
+- Âncoras (marcadores): nó `anchor` (`<a id data-type="anchor">`, lê `<a name>` legados), comando `anchor` com nome normalizado (`slugify`) e sugestão de `#âncoras` no diálogo de link.
+- Verificador de links: `checkLinks` aponta endereços inseguros, âncoras inexistentes e, com `links.isReachable`, endereços inacessíveis; comando `checkLinks` destaca os links quebrados e entrega o resultado em `links.onCheck`.
+- `openFormDialog` aceita sugestões (`datalist`).
+
 ## [0.8.0] - 2026-11-21
 
 ### Adicionado

@@ -123,6 +123,23 @@ createEditorUI(host, {
 - `media` (payload: URL) insere vídeo, áudio ou `<iframe>` conforme a URL; hosts fora de `embedHosts` são recusados.
 - Imagens têm alças de redimensionamento e podem ser arrastadas.
 
+### Links e âncoras
+
+- Mod-K ou o botão de link abrem o diálogo (editar quando o cursor está num link). `ifrn.edu.br` vira `https://ifrn.edu.br`.
+- `anchor` insere um marcador; links `#nome` apontam para ele.
+- Verificação de links:
+
+```ts
+createEditorUI(host, {
+  links: {
+    isReachable: async (href) =>
+      (await fetch(`/api/verificar-link?url=${encodeURIComponent(href)}`)).ok,
+    onCheck: (results) => console.table(results.filter((r) => !r.ok)),
+  },
+});
+ui.run('checkLinks'); // destaca links quebrados no texto
+```
+
 ### Edição restrita
 
 ```ts
