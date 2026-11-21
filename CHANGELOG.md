@@ -2,6 +2,27 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.8.0] - 2026-11-21
+
+### Adicionado
+
+- Imagens (feature `media`, ligada por padrão): inserção por URL ou arquivo (diálogo), envio (`imageUpload`), colar e soltar arquivos, galeria (`media.gallery`), redimensionamento com proporção preservada e arrastar para mover.
+- Upload configurável (`media.upload`), limite de tamanho, validação da URL devolvida e `onError`; sem upload, imagens viram data URL (`allowBase64`).
+- Anexos (`fileUpload`): arquivos não-imagem enviados viram link com o nome do arquivo.
+- Vídeo e áudio (`<video>`/`<audio controls>`) e conteúdo web em `<iframe>` com sandbox e lista de hosts permitidos (`media.embedHosts`, `DEFAULT_EMBED_HOSTS`); links do YouTube/Vimeo convertidos para o player (YouTube sem cookies).
+- Comando `media` decide entre vídeo, áudio e embed pela URL.
+- Diálogos acessíveis em `<dialog>` (`openFormDialog`, `openPickerDialog`, `pickFiles`), reaproveitáveis.
+- `isSafeUrl`, `hostAllowed`, `urlHost`: bloqueiam `javascript:`, `vbscript:`, `data:` não-imagem e hosts fora da lista.
+- Estilo das alças de redimensionamento (o Tiptap as renderiza sem estilo).
+
+### Corrigido
+
+- Inserir mídia com um bloco selecionado (ou duas vezes seguidas) substituía o bloco; agora insere depois dele.
+
+### Dependências
+
+- `@tiptap/extension-image` e `@tiptap/extension-file-handler`: imagem redimensionável e eventos de colar/soltar arquivos.
+
 ## [0.7.0] - 2026-11-21
 
 ### Adicionado

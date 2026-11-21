@@ -15,6 +15,12 @@ import { DEFAULT_SLASH_COMMANDS, SlashCommands } from '../extensions/slash-comma
 import type { CustomStyle } from '../extensions/custom-styles.js';
 import { featureExtensions, resolveFeatures, type EditorFeatures } from './features.js';
 import {
+  MediaUploader,
+  mediaExtensions,
+  registerMediaCommands,
+  type MediaOptions,
+} from './media-setup.js';
+import {
   codeHighlightExtension,
   customStylesExtension,
   formatPainterExtension,
@@ -42,6 +48,8 @@ export interface KelsonEditorOptions {
   slashCommands?: boolean | readonly string[];
   /** Syntax highlighting in code blocks (highlight.js grammars via lowlight). */
   codeHighlight?: boolean | CodeHighlightOptions;
+  /** Upload, gallery and embed settings for images, video, audio and files. */
+  media?: MediaOptions;
   /** Named styles applied as CSS classes (blocks or text runs). */
   customStyles?: readonly CustomStyle[];
   /** StarterKit configuration; merged over the defaults (H1–H6 enabled). */
@@ -120,6 +128,13 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
   if (options.customStyles?.length) {
     extra.push(customStylesExtension(options.customStyles));
     registerCustomStyleCommands(commands, options.customStyles);
+  }
+
+  if (features.media) {
+    const mediaOptions = options.media ?? {};
+    const uploader = new MediaUploader(mediaOptions);
+    extra.push(...mediaExtensions(mediaOptions, uploader));
+    registerMediaCommands(commands, mediaOptions, uploader, i18n);
   }
 
   if (features.formatPainter) {

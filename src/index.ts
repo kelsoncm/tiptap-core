@@ -145,3 +145,28 @@ export {
   type FormatPainterStorage,
 } from './extensions/format-painter.js';
 export { type CodeHighlightOptions } from './editor/styling.js';
+export {
+  Audio,
+  classifyMediaUrl,
+  DEFAULT_EMBED_HOSTS,
+  Embed,
+  toEmbedUrl,
+  Video,
+  type EmbedOptions,
+} from './extensions/media.js';
+export {
+  IMAGE_MIME_TYPES,
+  MediaUploader,
+  type GalleryItem,
+  type MediaOptions,
+} from './editor/media-setup.js';
+export {
+  openFormDialog,
+  openPickerDialog,
+  pickFiles,
+  type DialogField,
+  type DialogValues,
+  type FormDialogOptions,
+  type PickerItem,
+} from './ui/dialog.js';
+export { hostAllowed, isSafeUrl, urlHost, type SafeUrlOptions } from './utils/url.js';

@@ -100,6 +100,29 @@ editor.commands.insertParagraphNearTable('after');
 A legenda e as propriedades ficam em atributos da tabela (`data-width`, `data-table-style`...);
 a linha de rodapé usa `data-footer="true"` porque o ProseMirror não modela `<tfoot>`.
 
+### Imagens, mídia e arquivos
+
+```ts
+createEditorUI(host, {
+  media: {
+    upload: async (file) => {
+      const body = new FormData();
+      body.append('file', file);
+      const response = await fetch('/api/upload', { method: 'POST', body });
+      return (await response.json()).url; // URL pública
+    },
+    gallery: async () => (await fetch('/api/imagens')).json(), // [{ src, alt, thumbnail? }]
+    embedHosts: ['youtube.com', 'player.vimeo.com', 'intranet.ifrn.edu.br'],
+    maxFileSize: 5 * 1024 * 1024,
+    onError: (error) => alert(error.message),
+  },
+});
+```
+
+- Colar ou soltar imagens envia pelo `upload` (sem ele, viram data URL). Outros arquivos só são aceitos com `upload` e entram como link.
+- `media` (payload: URL) insere vídeo, áudio ou `<iframe>` conforme a URL; hosts fora de `embedHosts` são recusados.
+- Imagens têm alças de redimensionamento e podem ser arrastadas.
+
 ### Edição restrita
 
 ```ts
