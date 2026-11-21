@@ -2,6 +2,21 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.13.0] - 2026-11-21
+
+### Adicionado
+
+- Colar do Word, LibreOffice e Google Docs com limpeza (`cleanPastedHtml`): remove classes, estilos `mso-`, comentários condicionais e invólucros do Google Docs; converte listas falsas do Word em listas aninhadas e negrito/itálico por estilo em tags. Modo "enhanced" (`io.keepPastedFormatting`) preserva cores, tamanhos e fontes.
+- Colar como texto simples: comando `pastePlainText` (modo persistente); Ctrl+Shift+V continua colando sem formatação.
+- Colar Markdown: texto que parece Markdown vira conteúdo formatado (`io.pasteMarkdown`).
+- Markdown com `@tiptap/markdown`: `getMarkdown()`, `importMarkdown`, `exportMarkdown`.
+- Exportar: Word (`.doc` em HTML compatível com Word, com página A4), PDF (pela impressão do navegador), HTML com estilos embutidos (`inlineStyles`, para e-mail), Markdown; nome do arquivo em `io.filename`.
+- Entrada `@kelsoncm/tiptap-core/office` com `officePlugin()`: importar `.docx` com mammoth (dependência opcional).
+
+### Dependências
+
+- `@tiptap/markdown` (Markdown); `mammoth` como peer opcional, só para a entrada `/office`.
+
 ## [0.12.0] - 2026-11-21
 
 ### Adicionado

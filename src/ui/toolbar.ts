@@ -153,6 +153,14 @@ export const TOOLBAR_PRESETS: Readonly<
     'minimap',
     'fullscreen',
     'print',
+    SEPARATOR,
+    'pastePlainText',
+    'importWord',
+    'importMarkdown',
+    'exportWord',
+    'exportPdf',
+    'exportHtml',
+    'exportMarkdown',
   ],
 };
 

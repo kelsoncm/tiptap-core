@@ -212,6 +212,19 @@ createEditorUI(host, {
 
 Documento completo: `createEditorUI(host, { content: htmlCompleto, fullPage: true })` e `ui.getFullPageHTML()`.
 
+### Colar, importar e exportar
+
+- Colar do Word/Google Docs limpa o HTML; `io: { keepPastedFormatting: true }` mantém cores e fontes.
+- Texto Markdown colado vira formatação; `pastePlainText` força texto simples.
+- `ui.getMarkdown()`; comandos `exportWord`, `exportPdf`, `exportHtml` (estilos embutidos), `exportMarkdown`, `importMarkdown`.
+
+Importar do Word (.docx):
+
+```ts
+import { officePlugin } from '@kelsoncm/tiptap-core/office'; // npm install mammoth
+createEditorUI(host, { plugins: [officePlugin()] });
+```
+
 ### Edição restrita
 
 ```ts
