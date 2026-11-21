@@ -109,6 +109,8 @@ export function createEditorUI(host: HTMLElement, options: EditorUIOptions = {})
   ];
 
   const kelson = createEditor({
+    // The slash menu is on by default in the full UI.
+    slashCommands: true,
     ...options,
     i18n,
     element: content,

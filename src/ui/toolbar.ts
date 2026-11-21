@@ -108,6 +108,8 @@ export const TOOLBAR_PRESETS: Readonly<
     'insertTable',
     'horizontalRule',
     'pageBreak',
+    'mention',
+    'mergeField',
   ],
 };
 

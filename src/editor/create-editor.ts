@@ -5,6 +5,13 @@ import { defaultCommands, HEADING_LEVELS } from '../commands/defaults.js';
 import { featureCommands } from '../commands/feature-commands.js';
 import { CommandRegistry } from '../commands/registry.js';
 import { createI18n, type I18n, type I18nOptions } from '../i18n/i18n.js';
+import {
+  createMentionExtension,
+  type MentionItem,
+  type MentionOptions,
+} from '../extensions/mention.js';
+import { MergeField, type MergeFieldDefinition } from '../extensions/merge-field.js';
+import { DEFAULT_SLASH_COMMANDS, SlashCommands } from '../extensions/slash-commands.js';
 import { featureExtensions, resolveFeatures, type EditorFeatures } from './features.js';
 
 export interface KelsonEditorOptions {
@@ -17,6 +24,12 @@ export interface KelsonEditorOptions {
   i18n?: I18n | I18nOptions;
   /** Optional features; see `DEFAULT_FEATURES`. */
   features?: Partial<EditorFeatures>;
+  /** Mentions (`@`): items or async source. Enables the `mention` command. */
+  mentions?: MentionOptions;
+  /** Merge fields (`{{`). Enables the `mergeField` command. */
+  mergeFields?: readonly MergeFieldDefinition[];
+  /** Slash menu (`/`): `true` for the default commands, or a list of command ids. */
+  slashCommands?: boolean | readonly string[];
   /** StarterKit configuration; merged over the defaults (H1–H6 enabled). */
   starterKit?: Partial<StarterKitOptions>;
   /** Extra extensions appended after StarterKit. */
@@ -43,6 +56,56 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
   const i18n = isI18n(options.i18n) ? options.i18n : createI18n(options.i18n);
   const features = resolveFeatures(options.features);
   const commands = new CommandRegistry([...defaultCommands(), ...featureCommands(features)]);
+  const extra: AnyExtension[] = [];
+
+  if (options.mentions) {
+    const char = options.mentions.char ?? '@';
+    extra.push(createMentionExtension(options.mentions, i18n));
+    commands.register<MentionItem | undefined>({
+      id: 'mention',
+      labelKey: 'editor.toolbar.mention',
+      icon: 'mention',
+      group: 'insert',
+      isEnabled: (e) => e.isEditable,
+      // Without an item, types the trigger so the autocomplete opens.
+      run: (e, item) =>
+        item
+          ? e
+              .chain()
+              .focus()
+              .insertContent([
+                { type: 'mention', attrs: { id: item.id, label: item.label } },
+                { type: 'text', text: ' ' },
+              ])
+              .run()
+          : e.chain().focus().insertContent(char).run(),
+    });
+  }
+
+  if (options.mergeFields) {
+    extra.push(MergeField.configure({ fields: options.mergeFields, i18n }));
+    commands.register<string | undefined>({
+      id: 'mergeField',
+      labelKey: 'editor.toolbar.mergeField',
+      icon: 'merge-field',
+      group: 'insert',
+      isEnabled: (e) => e.isEditable,
+      run: (e, key) =>
+        key
+          ? e.chain().focus().insertMergeField(key).run()
+          : e.chain().focus().insertContent('{{').run(),
+    });
+  }
+
+  if (options.slashCommands) {
+    extra.push(
+      SlashCommands.configure({
+        registry: commands,
+        i18n,
+        commands: options.slashCommands === true ? DEFAULT_SLASH_COMMANDS : options.slashCommands,
+      }),
+    );
+  }
 
   const editor = new Editor({
     ...options.editorOptions,
@@ -57,6 +120,7 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
         ...options.starterKit,
       }),
       ...featureExtensions(features),
+      ...extra,
       ...(options.extensions ?? []),
     ],
   });

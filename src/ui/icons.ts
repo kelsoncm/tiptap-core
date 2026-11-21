@@ -28,6 +28,8 @@ export const DEFAULT_ICONS: Readonly<Record<string, string>> = {
   'align-justify': '☰',
   'page-break': '✂',
   table: '▦',
+  mention: '@',
+  'merge-field': '{ }',
 };
 
 export type IconRenderer = (icon: string, commandId: string) => string | Node;

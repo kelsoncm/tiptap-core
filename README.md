@@ -45,6 +45,25 @@ Itens da barra: id de comando, `'|'` (separador), `{ type: 'select', command, op
 `{ type: 'commands', labelKey, commands }`. Ícones padrão são texto; passe `renderIcon` para usar
 Font Awesome, SVG etc.
 
+### Menções, merge fields e slash commands
+
+```ts
+createEditorUI(host, {
+  mentions: {
+    items: async (query) => (await fetch(`/api/pessoas?q=${encodeURIComponent(query)}`)).json(),
+  },
+  mergeFields: [
+    { key: 'nomeEdital', label: 'Nome do edital' },
+    { key: 'numeroEdital', label: 'Número do edital', description: 'Ex.: 12/2026' },
+  ],
+  slashCommands: true, // padrão no createEditorUI; ou lista de ids de comando
+});
+```
+
+- `@` abre as menções; `{{` abre os campos; `/` (no início do texto ou após espaço) abre os comandos.
+- Preencher campos: `fillMergeFields(editor.getJSON(), { nomeEdital: 'Edital 1/2026' })` ou
+  `fillMergeFieldsHTML(html, valores)`; `listMergeFields(json)` devolve as chaves usadas.
+
 ### Edição restrita
 
 ```ts

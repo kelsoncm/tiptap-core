@@ -86,3 +86,30 @@ export {
   type EditorUI,
   type EditorUIOptions,
 } from './ui/editor-ui.js';
+export {
+  createMentionExtension,
+  mentionPluginKey,
+  resolveMentionItems,
+  type MentionItem,
+  type MentionOptions,
+  type MentionSource,
+} from './extensions/mention.js';
+export {
+  fillMergeFields,
+  fillMergeFieldsHTML,
+  listMergeFields,
+  MergeField,
+  mergeFieldPluginKey,
+  type FillOptions,
+  type MergeFieldDefinition,
+  type MergeFieldOptions,
+  type MergeValues,
+} from './extensions/merge-field.js';
+export {
+  DEFAULT_SLASH_COMMANDS,
+  SlashCommands,
+  slashCommandsPluginKey,
+  type SlashCommandsOptions,
+} from './extensions/slash-commands.js';
+export { createSuggestionMenu, type SuggestionMenuOptions } from './ui/suggestion-menu.js';
+export { matches, normalizeSearch } from './utils/search.js';

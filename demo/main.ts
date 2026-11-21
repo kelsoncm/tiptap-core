@@ -11,6 +11,17 @@ const ui = createEditorUI($('host'), {
 <tr><th><p>A</p></th><th><p>B</p></th></tr><tr><td><p>1</p></td><td><p>2</p></td></tr></tbody></table>
 <p></p>`,
   restrictedEdit: false,
+  mentions: {
+    items: [
+      { id: 'inicioEdital', label: 'Início do edital' },
+      { id: 'fimEdital', label: 'Fim do edital' },
+      { id: 'ana', label: 'Ana Júlia', description: 'Coordenação' },
+    ],
+  },
+  mergeFields: [
+    { key: 'nomeEdital', label: 'Nome do edital' },
+    { key: 'numeroEdital', label: 'Número do edital', description: 'Ex.: 12/2026' },
+  ],
   features: { tableOfContents: true },
 });
 

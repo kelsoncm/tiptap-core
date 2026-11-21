@@ -128,6 +128,7 @@ export const en: Messages = {
   'editor.toolbar.lineHeight': 'Line height',
   'editor.toolbar.link': 'Insert link',
   'editor.toolbar.mention': 'Insert mention',
+  'editor.toolbar.mergeField': 'Insert field',
   'editor.toolbar.orderedList': 'Ordered list',
   'editor.toolbar.orderedListType': 'Numbering style',
   'editor.toolbar.outdent': 'Decrease indent',
