@@ -15,6 +15,12 @@ import { DEFAULT_SLASH_COMMANDS, SlashCommands } from '../extensions/slash-comma
 import type { CustomStyle } from '../extensions/custom-styles.js';
 import { featureExtensions, resolveFeatures, type EditorFeatures } from './features.js';
 import {
+  linkExtensions,
+  registerLinkCommands,
+  SAFE_LINK_CONFIG,
+  type LinkOptions,
+} from './links-setup.js';
+import {
   MediaUploader,
   mediaExtensions,
   registerMediaCommands,
@@ -48,6 +54,8 @@ export interface KelsonEditorOptions {
   slashCommands?: boolean | readonly string[];
   /** Syntax highlighting in code blocks (highlight.js grammars via lowlight). */
   codeHighlight?: boolean | CodeHighlightOptions;
+  /** Link dialog and link checker settings. */
+  links?: LinkOptions;
   /** Upload, gallery and embed settings for images, video, audio and files. */
   media?: MediaOptions;
   /** Named styles applied as CSS classes (blocks or text runs). */
@@ -130,6 +138,9 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
     registerCustomStyleCommands(commands, options.customStyles);
   }
 
+  extra.push(...linkExtensions(commands));
+  registerLinkCommands(commands, i18n, options.links);
+
   if (features.media) {
     const mediaOptions = options.media ?? {};
     const uploader = new MediaUploader(mediaOptions);
@@ -160,6 +171,7 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
     extensions: [
       StarterKit.configure({
         heading: { levels: [...HEADING_LEVELS] },
+        link: SAFE_LINK_CONFIG,
         // Replaced by the typed lists of the `listTypes` feature.
         ...(features.listTypes ? { bulletList: false, orderedList: false } : {}),
         // Replaced by CodeBlockLowlight.

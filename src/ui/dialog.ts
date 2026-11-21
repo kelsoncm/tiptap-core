@@ -18,6 +18,8 @@ export interface FormDialogOptions {
   titleKey: string;
   fields: readonly DialogField[];
   submitKey?: string;
+  /** Suggestions per field name, rendered as a `<datalist>`. */
+  datalist?: Readonly<Record<string, readonly string[]>> | undefined;
   /** Element the dialog is appended to. Default: `document.body`. */
   container?: HTMLElement;
 }
@@ -97,6 +99,14 @@ export function openFormDialog(options: FormDialogOptions): Promise<DialogValues
     text.textContent = i18n.t(field.labelKey);
     if (field.type === 'checkbox') label.append(input, text);
     else label.append(text, input);
+    const suggestions = options.datalist?.[field.name];
+    if (suggestions?.length) {
+      const list = document.createElement('datalist');
+      list.id = `${id}-${field.name}-list`;
+      for (const value of suggestions) list.append(new Option(value, value));
+      input.setAttribute('list', list.id);
+      label.append(list);
+    }
     form.append(label);
     inputs.set(field.name, input);
   }

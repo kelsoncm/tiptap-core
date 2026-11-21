@@ -169,4 +169,27 @@ export {
   type FormDialogOptions,
   type PickerItem,
 } from './ui/dialog.js';
-export { hostAllowed, isSafeUrl, urlHost, type SafeUrlOptions } from './utils/url.js';
+export {
+  hostAllowed,
+  isSafeUrl,
+  normalizeHref,
+  urlHost,
+  type SafeUrlOptions,
+} from './utils/url.js';
+export {
+  Anchor,
+  checkLinks,
+  findLinks,
+  getLinkAt,
+  LinkChecker,
+  listAnchors,
+  slugify,
+  type LinkCheckResult,
+  type LinkInfo,
+} from './extensions/links.js';
+export {
+  applyLink,
+  SAFE_LINK_CONFIG,
+  type LinkOptions,
+  type LinkPayload,
+} from './editor/links-setup.js';
