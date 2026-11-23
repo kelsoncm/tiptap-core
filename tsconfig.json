@@ -14,7 +14,12 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "@kelsoncm/tiptap-core": ["./src/index.ts"],
+      "@kelsoncm/tiptap-core/math": ["./src/math.ts"],
+      "@kelsoncm/tiptap-core/office": ["./src/office.ts"]
+    }
   },
   "include": ["src", "test", "site", "vitest.config.ts", "eslint.config.js"],
   "exclude": ["site/examples/*/angular.ts", "site/www", "site/dist"]
