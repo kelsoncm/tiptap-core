@@ -2,6 +2,12 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.18.0] - 2026-11-23
+
+### Adicionado
+
+- Opção `contentLanguage` (BCP 47): idioma do texto, separado do idioma da interface. Vale para o `lang` da área editável, o ditado, o LanguageTool e a exportação de página completa. Padrão: o locale da interface. O editor_tiptap do Moodle usa locale próprio (`x-moodle`) para os textos e passa o idioma do usuário aqui.
+
 ## [0.17.0] - 2026-11-23
 
 ### Adicionado

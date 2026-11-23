@@ -39,6 +39,7 @@ export function registerIoCommands(
   registry: CommandRegistry,
   i18n: I18n,
   options: IoOptions,
+  contentLanguage: () => string = () => i18n.locale,
 ): void {
   const name = (): string =>
     typeof options.filename === 'function' ? options.filename() : (options.filename ?? 'documento');
@@ -91,7 +92,7 @@ export function registerIoCommands(
       const body = inlineStyles(`${e.getHTML()}${renderFootnotes(e.state.doc)}`, PRINT_CSS);
       downloadFile(
         safeFilename(name(), 'html'),
-        buildFullPage(body, { lang: i18n.locale, title: name() }),
+        buildFullPage(body, { lang: contentLanguage(), title: name() }),
         'text/html;charset=utf-8',
       );
       return true;

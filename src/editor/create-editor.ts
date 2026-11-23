@@ -75,6 +75,11 @@ export interface KelsonEditorOptions {
   editable?: boolean;
   /** Ready-made i18n instance, or options to create one. */
   i18n?: I18n | I18nOptions;
+  /**
+   * Language of the text (BCP 47, e.g. `pt-BR`): `lang` of the editable area, dictation,
+   * LanguageTool and full-page export. Default: the interface locale.
+   */
+  contentLanguage?: string;
   /** Optional features; see `DEFAULT_FEATURES`. */
   features?: Partial<EditorFeatures>;
   /** Mentions (`@`): items or async source. Enables the `mention` command. */
@@ -163,6 +168,7 @@ function initialContent(options: KelsonEditorOptions): Content {
 
 export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
   const i18n = isI18n(options.i18n) ? options.i18n : createI18n(options.i18n);
+  const contentLanguage = (): string => options.contentLanguage ?? i18n.locale;
   const features = resolveFeatures(options.features);
   const commands = new CommandRegistry([...defaultCommands(), ...featureCommands(features)]);
   const extra: AnyExtension[] = [];
@@ -241,8 +247,8 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
     }
   }
 
-  extra.push(...checkerExtensions(options.checkers ?? {}, i18n));
-  registerCheckerCommands(commands, i18n, options.checkers ?? {});
+  extra.push(...checkerExtensions(options.checkers ?? {}, i18n, contentLanguage));
+  registerCheckerCommands(commands, i18n, options.checkers ?? {}, contentLanguage);
 
   let revision: RevisionController | null = null;
   if (options.revision) {
@@ -251,11 +257,11 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
   }
 
   extra.push(...ioExtensions(options.io ?? {}));
-  registerIoCommands(commands, i18n, options.io ?? {});
+  registerIoCommands(commands, i18n, options.io ?? {}, contentLanguage);
 
   let dictation: DictationController | null = null;
   extra.push(...viewExtensions());
-  registerViewCommands(commands, i18n, (e) => (dictation ??= createDictation(e)));
+  registerViewCommands(commands, i18n, (e) => (dictation ??= createDictation(e)), contentLanguage);
 
   if (features.insertions) {
     extra.push(...insertionExtensions(options.insertions ?? {}, i18n));
@@ -329,7 +335,7 @@ export function createEditor(options: KelsonEditorOptions = {}): KelsonEditor {
     getFullPageHTML: () =>
       buildFullPage(editor.getHTML(), {
         head: page.head,
-        lang: page.lang ?? i18n.locale,
+        lang: page.lang ?? contentLanguage(),
         title: page.title,
       }),
     run: (id, payload) => commands.run(editor, id, payload),
