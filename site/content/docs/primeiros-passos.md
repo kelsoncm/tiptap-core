@@ -14,7 +14,7 @@ de texto rico que salva HTML.</p>
 ## Web component em 1 minuto
 
 1. Baixe `kelsoncm-tiptap.bundle.js` da
-   [release do web component](https://github.com/kelsoncm/tiptap-webcomponent/releases/latest) e
+   [release do web component](https://github.com/tiptap-by-kelsoncm/tiptap-webcomponent/releases/latest) e
    hospede o arquivo junto da sua página.
 2. Carregue o script e use a tag dentro do formulário:
 
@@ -33,7 +33,7 @@ antes de exibi-lo a outras pessoas (veja [Segurança]({{root}}docs/seguranca.htm
 ## Core
 
 ```bash
-npm install https://github.com/kelsoncm/tiptap-core/releases/download/v{{version}}/kelsoncm-tiptap-core-{{version}}.tgz @tiptap/core @tiptap/pm
+npm install https://github.com/tiptap-by-kelsoncm/tiptap-core/releases/download/v{{version}}/kelsoncm-tiptap-core-{{version}}.tgz @tiptap/core @tiptap/pm
 ```
 
 ```ts

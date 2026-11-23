@@ -6,7 +6,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const VERSION = process.argv[2] ?? '0.1.2';
-const URL_BUNDLE = `https://github.com/kelsoncm/tiptap-webcomponent/releases/download/v${VERSION}/kelsoncm-tiptap.bundle.js`;
+const URL_BUNDLE = `https://github.com/tiptap-by-kelsoncm/tiptap-webcomponent/releases/download/v${VERSION}/kelsoncm-tiptap.bundle.js`;
 const target = join(
   dirname(fileURLToPath(import.meta.url)),
   'public',

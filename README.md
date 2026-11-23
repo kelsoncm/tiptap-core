@@ -3,10 +3,10 @@
 Núcleo framework-agnóstico do editor **KelsonCM TipTap**. Reúne extensões, comandos, i18n e
 utilitários sobre o [Tiptap](https://tiptap.dev) 3, reutilizados por:
 
-- [kelsoncm/tiptap-ng](https://github.com/kelsoncm/tiptap-ng): componente Angular.
-- [kelsoncm/tiptap-webcomponent](https://github.com/kelsoncm/tiptap-webcomponent): custom element sem framework.
+- [kelsoncm/tiptap-ng](https://github.com/tiptap-by-kelsoncm/tiptap-ng): componente Angular.
+- [kelsoncm/tiptap-webcomponent](https://github.com/tiptap-by-kelsoncm/tiptap-webcomponent): custom element sem framework.
 
-**Exemplos ao vivo e documentação: <https://kelsoncm.github.io/tiptap-core/>** (código para core, web
+**Exemplos ao vivo e documentação: <https://tiptap-by-kelsoncm.github.io/tiptap-core/>** (código para core, web
 component e Angular em cada exemplo).
 
 ## Instalação
@@ -14,7 +14,7 @@ component e Angular em cada exemplo).
 Enquanto o pacote não está no registro do npm, instale o tarball da release:
 
 ```bash
-npm install https://github.com/kelsoncm/tiptap-core/releases/download/v0.18.0/kelsoncm-tiptap-core-0.18.0.tgz @tiptap/core @tiptap/pm
+npm install https://github.com/tiptap-by-kelsoncm/tiptap-core/releases/download/v0.18.1/kelsoncm-tiptap-core-0.18.1.tgz @tiptap/core @tiptap/pm
 ```
 
 Com o pacote publicado no npm:
