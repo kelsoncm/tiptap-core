@@ -21,6 +21,6 @@
       "@kelsoncm/tiptap-core/office": ["./src/office.ts"]
     }
   },
-  "include": ["src", "test", "site", "vitest.config.ts", "eslint.config.js"],
+  "include": ["src", "test", "site", "vitest.config.ts", "vite.umd.config.ts", "eslint.config.js"],
   "exclude": ["site/examples/*/angular.ts", "site/www", "site/dist"]
 }
