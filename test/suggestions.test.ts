@@ -138,6 +138,13 @@ describe('merge fields', () => {
     expect(k.editor.state.doc.firstChild?.child(1).attrs).toEqual({ key: 'x', label: 'X' });
   });
 
+  it('shows the key when an empty field span has no label', () => {
+    const k = make({ mergeFields: fields });
+    k.editor.commands.setContent('<p><span data-merge-field="numero"></span></p>');
+    expect(k.editor.state.doc.firstChild?.child(0).attrs).toEqual({ key: 'numero', label: null });
+    expect(k.editor.getHTML()).toContain('{{numero}}');
+  });
+
   it('opens the field menu on {{ and inserts with Enter', async () => {
     const k = make({ mergeFields: fields });
     await type(k, '{{inic');

@@ -6,14 +6,15 @@ utilitários sobre o [Tiptap](https://tiptap.dev) 3, reutilizados por:
 - [kelsoncm/tiptap-ng](https://github.com/kelsoncm/tiptap-ng): componente Angular.
 - [kelsoncm/tiptap-webcomponent](https://github.com/kelsoncm/tiptap-webcomponent): custom element sem framework.
 
-O roadmap de recursos está na [issue #1](https://github.com/kelsoncm/tiptap-core/issues/1).
+**Exemplos ao vivo e documentação: <https://kelsoncm.github.io/tiptap-core/>** (código para core, web
+component e Angular em cada exemplo).
 
 ## Instalação
 
 Enquanto o pacote não está no registro do npm, instale o tarball da release:
 
 ```bash
-npm install https://github.com/kelsoncm/tiptap-core/releases/download/v0.15.2/kelsoncm-tiptap-core-0.15.2.tgz @tiptap/core @tiptap/pm
+npm install https://github.com/kelsoncm/tiptap-core/releases/download/v0.16.0/kelsoncm-tiptap-core-0.16.0.tgz @tiptap/core @tiptap/pm
 ```
 
 Com o pacote publicado no npm:
@@ -379,12 +380,22 @@ kelson.commands.register({
 
 ```bash
 npm ci
-npm run build  # dist/ (também roda em npm pack)
-npm run demo   # http://localhost:5180
+npm run build      # dist/ (também roda em npm pack)
+npm run site:dev   # site de exemplos e docs em http://localhost:5180 (também: npm run demo)
 npm run lint
 npm run typecheck
 npm test
-npm run build
+```
+
+### Site
+
+O site fica em `site/`: menu em `nav.json`, layout em `layout.html`, páginas em Markdown em
+`content/` e exemplos em `examples/<id>/` (`core.ts` roda na página e aparece na aba Core; `wc.html` e
+`angular.ts` são só exibidos). Os exemplos importam `@kelsoncm/tiptap-core`, apontado para `src/`.
+
+```bash
+npm run site:fetch-wc  # copia o arquivo único do web component para site/public/vendor/
+npm run site:build     # site/dist/ (publicado pelo workflow pages.yml a cada push na main)
 ```
 
 ## Publicação

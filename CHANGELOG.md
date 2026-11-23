@@ -2,6 +2,18 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.16.0] - 2026-11-23
+
+### Adicionado
+
+- Site de exemplos e documentação em `site/` (Vite multipágina, tema `@abrasileirado/dsgovbr-bootstrapped`), publicado no GitHub Pages pelo workflow `pages.yml`: galeria "Veja o que dá para construir", 12 exemplos ao vivo com abas de código (Core, Web component, Angular e HTML gerado), playground e 10 páginas de documentação. Seletor de idioma dos editores e modo claro/escuro.
+- Scripts `site:dev`, `site:build`, `site:preview` e `site:fetch-wc`; `demo` passa a abrir o site (a pasta `demo/` foi removida). O CI também compila o site.
+
+### Corrigido
+
+- Campo de mesclagem salvo sem rótulo (`<span data-merge-field="x"></span>`) aparecia como `{{}}`; agora mostra a chave.
+- Ícone de texto curto (até 2 caracteres, ex.: `⚠`) em comandos de plugins era trocado pelo id do comando; agora é exibido como está.
+
 ## [0.15.2] - 2026-11-21
 
 ### Corrigido

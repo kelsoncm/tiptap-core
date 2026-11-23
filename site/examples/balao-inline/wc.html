@@ -1,0 +1,12 @@
+<article class="card card-body">
+  <!-- Troque mode="balloon" por mode="inline" para a barra flutuante. -->
+  <kelsoncm-tiptap mode="balloon" toolbar="minimal" status-bar="false" min-height="0">
+    <h3>Aviso</h3>
+    <p>As inscrições vão até <strong>30 de novembro</strong>.</p>
+  </kelsoncm-tiptap>
+</article>
+
+<script type="module">
+  // Mudar o atributo troca o modo sem recriar o editor.
+  document.querySelector('kelsoncm-tiptap').setAttribute('mode', 'inline');
+</script>

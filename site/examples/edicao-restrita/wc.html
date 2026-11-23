@@ -1,0 +1,11 @@
+<kelsoncm-tiptap id="termo" name="termo" toolbar="basic">
+  <p>Eu, <span data-editable-region>NOME COMPLETO</span>, declaro estar ciente das normas.</p>
+</kelsoncm-tiptap>
+
+<script type="module">
+  const el = document.querySelector('#termo');
+  el.options = { restrictedEdit: true };
+
+  // Somente leitura: atributo readonly (ou mode="readonly").
+  // el.setAttribute('readonly', '');
+</script>

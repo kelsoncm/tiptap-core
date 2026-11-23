@@ -1,0 +1,15 @@
+<kelsoncm-tiptap id="relatorio" name="relatorio"></kelsoncm-tiptap>
+<button type="button" id="markdown">Ver Markdown</button>
+
+<script type="module">
+  // Com bundler: o plugin do Word fica numa entrada separada do core (precisa do mammoth).
+  import { officePlugin } from '@kelsoncm/tiptap-core/office';
+
+  const el = document.querySelector('#relatorio');
+  el.options = { plugins: [officePlugin()] };
+
+  document.querySelector('#markdown').addEventListener('click', () => {
+    console.log(el.editor.getMarkdown());
+    el.editor.run('exportWord'); // também: exportPdf, exportHtml, exportMarkdown
+  });
+</script>

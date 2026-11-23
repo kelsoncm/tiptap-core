@@ -1,0 +1,19 @@
+<kelsoncm-tiptap id="parecer" name="parecer"></kelsoncm-tiptap>
+
+<script type="module">
+  const el = document.querySelector('#parecer');
+  el.options = {
+    revision: {
+      user: { id: '2080882', name: 'Kelson' },
+      role: 'suggester', // viewer | commenter | suggester | editor
+      trackChanges: true,
+      comments: {
+        threads: await (await fetch('/api/parecer/threads')).json(),
+        onChange: (threads) =>
+          fetch('/api/parecer/threads', { method: 'PUT', body: JSON.stringify(threads) }),
+      },
+    },
+  };
+  // O HTML salvo mantém <ins>/<del> (autor e data) e span[data-comment].
+  el.addEventListener('kt-ready', ({ detail }) => detail.editor.revision.setRole('editor'));
+</script>

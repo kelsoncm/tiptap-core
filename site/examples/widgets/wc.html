@@ -1,0 +1,12 @@
+<kelsoncm-tiptap id="avisos" name="avisos"></kelsoncm-tiptap>
+
+<script type="module">
+  // alertaPlugin() é o mesmo da aba Core (exporte-o de um módulo seu).
+  import { alertaPlugin } from './alerta-plugin.js';
+
+  document.querySelector('#avisos').options = {
+    plugins: [alertaPlugin()],
+    toolbar: ['bold', 'italic', '|', 'alerta-info', 'alerta-atencao'],
+    slashCommands: ['paragraph', 'alerta-info', 'alerta-atencao'],
+  };
+</script>

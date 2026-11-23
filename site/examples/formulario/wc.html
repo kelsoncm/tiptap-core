@@ -1,0 +1,19 @@
+<form method="post" action="/projetos">
+  <label for="justificativa">Justificativa do projeto</label>
+  <kelsoncm-tiptap
+    id="justificativa"
+    name="justificativa"
+    required
+    toolbar="basic"
+    placeholder="Descreva o projeto em 20 a 120 palavras…"
+    min-words="20"
+    max-words="120"
+    max-paragraphs="5"
+    min-height="140px"
+    max-height="320px"
+  ></kelsoncm-tiptap>
+  <button>Enviar</button>
+</form>
+
+<!-- O campo participa do formulário: o valor enviado é o HTML do editor. -->
+<script type="module" src="/vendor/kelsoncm-tiptap.bundle.js"></script>
