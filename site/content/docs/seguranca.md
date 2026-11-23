@@ -39,4 +39,4 @@ limpe o rascunho após o envio ou não use essa opção.
 
 ## Relatar vulnerabilidades
 
-Veja a [política de segurança](https://github.com/kelsoncm/tiptap-core/security/policy).
+Veja a [política de segurança](https://github.com/tiptap-by-kelsoncm/tiptap-core/security/policy).

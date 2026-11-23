@@ -2,6 +2,12 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.18.1] - 2026-11-23
+
+### Alterado
+
+- Repositório transferido para a organização `tiptap-by-kelsoncm`: homepage, repositório, links do README e do site e URLs das releases atualizados. O site de exemplos passa a `https://tiptap-by-kelsoncm.github.io/tiptap-core/`. O nome do pacote (`@kelsoncm/tiptap-core`) não muda.
+
 ## [0.18.0] - 2026-11-23
 
 ### Adicionado

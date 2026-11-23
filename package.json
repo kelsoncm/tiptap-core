@@ -1,15 +1,15 @@
 {
   "name": "@kelsoncm/tiptap-core",
-  "version": "0.18.0",
+  "version": "0.18.1",
   "description": "Núcleo framework-agnóstico do editor KelsonCM TipTap: extensões, comandos, i18n e UI em DOM.",
   "license": "MIT",
   "author": "Kelson da Costa Medeiros <kelsoncm@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kelsoncm/tiptap-core.git"
+    "url": "git+https://github.com/tiptap-by-kelsoncm/tiptap-core.git"
   },
-  "homepage": "https://kelsoncm.github.io/tiptap-core/",
-  "bugs": "https://github.com/kelsoncm/tiptap-core/issues",
+  "homepage": "https://tiptap-by-kelsoncm.github.io/tiptap-core/",
+  "bugs": "https://github.com/tiptap-by-kelsoncm/tiptap-core/issues",
   "keywords": [
     "tiptap",
     "prosemirror",

@@ -34,7 +34,7 @@ jobs:
       - run: npm run build:umd
       - run: npm run check:umd
       # The tarball on the release is installable without the npm registry:
-      # npm install https://github.com/kelsoncm/tiptap-core/releases/download/vX.Y.Z/kelsoncm-tiptap-core-X.Y.Z.tgz
+      # npm install https://github.com/tiptap-by-kelsoncm/tiptap-core/releases/download/vX.Y.Z/kelsoncm-tiptap-core-X.Y.Z.tgz
       - uses: softprops/action-gh-release@v3
         with:
           generate_release_notes: true
