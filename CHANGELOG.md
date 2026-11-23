@@ -2,6 +2,13 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.17.0] - 2026-11-23
+
+### Adicionado
+
+- Bundle UMD de arquivo único publicado em cada release: `kelsoncm-tiptap-core.umd.js` (global `KelsonTiptap`, AMD anônimo para o RequireJS) e `kelsoncm-tiptap-core.css`. Expõe toda a API, `officePlugin` (passe `mammoth` nas opções) e os primitivos do Tiptap (`Node`, `Mark`, `Extension`, `mergeAttributes`), para plugins não empacotarem outra cópia. Usado pelo `editor_tiptap` do Moodle.
+- Scripts `build:umd` e `check:umd` (teste de fumaça do bundle, também no CI).
+
 ## [0.16.0] - 2026-11-23
 
 ### Adicionado

@@ -1,6 +1,6 @@
 {
   "name": "@kelsoncm/tiptap-core",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "description": "Núcleo framework-agnóstico do editor KelsonCM TipTap: extensões, comandos, i18n e UI em DOM.",
   "license": "MIT",
   "author": "Kelson da Costa Medeiros <kelsoncm@gmail.com>",
@@ -49,6 +49,8 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && node scripts/copy-assets.mjs",
+    "build:umd": "vite build --config vite.umd.config.ts && node -e \"require('fs').copyFileSync('src/styles/kelson-editor.css','dist-umd/kelsoncm-tiptap-core.css')\"",
+    "check:umd": "node scripts/check-umd.mjs",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",

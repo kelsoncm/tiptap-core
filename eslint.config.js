@@ -4,7 +4,17 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', 'node_modules', 'coverage', 'site/www', 'site/dist', 'site/public/vendor'] },
+  {
+    ignores: [
+      'dist',
+      'dist-umd',
+      'node_modules',
+      'coverage',
+      'site/www',
+      'site/dist',
+      'site/public/vendor',
+    ],
+  },
   js.configs.recommended,
   ...tseslint.configs.strict,
   {

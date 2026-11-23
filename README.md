@@ -14,13 +14,24 @@ component e Angular em cada exemplo).
 Enquanto o pacote não está no registro do npm, instale o tarball da release:
 
 ```bash
-npm install https://github.com/kelsoncm/tiptap-core/releases/download/v0.16.0/kelsoncm-tiptap-core-0.16.0.tgz @tiptap/core @tiptap/pm
+npm install https://github.com/kelsoncm/tiptap-core/releases/download/v0.17.0/kelsoncm-tiptap-core-0.17.0.tgz @tiptap/core @tiptap/pm
 ```
 
 Com o pacote publicado no npm:
 
 ```bash
 npm install @kelsoncm/tiptap-core @tiptap/core @tiptap/pm
+```
+
+Sem bundler (por exemplo, no RequireJS do Moodle), use o arquivo único da release,
+`kelsoncm-tiptap-core.umd.js`, e o `kelsoncm-tiptap-core.css`. Ele define `window.KelsonTiptap` (ou um
+módulo AMD anônimo) com toda a API, `officePlugin` e os primitivos do Tiptap (`Node`, `Mark`,
+`Extension`, `mergeAttributes`):
+
+```js
+require(['/caminho/kelsoncm-tiptap-core.umd.js'], (KelsonTiptap) => {
+  KelsonTiptap.createEditorUI(document.querySelector('#editor'), { toolbar: 'basic' });
+});
 ```
 
 `@tiptap/core` e `@tiptap/pm` são `peerDependencies` (3.x), para que a aplicação use uma única cópia

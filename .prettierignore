@@ -5,3 +5,4 @@ package-lock.json
 site/www
 site/dist
 site/public/vendor
+dist-umd
