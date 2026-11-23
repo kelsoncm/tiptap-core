@@ -19,6 +19,7 @@ export function registerViewCommands(
   registry: CommandRegistry,
   i18n: I18n,
   getDictation: (editor: Editor) => DictationController,
+  contentLanguage: () => string = () => i18n.locale,
 ): void {
   registry.register({
     id: 'invisibleCharacters',
@@ -76,7 +77,7 @@ export function registerViewCommands(
         dictation.stop();
         return true;
       }
-      return dictation.start(i18n.locale);
+      return dictation.start(contentLanguage());
     },
   });
 

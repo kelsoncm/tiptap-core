@@ -33,16 +33,17 @@ componente Angular.
 
 ## Conteúdo e idioma
 
-| Opção           | Descrição                                                                                 |
-| --------------- | ----------------------------------------------------------------------------------------- |
-| `content`       | HTML ou JSON inicial.                                                                     |
-| `editable`      | `false` para somente leitura (`ui.setEditable()`).                                        |
-| `i18n`          | `{ locale, messages }` ou uma instância de `createI18n` ([i18n]({{root}}docs/i18n.html)). |
-| `fullPage`      | Aceita um documento HTML completo e mantém o `<head>` em `getFullPageHTML()`.             |
-| `features`      | Liga e desliga recursos (todos ativos, menos `tableOfContents`).                          |
-| `starterKit`    | Configuração do StarterKit do Tiptap (mesclada ao padrão).                                |
-| `extensions`    | Extensões Tiptap extras.                                                                  |
-| `editorOptions` | Outras opções do Tiptap (`onUpdate`, `editorProps`…).                                     |
+| Opção             | Descrição                                                                                                                 |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `content`         | HTML ou JSON inicial.                                                                                                     |
+| `editable`        | `false` para somente leitura (`ui.setEditable()`).                                                                        |
+| `i18n`            | `{ locale, messages }` ou uma instância de `createI18n` ([i18n]({{root}}docs/i18n.html)).                                 |
+| `contentLanguage` | Idioma do texto (BCP 47): `lang` da área editável, ditado, LanguageTool e página completa. Padrão: o idioma da interface. |
+| `fullPage`        | Aceita um documento HTML completo e mantém o `<head>` em `getFullPageHTML()`.                                             |
+| `features`        | Liga e desliga recursos (todos ativos, menos `tableOfContents`).                                                          |
+| `starterKit`      | Configuração do StarterKit do Tiptap (mesclada ao padrão).                                                                |
+| `extensions`      | Extensões Tiptap extras.                                                                                                  |
+| `editorOptions`   | Outras opções do Tiptap (`onUpdate`, `editorProps`…).                                                                     |
 
 ```ts
 createEditorUI(host, {

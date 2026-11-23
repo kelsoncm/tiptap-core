@@ -164,6 +164,28 @@ describe('editor accessibility attributes', () => {
     expect(dom.getAttribute('aria-label')).toBe('Text editing area');
   });
 
+  it('uses contentLanguage for lang, spelling and full page, apart from the interface locale', async () => {
+    const fetchMock = vi.fn(
+      async () =>
+        new Response(JSON.stringify({ matches: [] }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        }),
+    );
+    vi.stubGlobal('fetch', fetchMock);
+    const k = make('<p>texto</p>', {
+      contentLanguage: 'es-AR',
+      i18n: { locale: 'x-app', fallbackLocale: 'en', messages: { 'x-app': {} } },
+      checkers: { spellcheck: { languageTool: { endpoint: 'https://lt.example' } } },
+    });
+    expect(k.editor.view.dom.getAttribute('lang')).toBe('es-AR');
+    expect(k.getFullPageHTML()).toContain('lang="es-AR"');
+    k.run('checkSpelling');
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    const [, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
+    expect(String(init.body)).toContain('language=es-AR');
+  });
+
   it('can disable native spellcheck', () => {
     const k = make('<p></p>', { checkers: { spellcheck: { native: false } } });
     expect(k.editor.view.dom.getAttribute('spellcheck')).toBe('false');

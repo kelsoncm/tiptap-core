@@ -29,7 +29,11 @@ export interface CheckerOptions {
 }
 
 /** ARIA, language and spellcheck attributes on the editable element. */
-export const EditorAccessibility = (i18n: I18n, nativeSpellcheck: boolean) =>
+export const EditorAccessibility = (
+  i18n: I18n,
+  nativeSpellcheck: boolean,
+  contentLanguage: () => string = () => i18n.locale,
+) =>
   Extension.create({
     name: 'editorAccessibility',
     addProseMirrorPlugins() {
@@ -47,7 +51,7 @@ export const EditorAccessibility = (i18n: I18n, nativeSpellcheck: boolean) =>
               role: 'textbox',
               'aria-multiline': 'true',
               'aria-label': i18n.t('editor.a11y.label'),
-              lang: i18n.locale,
+              lang: contentLanguage(),
               spellcheck: nativeSpellcheck ? 'true' : 'false',
             }),
           },
@@ -56,8 +60,12 @@ export const EditorAccessibility = (i18n: I18n, nativeSpellcheck: boolean) =>
     },
   });
 
-export function checkerExtensions(options: CheckerOptions, i18n: I18n): AnyExtension[] {
-  return [Checkers, EditorAccessibility(i18n, options.spellcheck?.native ?? true)];
+export function checkerExtensions(
+  options: CheckerOptions,
+  i18n: I18n,
+  contentLanguage: () => string = () => i18n.locale,
+): AnyExtension[] {
+  return [Checkers, EditorAccessibility(i18n, options.spellcheck?.native ?? true, contentLanguage)];
 }
 
 const translate = (i18n: I18n, issues: DocumentIssue[]): DocumentIssue[] =>
@@ -77,6 +85,7 @@ export function registerCheckerCommands(
   registry: CommandRegistry,
   i18n: I18n,
   options: CheckerOptions,
+  contentLanguage: () => string = () => i18n.locale,
 ): void {
   registry.register({
     id: 'checkAccessibility',
@@ -94,7 +103,7 @@ export function registerCheckerCommands(
   const languageTool = options.spellcheck?.languageTool;
   if (languageTool) {
     const run = (e: Editor): Promise<void> =>
-      checkSpelling(e.state.doc, languageTool, i18n.locale)
+      checkSpelling(e.state.doc, languageTool, contentLanguage())
         .then((issues) => {
           if (e.isDestroyed) return;
           e.commands.setIssues('spelling', issues);
