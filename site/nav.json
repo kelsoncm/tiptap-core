@@ -1,0 +1,164 @@
+{
+  "description": "Editor de texto rico sobre o Tiptap 3, com núcleo sem framework, web component e componente Angular.",
+  "sections": [
+    {
+      "title": "Início",
+      "items": [
+        {
+          "path": "index.html",
+          "title": "Veja o que dá para construir",
+          "description": "Exemplos ao vivo do editor KelsonCM TipTap com o tema GOV.BR."
+        },
+        {
+          "path": "playground.html",
+          "title": "Playground",
+          "description": "Todos os recursos ligados, com troca de modo e edição restrita."
+        }
+      ]
+    },
+    {
+      "title": "Exemplos",
+      "items": [
+        {
+          "path": "exemplos/formulario.html",
+          "title": "Formulário com limites",
+          "description": "Campo de formulário com limite de palavras, mínimo exigido e validação antes do envio.",
+          "example": "formulario",
+          "tags": ["limites", "barra basic", "formulário"]
+        },
+        {
+          "path": "exemplos/oficio.html",
+          "title": "Modelo de ofício",
+          "description": "Modelos, campos de mesclagem ({{) e menções (@) para gerar documentos oficiais.",
+          "example": "oficio",
+          "tags": ["merge fields", "menções", "modelos"]
+        },
+        {
+          "path": "exemplos/notion.html",
+          "title": "Estilo Notion",
+          "description": "Sem barra: menu / para inserir blocos, balão sobre a seleção e alça para arrastar.",
+          "example": "notion",
+          "tags": ["modo notion", "slash", "arrastar"]
+        },
+        {
+          "path": "exemplos/balao-inline.html",
+          "title": "Balão e inline",
+          "description": "Editor sem moldura para textos curtos, com formatação no balão ou na barra flutuante.",
+          "example": "balao-inline",
+          "tags": ["modo balloon", "modo inline"]
+        },
+        {
+          "path": "exemplos/tabelas.html",
+          "title": "Tabelas",
+          "description": "Legenda, linha de rodapé, estilos, alinhamento vertical e menu contextual.",
+          "example": "tabelas",
+          "tags": ["tabelas", "menu contextual"]
+        },
+        {
+          "path": "exemplos/midia.html",
+          "title": "Imagens e mídia",
+          "description": "Upload, galeria, colar e arrastar imagens; vídeo, áudio e iframe com lista de hosts permitidos.",
+          "example": "midia",
+          "tags": ["upload", "galeria", "embeds"]
+        },
+        {
+          "path": "exemplos/revisao.html",
+          "title": "Revisão",
+          "description": "Comentários, sugestões (controle de alterações), versões e papéis de usuário.",
+          "example": "revisao",
+          "tags": ["comentários", "track changes", "versões"]
+        },
+        {
+          "path": "exemplos/importar-exportar.html",
+          "title": "Importar e exportar",
+          "description": "Importa .docx e Markdown; exporta Word, PDF, HTML com estilos e Markdown.",
+          "example": "importar-exportar",
+          "tags": ["Word", "Markdown", "PDF"]
+        },
+        {
+          "path": "exemplos/verificadores.html",
+          "title": "Verificadores",
+          "description": "Acessibilidade, links quebrados e ortografia, com painel de problemas.",
+          "example": "verificadores",
+          "tags": ["acessibilidade", "links", "ortografia"]
+        },
+        {
+          "path": "exemplos/edicao-restrita.html",
+          "title": "Edição restrita",
+          "description": "Contrato com regiões editáveis; o resto do texto fica protegido.",
+          "example": "edicao-restrita",
+          "tags": ["restricted edit", "somente leitura"]
+        },
+        {
+          "path": "exemplos/widgets.html",
+          "title": "Widgets e comandos próprios",
+          "description": "Plugin com widget, comando e tradução próprios, exibidos na barra e no menu /.",
+          "example": "widgets",
+          "tags": ["plugins", "widgets", "comandos"]
+        },
+        {
+          "path": "exemplos/matematica.html",
+          "title": "Fórmulas matemáticas",
+          "description": "Notação LaTeX renderizada com KaTeX, em linha e em bloco.",
+          "example": "matematica",
+          "tags": ["KaTeX", "plugin /math"]
+        }
+      ]
+    },
+    {
+      "title": "Documentação",
+      "items": [
+        {
+          "path": "docs/primeiros-passos.html",
+          "title": "Primeiros passos",
+          "description": "Do zero a um editor funcionando em poucos minutos."
+        },
+        {
+          "path": "docs/instalacao.html",
+          "title": "Instalação",
+          "description": "Tarballs das releases, npm 12 e arquivo único do web component."
+        },
+        {
+          "path": "docs/web-component.html",
+          "title": "Web component",
+          "description": "Atributos, propriedades, eventos e formulários do <kelsoncm-tiptap>."
+        },
+        {
+          "path": "docs/angular.html",
+          "title": "Angular",
+          "description": "Componente <app-editor> com Reactive Forms, ngModel e ngx-translate."
+        },
+        {
+          "path": "docs/opcoes.html",
+          "title": "Opções",
+          "description": "Todas as opções do createEditorUI e do createEditor."
+        },
+        {
+          "path": "docs/comandos-e-barra.html",
+          "title": "Comandos e barra",
+          "description": "Comandos por id, presets da barra, balão e menus."
+        },
+        {
+          "path": "docs/i18n.html",
+          "title": "Idiomas (i18n)",
+          "description": "pt-BR, en e es embutidos; traduções próprias."
+        },
+        {
+          "path": "docs/plugins.html",
+          "title": "Plugins",
+          "description": "Como empacotar extensões, comandos e traduções."
+        },
+        {
+          "path": "docs/seguranca.html",
+          "title": "Segurança",
+          "description": "URLs, iframes, colagem e dados enviados a serviços externos."
+        },
+        {
+          "path": "docs/estilos.html",
+          "title": "Estilos e temas",
+          "description": "Variáveis --kt-*, modo escuro e integração com o GOV.BR DS."
+        }
+      ]
+    }
+  ]
+}

@@ -4,14 +4,15 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', 'node_modules', 'coverage'] },
+  { ignores: ['dist', 'node_modules', 'coverage', 'site/www', 'site/dist', 'site/public/vendor'] },
   js.configs.recommended,
   ...tseslint.configs.strict,
   {
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
   },
   {
-    files: ['test/**/*.ts'],
+    // Testes e exemplos do site (código exibido na página) podem usar "!".
+    files: ['test/**/*.ts', 'site/examples/**/*.ts'],
     rules: { '@typescript-eslint/no-non-null-assertion': 'off' },
   },
   prettier,

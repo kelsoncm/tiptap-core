@@ -1,0 +1,12 @@
+<!-- O arquivo único do web component não inclui o KaTeX; use o pacote com bundler. -->
+<kelsoncm-tiptap id="questao" name="questao"></kelsoncm-tiptap>
+
+<script type="module">
+  import '@kelsoncm/tiptap-webcomponent';
+  import { mathPlugin } from '@kelsoncm/tiptap-core/math';
+  import 'katex/dist/katex.min.css';
+
+  const el = document.querySelector('#questao');
+  el.options = { plugins: [mathPlugin()] };
+  el.addEventListener('kt-ready', ({ detail }) => detail.editor.run('inlineMath', 'E = mc^2'));
+</script>

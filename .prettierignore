@@ -2,3 +2,6 @@ dist
 node_modules
 coverage
 package-lock.json
+site/www
+site/dist
+site/public/vendor

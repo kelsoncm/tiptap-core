@@ -1,0 +1,22 @@
+<kelsoncm-tiptap id="oficio" name="oficio">
+  <p>Ofício nº <span data-merge-field="numero"></span></p>
+  <p>À <span data-merge-field="destinatario"></span></p>
+</kelsoncm-tiptap>
+
+<script type="module">
+  import { fillMergeFieldsHTML } from '@kelsoncm/tiptap-core';
+
+  const el = document.querySelector('#oficio');
+  // Opções que não cabem em atributos vão na propriedade `options`.
+  el.options = {
+    mergeFields: [
+      { key: 'numero', label: 'Número do ofício' },
+      { key: 'destinatario', label: 'Destinatário' },
+    ],
+    mentions: {
+      items: async (query) => (await fetch(`/api/pessoas?q=${encodeURIComponent(query)}`)).json(),
+    },
+  };
+
+  const final = fillMergeFieldsHTML(el.value, { numero: '27/2026', destinatario: 'DIGPE' });
+</script>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{title}} · KelsonCM TipTap</title>
+    <meta name="description" content="{{description}}" />
+    <!-- Fonte Rawline (GOV.BR DS, SIL OFL 1.1), hospedada pelo site do dsgovbr-bootstrapped. -->
+    <link
+      rel="stylesheet"
+      href="https://abrasileirado.github.io/dsgovbr-bootstrapped/assets/fonts/rawline/rawline.css"
+    />
+    <!-- Modo claro/escuro aplicado antes da primeira pintura (dsgovbr-bootstrapped-modo.js). -->
+    <!--mode-script-->
+    <script type="module" src="{{root}}../lib/main.ts"></script>
+  </head>
+  <body>
+    <a class="visually-hidden-focusable site-skip" href="#conteudo">Ir para o conteúdo</a>
+    <header class="site-header border-bottom">
+      <button
+        type="button"
+        class="btn btn-link site-menu-button"
+        data-site-menu
+        aria-controls="site-nav"
+        aria-expanded="false"
+        aria-label="Abrir menu"
+      >
+        ☰
+      </button>
+      <a class="site-brand" href="{{root}}index.html">
+        <span class="site-brand-mark" aria-hidden="true">T</span>
+        <span>KelsonCM TipTap</span>
+      </a>
+      <div class="site-tools">
+        <label class="visually-hidden" for="site-locale">Idioma dos editores</label>
+        <select id="site-locale" class="form-select form-select-sm" title="Idioma dos editores">
+          <option value="pt-BR">Português</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+        </select>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary"
+          data-dsgovbr-modo
+          aria-label="Modo escuro"
+          title="Modo escuro"
+        >
+          ◐
+        </button>
+        <a class="btn btn-sm btn-outline-primary" href="https://github.com/kelsoncm/tiptap-core">
+          GitHub
+        </a>
+      </div>
+    </header>
+    <div class="site-layout">
+      <nav id="site-nav" class="site-nav" aria-label="Menu do site">{{nav}}</nav>
+      <main id="conteudo" class="site-content">{{content}} {{pager}}</main>
+    </div>
+    <footer class="site-footer border-top">
+      <p>
+        @kelsoncm/tiptap-core {{version}} · Licença MIT · Tema
+        <a href="https://abrasileirado.github.io/dsgovbr-bootstrapped/">dsgovbr-bootstrapped</a>
+        (projeto comunitário, não oficial).
+      </p>
+    </footer>
+  </body>
+</html>

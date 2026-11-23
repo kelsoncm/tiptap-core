@@ -1,0 +1,22 @@
+<kelsoncm-tiptap id="pagina" name="pagina"></kelsoncm-tiptap>
+
+<script type="module">
+  const el = document.querySelector('#pagina');
+  el.options = {
+    checkers: {
+      spellcheck: {
+        native: true,
+        languageTool: { endpoint: 'https://lt.exemplo.gov.br/v2/check' },
+      },
+      accessibility: { minContrast: 4.5 },
+    },
+    links: {
+      isReachable: async (href) =>
+        (await fetch(`/api/verificar-link?url=${encodeURIComponent(href)}`)).ok,
+    },
+  };
+  el.addEventListener('kt-ready', ({ detail }) => {
+    detail.editor.run('checkAccessibility');
+    detail.editor.run('checkerPanel');
+  });
+</script>

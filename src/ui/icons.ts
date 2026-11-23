@@ -105,5 +105,7 @@ export const defaultIconRenderer: IconRenderer = (icon, commandId) => {
   if (DEFAULT_ICONS[icon]) return DEFAULT_ICONS[icon];
   const heading = /^heading-(\d)$/.exec(icon);
   if (heading) return `H${heading[1]}`;
+  // Short text icons from plugins (e.g. "⚠", "ℹ", "👋") are shown as they are.
+  if ([...icon].length <= 2) return icon;
   return commandId;
 };

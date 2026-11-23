@@ -1,6 +1,6 @@
 {
   "name": "@kelsoncm/tiptap-core",
-  "version": "0.15.2",
+  "version": "0.16.0",
   "description": "Núcleo framework-agnóstico do editor KelsonCM TipTap: extensões, comandos, i18n e UI em DOM.",
   "license": "MIT",
   "author": "Kelson da Costa Medeiros <kelsoncm@gmail.com>",
@@ -8,7 +8,7 @@
     "type": "git",
     "url": "git+https://github.com/kelsoncm/tiptap-core.git"
   },
-  "homepage": "https://github.com/kelsoncm/tiptap-core#readme",
+  "homepage": "https://kelsoncm.github.io/tiptap-core/",
   "bugs": "https://github.com/kelsoncm/tiptap-core/issues",
   "keywords": [
     "tiptap",
@@ -55,7 +55,11 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "demo": "vite demo --port 5180 --strictPort",
+    "demo": "npm run site:dev",
+    "site:fetch-wc": "node site/fetch-webcomponent.mjs",
+    "site:dev": "vite --config site/vite.config.ts",
+    "site:build": "vite build --config site/vite.config.ts",
+    "site:preview": "vite preview --config site/vite.config.ts",
     "prepack": "npm run clean && npm run build"
   },
   "dependencies": {
@@ -90,6 +94,7 @@
     "mammoth": "^1.8.0"
   },
   "devDependencies": {
+    "@abrasileirado/dsgovbr-bootstrapped": "^3.7.2",
     "@eslint/js": "^10.0.1",
     "@tiptap/core": "^3.35.0",
     "@tiptap/pm": "^3.35.0",
@@ -99,6 +104,7 @@
     "globals": "^17.14.0",
     "jsdom": "^31.0.1",
     "mammoth": "^1.13.0",
+    "marked": "^18.2.1",
     "prettier": "^3.10.1",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.73.0",

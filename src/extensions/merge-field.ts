@@ -57,8 +57,9 @@ export const MergeField = Node.create<MergeFieldOptions & { i18n?: I18n }>({
       label: {
         default: null,
         parseHTML: (element) =>
-          element.getAttribute('data-label') ??
-          element.textContent?.replace(/^\{\{|\}\}$/g, '').trim() ??
+          // An empty span falls back to the key when rendered (an empty label would show "{{}}").
+          element.getAttribute('data-label') ||
+          element.textContent?.replace(/^\{\{|\}\}$/g, '').trim() ||
           null,
         renderHTML: (attributes) =>
           attributes['label'] ? { 'data-label': attributes['label'] } : {},

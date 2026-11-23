@@ -1,0 +1,12 @@
+<kelsoncm-tiptap mode="notion" status-bar="false">
+  <h2>Reunião de planejamento</h2>
+  <p>Digite / numa linha vazia para inserir um bloco.</p>
+</kelsoncm-tiptap>
+
+<script type="module">
+  const el = document.querySelector('kelsoncm-tiptap');
+  el.options = {
+    dragHandle: true,
+    slashCommands: ['paragraph', 'heading-2', 'bulletList', 'taskList', 'quote', 'insertTable'],
+  };
+</script>

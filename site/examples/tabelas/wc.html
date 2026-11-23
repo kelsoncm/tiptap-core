@@ -1,0 +1,29 @@
+<kelsoncm-tiptap toolbar="full">
+  <table data-width="100%" data-table-style="striped">
+    <caption style="caption-side: top">
+      Vagas por campus
+    </caption>
+    <tbody>
+      <tr>
+        <th>Campus</th>
+        <th>Vagas</th>
+      </tr>
+      <tr>
+        <td>Natal-Central</td>
+        <td>40</td>
+      </tr>
+      <tr data-footer="true">
+        <td><strong>Total</strong></td>
+        <td>40</td>
+      </tr>
+    </tbody>
+  </table>
+</kelsoncm-tiptap>
+
+<script type="module">
+  const el = document.querySelector('kelsoncm-tiptap');
+  el.addEventListener('kt-ready', ({ detail }) => {
+    // Comandos de tabela do core (com o cursor dentro da tabela).
+    detail.editor.editor.commands.setTableProperties({ align: 'center', layout: 'fixed' });
+  });
+</script>
