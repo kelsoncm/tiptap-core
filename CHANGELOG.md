@@ -2,6 +2,13 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.18.3] - 2026-11-24
+
+### Alterado
+
+- Pacote publicado no npm (`npm install @kelsoncm/tiptap-core`, a partir da 0.18.2): README e páginas de instalação e primeiros passos sem o tarball da release e sem `allow-remote`.
+- Release publica no npm por _Trusted Publishing_ (OIDC), com npm 11.5.1+; o secret `NPM_TOKEN` fica só como reserva.
+
 ## [0.18.2] - 2026-11-23
 
 ### Alterado
