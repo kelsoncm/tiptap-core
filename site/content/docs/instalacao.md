@@ -42,9 +42,11 @@ no seu servidor ou use um CDN de pacotes npm.
 
 ## Angular
 
-O [`tiptap-ng`](https://github.com/tiptap-by-kelsoncm/tiptap-ng) tem o componente `<app-editor>` e um app
-de demonstração. Copie `src/app/shared/editor` para o seu projeto e instale o core como acima (veja
-[Angular]({{root}}docs/angular.html)).
+```bash
+npm install @kelsoncm/tiptap-ng @kelsoncm/tiptap-core @tiptap/core @tiptap/pm @ngx-translate/core
+```
+
+Componente `<kt-editor>` (Angular 22). Veja [Angular]({{root}}docs/angular.html).
 
 ## Versões anteriores ao npm
 

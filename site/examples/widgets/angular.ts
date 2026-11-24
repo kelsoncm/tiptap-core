@@ -3,12 +3,12 @@ import { FormsModule } from '@angular/forms';
 import type { EditorUIOptions } from '@kelsoncm/tiptap-core';
 
 import { alertaPlugin } from './alerta-plugin'; // o mesmo da aba Core
-import { EditorComponent } from './shared/editor';
+import { EditorComponent } from '@kelsoncm/tiptap-ng';
 
 @Component({
   selector: 'app-avisos',
   imports: [FormsModule, EditorComponent],
-  template: `<app-editor [options]="opcoes" [(ngModel)]="html"></app-editor>`,
+  template: `<kt-editor [options]="opcoes" [(ngModel)]="html"></kt-editor>`,
 })
 export class AvisosComponent {
   html = '';

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { EditorComponent } from './shared/editor';
+import { EditorComponent } from '@kelsoncm/tiptap-ng';
 
 @Component({
   selector: 'app-projeto',
@@ -9,7 +9,7 @@ import { EditorComponent } from './shared/editor';
   template: `
     <form [formGroup]="form" (ngSubmit)="enviar()">
       <label for="justificativa">Justificativa do projeto</label>
-      <app-editor
+      <kt-editor
         id="justificativa"
         formControlName="justificativa"
         toolbarPreset="basic"
@@ -19,7 +19,7 @@ import { EditorComponent } from './shared/editor';
         [paragraphLimit]="5"
         minHeight="140px"
         maxHeight="320px"
-      ></app-editor>
+      ></kt-editor>
       <button type="submit" [disabled]="form.invalid">Enviar</button>
     </form>
   `,

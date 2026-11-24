@@ -2,18 +2,13 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import type { EditorUIOptions } from '@kelsoncm/tiptap-core';
 
-import { EditorComponent } from './shared/editor';
+import { EditorComponent } from '@kelsoncm/tiptap-ng';
 
 @Component({
   selector: 'app-notas',
   imports: [FormsModule, EditorComponent],
   template: `
-    <app-editor
-      mode="notion"
-      [showFooter]="false"
-      [options]="opcoes"
-      [(ngModel)]="html"
-    ></app-editor>
+    <kt-editor mode="notion" [showFooter]="false" [options]="opcoes" [(ngModel)]="html"></kt-editor>
   `,
 })
 export class NotasComponent {

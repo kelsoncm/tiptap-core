@@ -2,18 +2,18 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import type { EditorUI } from '@kelsoncm/tiptap-core';
 
-import { EditorComponent } from './shared/editor';
+import { EditorComponent } from '@kelsoncm/tiptap-ng';
 
 @Component({
   selector: 'app-vagas',
   imports: [FormsModule, EditorComponent],
   template: `
-    <app-editor
+    <kt-editor
       toolbarPreset="full"
       [enableTable]="true"
       [(ngModel)]="html"
       (ready)="pronto($event)"
-    ></app-editor>
+    ></kt-editor>
   `,
 })
 export class VagasComponent {

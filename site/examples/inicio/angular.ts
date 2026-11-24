@@ -1,18 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { EditorComponent } from './shared/editor';
+import { EditorComponent } from '@kelsoncm/tiptap-ng';
 
 @Component({
   selector: 'app-edital',
   imports: [FormsModule, EditorComponent],
   template: `
-    <app-editor
-      toolbarPreset="full"
-      mode="toolbar"
-      maxHeight="420px"
-      [(ngModel)]="html"
-    ></app-editor>
+    <kt-editor toolbarPreset="full" mode="toolbar" maxHeight="420px" [(ngModel)]="html"></kt-editor>
   `,
 })
 export class EditalComponent {

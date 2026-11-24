@@ -2,6 +2,12 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.18.4] - 2026-11-24
+
+### Alterado
+
+- Site e README: o Angular usa a biblioteca `@kelsoncm/tiptap-ng` do npm, com o seletor `<kt-editor>`, em vez de copiar `src/app/shared/editor` (páginas de instalação, Angular, início e abas Angular dos exemplos).
+
 ## [0.18.3] - 2026-11-24
 
 ### Alterado

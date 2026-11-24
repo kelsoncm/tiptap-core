@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { fillMergeFieldsHTML, type EditorUIOptions } from '@kelsoncm/tiptap-core';
 
-import { EditorComponent } from './shared/editor';
+import { EditorComponent } from '@kelsoncm/tiptap-ng';
 
 @Component({
   selector: 'app-oficio',
   imports: [FormsModule, EditorComponent],
   template: `
-    <app-editor [(ngModel)]="html" [mentionItems]="pessoas" [options]="opcoes"></app-editor>
+    <kt-editor [(ngModel)]="html" [mentionItems]="pessoas" [options]="opcoes"></kt-editor>
     <button type="button" (click)="gerar()">Gerar documento</button>
     <div [innerHTML]="final"></div>
   `,

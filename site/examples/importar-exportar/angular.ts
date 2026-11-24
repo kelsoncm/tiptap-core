@@ -3,13 +3,13 @@ import { FormsModule } from '@angular/forms';
 import type { EditorUI, EditorUIOptions } from '@kelsoncm/tiptap-core';
 import { officePlugin } from '@kelsoncm/tiptap-core/office';
 
-import { EditorComponent } from './shared/editor';
+import { EditorComponent } from '@kelsoncm/tiptap-ng';
 
 @Component({
   selector: 'app-relatorio',
   imports: [FormsModule, EditorComponent],
   template: `
-    <app-editor [options]="opcoes" [(ngModel)]="html" (ready)="editor = $event"></app-editor>
+    <kt-editor [options]="opcoes" [(ngModel)]="html" (ready)="editor = $event"></kt-editor>
     <button type="button" (click)="editor?.run('exportWord')">Baixar Word</button>
     <button type="button" (click)="markdown = editor?.getMarkdown() ?? ''">Ver Markdown</button>
     <pre>{{ markdown }}</pre>
