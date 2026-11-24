@@ -410,7 +410,7 @@ git tag v0.1.0 && git push origin v0.1.0
 ```
 
 O workflow `release.yml` cria a release no GitHub (tarball, bundle UMD e CSS) e publica no npm com
-provenance, por _Trusted Publishing_ (OIDC). O secret `NPM_TOKEN` é só reserva.
+provenance, por _Trusted Publishing_ (OIDC). Não há token de npm guardado no repositório.
 
 ## Licença
 
