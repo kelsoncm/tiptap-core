@@ -51,7 +51,7 @@ O web component depende do core por URL. Por isso, instale-o como dependência d
 
 ## Angular
 
-O `tiptap-ng` é um repositório privado com o componente `<app-editor>` e um app de demonstração. Copie
+O [`tiptap-ng`](https://github.com/tiptap-by-kelsoncm/tiptap-ng) tem o componente `<app-editor>` e um app de demonstração. Copie
 `src/app/shared/editor` para o seu projeto e instale o core como acima (veja [Angular]({{root}}docs/angular.html)).
 
 ## Quando o pacote estiver no npm

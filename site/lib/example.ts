@@ -22,7 +22,7 @@ interface Tab {
 
 const TAB_KEY = 'kt-site:tab';
 const ANGULAR_NOTE =
-  'O tiptap-ng é privado: o editor ao vivo acima é o do core, com o mesmo resultado do <app-editor>.';
+  'O editor ao vivo acima é o do core, com o mesmo resultado do <app-editor> do tiptap-ng.';
 
 const readTab = (): string => {
   try {

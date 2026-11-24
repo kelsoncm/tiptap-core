@@ -14,7 +14,7 @@ component e Angular em cada exemplo).
 Enquanto o pacote não está no registro do npm, instale o tarball da release:
 
 ```bash
-npm install https://github.com/tiptap-by-kelsoncm/tiptap-core/releases/download/v0.18.1/kelsoncm-tiptap-core-0.18.1.tgz @tiptap/core @tiptap/pm
+npm install https://github.com/tiptap-by-kelsoncm/tiptap-core/releases/download/v0.18.2/kelsoncm-tiptap-core-0.18.2.tgz @tiptap/core @tiptap/pm
 ```
 
 Com o pacote publicado no npm:
