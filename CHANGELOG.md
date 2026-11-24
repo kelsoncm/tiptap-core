@@ -2,6 +2,12 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.18.2] - 2026-11-23
+
+### Alterado
+
+- Site: o tiptap-ng agora é público. A home ganha links para o código e as releases de cada pacote (core, web component, tiptap-ng e editor_tiptap do Moodle), e saem as menções a repositório privado (Angular, Instalação e nota das abas de código).
+
 ## [0.18.1] - 2026-11-23
 
 ### Alterado

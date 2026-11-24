@@ -3,8 +3,8 @@
 <p class="lead">O <code>&lt;app-editor&gt;</code> do tiptap-ng é um componente standalone para Angular 22,
 com Reactive Forms, <code>ngModel</code> e ngx-translate.</p>
 
-O repositório `tiptap-ng` é privado. Os exemplos deste site mostram o código Angular na aba
-**Angular**, e o editor ao vivo é o do core, com o mesmo resultado.
+Código: [tiptap-ng](https://github.com/tiptap-by-kelsoncm/tiptap-ng) · [releases](https://github.com/tiptap-by-kelsoncm/tiptap-ng/releases). Nos exemplos deste site, a aba
+**Angular** mostra o código do `<app-editor>`; o editor ao vivo é o do core, com o mesmo resultado.
 
 ## Requisitos
 
