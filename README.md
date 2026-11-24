@@ -11,14 +11,6 @@ component e Angular em cada exemplo).
 
 ## Instalação
 
-Enquanto o pacote não está no registro do npm, instale o tarball da release:
-
-```bash
-npm install https://github.com/tiptap-by-kelsoncm/tiptap-core/releases/download/v0.18.2/kelsoncm-tiptap-core-0.18.2.tgz @tiptap/core @tiptap/pm
-```
-
-Com o pacote publicado no npm:
-
 ```bash
 npm install @kelsoncm/tiptap-core @tiptap/core @tiptap/pm
 ```
@@ -417,8 +409,8 @@ Incremente `version` no `package.json`, atualize o `CHANGELOG.md` e envie a tag:
 git tag v0.1.0 && git push origin v0.1.0
 ```
 
-O workflow `release.yml` cria a release no GitHub com o tarball (`.tgz`) e, se o secret `NPM_TOKEN`
-existir, publica no npm com provenance.
+O workflow `release.yml` cria a release no GitHub (tarball, bundle UMD e CSS) e publica no npm com
+provenance, por _Trusted Publishing_ (OIDC). O secret `NPM_TOKEN` é só reserva.
 
 ## Licença
 

@@ -42,10 +42,11 @@ jobs:
             *.tgz
             dist-umd/kelsoncm-tiptap-core.umd.js
             dist-umd/kelsoncm-tiptap-core.css
-      # npm publishing only when a token is configured (trusted publishing can replace it later).
+      # Trusted publishing (OIDC, needs id-token: write and npm 11.5.1+) as configured on npmjs.com;
+      # the NPM_TOKEN secret is only a fallback.
+      - name: Atualizar o npm (trusted publishing)
+        run: npm install -g npm@^11.5.1
       - name: Publicar no npm
-        if: ${{ env.NPM_TOKEN != '' }}
         run: npm publish --provenance --access public
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

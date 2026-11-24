@@ -1,12 +1,12 @@
 # Instalação
 
-<p class="lead">Enquanto os pacotes não estão no registro do npm, eles são distribuídos como arquivos
-das releases do GitHub.</p>
+<p class="lead">Os pacotes estão no registro do npm. O arquivo único do web component e o bundle UMD do core
+também vêm nas releases do GitHub, para páginas sem bundler.</p>
 
 ## Core
 
 ```bash
-npm install https://github.com/tiptap-by-kelsoncm/tiptap-core/releases/download/v{{version}}/kelsoncm-tiptap-core-{{version}}.tgz @tiptap/core @tiptap/pm
+npm install @kelsoncm/tiptap-core @tiptap/core @tiptap/pm
 ```
 
 `@tiptap/core` e `@tiptap/pm` são `peerDependencies` (3.x), para que a aplicação use uma única cópia do
@@ -21,41 +21,32 @@ Entradas do pacote:
 | `@kelsoncm/tiptap-core/math`       | `mathPlugin()` (KaTeX)                                   |
 | `@kelsoncm/tiptap-core/office`     | `officePlugin()` (importar .docx; precisa do `mammoth`)  |
 
-## Web component
+Sem bundler (por exemplo, no RequireJS do Moodle), use `kelsoncm-tiptap-core.umd.js` e
+`kelsoncm-tiptap-core.css` da [release](https://github.com/tiptap-by-kelsoncm/tiptap-core/releases/latest).
 
-Sem bundler, use o arquivo único `kelsoncm-tiptap.bundle.js` da
-[release](https://github.com/tiptap-by-kelsoncm/tiptap-webcomponent/releases/latest). O GitHub não serve assets
-com o tipo JavaScript: hospede o arquivo no seu servidor ou CDN.
+## Web component
 
 Com bundler:
 
 ```bash
-npm install https://github.com/tiptap-by-kelsoncm/tiptap-webcomponent/releases/download/v0.1.2/kelsoncm-tiptap-webcomponent-0.1.2.tgz
+npm install @kelsoncm/tiptap-webcomponent
 ```
 
 ```ts
 import '@kelsoncm/tiptap-webcomponent'; // registra <kelsoncm-tiptap> e injeta o CSS
 ```
 
-## npm 12 e dependências por URL
-
-O npm 12 recusa dependências por URL que não estejam liberadas. Libere só as declaradas pelo seu
-projeto no `.npmrc`:
-
-```ini
-allow-remote=root
-```
-
-O web component depende do core por URL. Por isso, instale-o como dependência direta do projeto
-(raiz), não como dependência de outro pacote.
+Sem bundler, use o arquivo único `kelsoncm-tiptap.bundle.js`, que está no pacote (`dist/`) e na
+[release](https://github.com/tiptap-by-kelsoncm/tiptap-webcomponent/releases/latest). Hospede o arquivo
+no seu servidor ou use um CDN de pacotes npm.
 
 ## Angular
 
-O [`tiptap-ng`](https://github.com/tiptap-by-kelsoncm/tiptap-ng) tem o componente `<app-editor>` e um app de demonstração. Copie
-`src/app/shared/editor` para o seu projeto e instale o core como acima (veja [Angular]({{root}}docs/angular.html)).
+O [`tiptap-ng`](https://github.com/tiptap-by-kelsoncm/tiptap-ng) tem o componente `<app-editor>` e um app
+de demonstração. Copie `src/app/shared/editor` para o seu projeto e instale o core como acima (veja
+[Angular]({{root}}docs/angular.html)).
 
-## Quando o pacote estiver no npm
+## Versões anteriores ao npm
 
-```bash
-npm install @kelsoncm/tiptap-core @tiptap/core @tiptap/pm
-```
+As versões até a 0.18.1 do core e 0.1.2 do web component só existem como tarball nas releases do GitHub.
+Para instalá-las, o npm 12 exige `allow-remote=root` no `.npmrc` do projeto.
