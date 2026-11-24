@@ -3,13 +3,13 @@ import { FormsModule } from '@angular/forms';
 import type { EditorUIOptions } from '@kelsoncm/tiptap-core';
 import { mathPlugin } from '@kelsoncm/tiptap-core/math';
 
-import { EditorComponent } from './shared/editor';
+import { EditorComponent } from '@kelsoncm/tiptap-ng';
 
 // Em angular.json, inclua "node_modules/katex/dist/katex.min.css" em "styles".
 @Component({
   selector: 'app-questao',
   imports: [FormsModule, EditorComponent],
-  template: `<app-editor [options]="opcoes" [(ngModel)]="html"></app-editor>`,
+  template: `<kt-editor [options]="opcoes" [(ngModel)]="html"></kt-editor>`,
 })
 export class QuestaoComponent {
   html =

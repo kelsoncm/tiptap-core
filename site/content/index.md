@@ -19,7 +19,7 @@ Cada exemplo mostra o editor funcionando e o código para **web component**, **c
 | ------------------------------- | ----------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `@kelsoncm/tiptap-core`         | Qualquer projeto com bundler        | `createEditorUI(elemento, opções)`      | [código](https://github.com/tiptap-by-kelsoncm/tiptap-core) · [releases](https://github.com/tiptap-by-kelsoncm/tiptap-core/releases)                   |
 | `@kelsoncm/tiptap-webcomponent` | HTML puro, Django, PHP, Vue, React… | `<kelsoncm-tiptap name="campo">`        | [código](https://github.com/tiptap-by-kelsoncm/tiptap-webcomponent) · [releases](https://github.com/tiptap-by-kelsoncm/tiptap-webcomponent/releases)   |
-| `tiptap-ng`                     | Aplicações Angular 22               | `<app-editor formControlName="campo">`  | [código](https://github.com/tiptap-by-kelsoncm/tiptap-ng) · [releases](https://github.com/tiptap-by-kelsoncm/tiptap-ng/releases)                       |
+| `@kelsoncm/tiptap-ng`           | Aplicações Angular 22               | `<kt-editor formControlName="campo">`   | [código](https://github.com/tiptap-by-kelsoncm/tiptap-ng) · [releases](https://github.com/tiptap-by-kelsoncm/tiptap-ng/releases)                       |
 | `editor_tiptap`                 | Moodle 4.5 e 5.3                    | Plugin de editor com plugins `tiptap_*` | [código](https://github.com/moodle-by-kelsoncm/moodle-editor_tiptap) · [releases](https://github.com/moodle-by-kelsoncm/moodle-editor_tiptap/releases) |
 
 Comece pelos [primeiros passos]({{root}}docs/primeiros-passos.html) ou abra o

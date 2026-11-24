@@ -1,15 +1,21 @@
 # Angular
 
-<p class="lead">O <code>&lt;app-editor&gt;</code> do tiptap-ng é um componente standalone para Angular 22,
+<p class="lead">O <code>&lt;kt-editor&gt;</code> da biblioteca <code>@kelsoncm/tiptap-ng</code> é um componente standalone para Angular 22,
 com Reactive Forms, <code>ngModel</code> e ngx-translate.</p>
 
-Código: [tiptap-ng](https://github.com/tiptap-by-kelsoncm/tiptap-ng) · [releases](https://github.com/tiptap-by-kelsoncm/tiptap-ng/releases). Nos exemplos deste site, a aba
-**Angular** mostra o código do `<app-editor>`; o editor ao vivo é o do core, com o mesmo resultado.
+Pacote: [npm](https://www.npmjs.com/package/@kelsoncm/tiptap-ng) · código: [tiptap-ng](https://github.com/tiptap-by-kelsoncm/tiptap-ng) · [releases](https://github.com/tiptap-by-kelsoncm/tiptap-ng/releases). Nos exemplos deste site, a aba
+**Angular** mostra o código do `<kt-editor>`; o editor ao vivo é o do core, com o mesmo resultado.
 
 ## Requisitos
 
 - Angular 22, TypeScript 6.0, Node 22+.
-- `@kelsoncm/tiptap-core` instalado pelo tarball da release (veja [Instalação]({{root}}docs/instalacao.html)).
+- Instale a biblioteca e as dependências:
+
+```bash
+npm install @kelsoncm/tiptap-ng @kelsoncm/tiptap-core @tiptap/core @tiptap/pm @ngx-translate/core
+```
+
+- O provider do ngx-translate é opcional; sem ele, o core traduz a interface sozinho.
 - Em `angular.json`, inclua o CSS do core nos estilos globais:
 
 ```json
@@ -21,17 +27,19 @@ Código: [tiptap-ng](https://github.com/tiptap-by-kelsoncm/tiptap-ng) · [releas
 
 ## Uso
 
+O seletor `<app-editor>`, das versões anteriores, continua aceito.
+
 ```ts
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
-import { EditorComponent } from './shared/editor';
+import { EditorComponent } from '@kelsoncm/tiptap-ng';
 
 @Component({
   selector: 'app-edital',
   imports: [ReactiveFormsModule, EditorComponent],
   template: `
-    <app-editor
+    <kt-editor
       [formControl]="corpo"
       toolbarPreset="full"
       mode="toolbar"
@@ -39,7 +47,7 @@ import { EditorComponent } from './shared/editor';
       [wordMinimum]="10"
       [options]="{ media: { upload: enviar } }"
       (jsonChange)="json = $event"
-    ></app-editor>
+    ></kt-editor>
   `,
 })
 export class EditalComponent {

@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { EditorComponent } from './shared/editor';
+import { EditorComponent } from '@kelsoncm/tiptap-ng';
 
 @Component({
   selector: 'app-aviso',
@@ -11,13 +11,13 @@ import { EditorComponent } from './shared/editor';
       Alternar modo
     </button>
     <!-- Mudar "mode" não recria o editor. -->
-    <app-editor
+    <kt-editor
       [mode]="modo()"
       toolbarPreset="minimal"
       [showFooter]="false"
       minHeight="0"
       [(ngModel)]="html"
-    ></app-editor>
+    ></kt-editor>
   `,
 })
 export class AvisoComponent {

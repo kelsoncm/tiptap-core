@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import type { EditorUI, EditorUIOptions } from '@kelsoncm/tiptap-core';
 
-import { EditorComponent } from './shared/editor';
+import { EditorComponent } from '@kelsoncm/tiptap-ng';
 
 @Component({
   selector: 'app-parecer',
   imports: [FormsModule, EditorComponent],
   template: `
-    <app-editor [options]="opcoes" [(ngModel)]="html" (ready)="editor = $event"></app-editor>
+    <kt-editor [options]="opcoes" [(ngModel)]="html" (ready)="editor = $event"></kt-editor>
     <button type="button" (click)="editor?.run('acceptAllChanges')">Aceitar todas</button>
   `,
 })

@@ -126,7 +126,7 @@
         {
           "path": "docs/angular.html",
           "title": "Angular",
-          "description": "Componente <app-editor> com Reactive Forms, ngModel e ngx-translate."
+          "description": "Componente <kt-editor> (@kelsoncm/tiptap-ng) com Reactive Forms, ngModel e ngx-translate."
         },
         {
           "path": "docs/opcoes.html",

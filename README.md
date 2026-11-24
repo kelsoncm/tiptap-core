@@ -3,7 +3,7 @@
 Núcleo framework-agnóstico do editor **KelsonCM TipTap**. Reúne extensões, comandos, i18n e
 utilitários sobre o [Tiptap](https://tiptap.dev) 3, reutilizados por:
 
-- [kelsoncm/tiptap-ng](https://github.com/tiptap-by-kelsoncm/tiptap-ng): componente Angular.
+- [kelsoncm/tiptap-ng](https://github.com/tiptap-by-kelsoncm/tiptap-ng): componente Angular `<kt-editor>` (`@kelsoncm/tiptap-ng` no npm).
 - [kelsoncm/tiptap-webcomponent](https://github.com/tiptap-by-kelsoncm/tiptap-webcomponent): custom element sem framework.
 
 **Exemplos ao vivo e documentação: <https://tiptap-by-kelsoncm.github.io/tiptap-core/>** (código para core, web

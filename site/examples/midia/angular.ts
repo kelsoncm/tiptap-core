@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 import type { EditorUIOptions } from '@kelsoncm/tiptap-core';
 import { firstValueFrom } from 'rxjs';
 
-import { EditorComponent } from './shared/editor';
+import { EditorComponent } from '@kelsoncm/tiptap-ng';
 
 @Component({
   selector: 'app-noticia',
   imports: [FormsModule, EditorComponent],
-  template: `<app-editor toolbarPreset="full" [options]="opcoes" [(ngModel)]="html"></app-editor>`,
+  template: `<kt-editor toolbarPreset="full" [options]="opcoes" [(ngModel)]="html"></kt-editor>`,
 })
 export class NoticiaComponent {
   private readonly http = inject(HttpClient);
