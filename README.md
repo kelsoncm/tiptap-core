@@ -206,6 +206,11 @@ createEditorUI(host, {
 ```
 
 - Ao atingir o máximo, digitação e colagem que aumentariam o contador são bloqueadas.
+- `limits.characterCount` define como os caracteres são contados nos limites (`maxCharacters`, `minCharacters`) e na barra de status:
+  - `'noSpaces'` (padrão): sem nenhum espaço em branco;
+  - `'withSpaces'`: com espaços e um separador entre blocos;
+  - `'text'`: texto do documento com espaços, sem separador entre blocos e sem quebras de linha (`doc.textContent` sem `\r`/`\n`).
+- `countCharacters(doc, modo)` e `getDocumentStats(doc, { characterCount })` fazem a mesma contagem fora da UI.
 - `ui.autosave.flush()` salva imediatamente (por exemplo, antes de enviar o formulário).
 - `autocorrect: false` desliga também a tipografia.
 

@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
   createEditor,
+  countCharacters,
   createEditorUI,
   getDocumentStats,
   limitStatus,
@@ -43,6 +44,37 @@ describe('limits', () => {
       over: ['words'],
       under: ['paragraphs'],
     });
+  });
+
+  it('counts characters by the characterCount rule', () => {
+    const k = make('<p>ab cd</p><p>ef</p>');
+    const doc = k.editor.state.doc;
+    expect(countCharacters(doc)).toBe(6);
+    expect(countCharacters(doc, 'noSpaces')).toBe(6);
+    expect(countCharacters(doc, 'withSpaces')).toBe(8);
+    expect(countCharacters(doc, 'text')).toBe(7);
+    expect(countCharacters(doc, 'text')).toBe(doc.textContent.replace(/[\r\n]/g, '').length);
+    expect(getDocumentStats(doc).characters).toBe(6);
+    expect(getDocumentStats(doc, { characterCount: 'text' }).characters).toBe(7);
+    expect(getDocumentStats(doc, { characterCount: 'withSpaces' }).characters).toBe(8);
+    expect(() => countCharacters(doc, 'x' as never)).toThrow(/characterCount/);
+  });
+
+  it('applies characterCount to the limits and the status bar', () => {
+    const host = document.createElement('div');
+    document.body.append(host);
+    const ui = createEditorUI(host, {
+      content: '<p>ab</p><p>c</p>',
+      limits: { maxCharacters: 5, minCharacters: 6, characterCount: 'text' },
+    });
+    instance = ui;
+    ui.editor.commands.focus('end');
+    typeText(ui, ' de');
+    // "text" ignores the separator between blocks: "ab" + "c d" = 5.
+    expect(ui.editor.state.doc.textContent).toBe('abc d');
+    const item = ui.root.querySelector<HTMLElement>('[data-counter="characters"]')!;
+    expect(item.textContent).toBe('Caracteres: 5/5 (mín. 6)');
+    expect(item.classList.contains('is-under')).toBe(true);
   });
 
   it('blocks typing beyond the character limit', () => {

@@ -72,6 +72,19 @@ describe('paste cleanup', () => {
     expect(html).not.toMatch(/<p>\s*<\/p>/);
   });
 
+  it('keeps the text of Word lists with revealed conditional comments', () => {
+    const html =
+      cleanPastedHtml(`<html><head><!--[if gte mso 9]><xml><o:OfficeDocumentSettings>x</o:OfficeDocumentSettings></xml><![endif]--></head><body>
+<p class="MsoListParagraphCxSpFirst" style="mso-list:l0 level1 lfo1"><!--[if !supportLists]--><span style="mso-list:Ignore">•<span>&nbsp;</span></span><!--[endif]-->Item um</p>
+<p class="MsoListParagraphCxSpLast" style="mso-list:l0 level1 lfo1"><!--[if !supportLists]--><span style="mso-list:Ignore">•<span>&nbsp;</span></span><!--[endif]-->Item dois</p>
+<p class="MsoNormal">Depois da lista</p>
+<!--[if gte vml 1]><v:shape>imagem</v:shape><![endif]-->
+</body></html>`);
+    expect(html).toContain('<ul><li>Item um</li><li>Item dois</li></ul>');
+    expect(html).toContain('Depois da lista');
+    expect(html).not.toMatch(/OfficeDocumentSettings|imagem|<!--|•/);
+  });
+
   it('keeps colors and sizes in enhanced mode', () => {
     expect(cleanPastedHtml(WORD_HTML, { keepFormatting: true })).toContain(
       'color: rgb(31, 56, 100)',
