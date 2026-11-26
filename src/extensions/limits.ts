@@ -1,10 +1,10 @@
 import { Extension, InputRule } from '@tiptap/core';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 
-import { getDocumentStats, type DocumentStats } from '../utils/stats.js';
+import { getDocumentStats, type CharacterCountMode, type DocumentStats } from '../utils/stats.js';
 
 export interface DocumentLimits {
-  /** Characters without whitespace (same rule as the counters). */
+  /** Characters by the `characterCount` rule (same rule as the counters). */
   maxCharacters?: number;
   maxWords?: number;
   maxParagraphs?: number;
@@ -12,9 +12,18 @@ export interface DocumentLimits {
   minCharacters?: number;
   minWords?: number;
   minParagraphs?: number;
+  /**
+   * Rule for counting characters in the limits and the status bar: `noSpaces` (default),
+   * `withSpaces` (with one separator between blocks) or `text` (`doc.textContent`, with
+   * whitespace, without block separators and line breaks).
+   */
+  characterCount?: CharacterCountMode;
 }
 
 export type LimitKey = 'characters' | 'words' | 'paragraphs';
+
+/** Options of `DocumentLimits` that hold a number. */
+export type NumericLimit = Exclude<keyof DocumentLimits, 'characterCount'>;
 
 export interface LimitStatus {
   stats: DocumentStats;
@@ -24,12 +33,12 @@ export interface LimitStatus {
   under: LimitKey[];
 }
 
-const MAX: Record<LimitKey, keyof DocumentLimits> = {
+const MAX: Record<LimitKey, NumericLimit> = {
   characters: 'maxCharacters',
   words: 'maxWords',
   paragraphs: 'maxParagraphs',
 };
-const MIN: Record<LimitKey, keyof DocumentLimits> = {
+const MIN: Record<LimitKey, NumericLimit> = {
   characters: 'minCharacters',
   words: 'minWords',
   paragraphs: 'minParagraphs',
@@ -76,8 +85,9 @@ export const DocumentLimitsExtension = Extension.create<DocumentLimits>({
         filterTransaction: (tr, state) => {
           if (!tr.docChanged || tr.getMeta(LIMITS_BYPASS) || tr.getMeta('preventUpdate'))
             return true;
-          const before = getDocumentStats(state.doc);
-          const after = getDocumentStats(tr.doc);
+          const options = { characterCount: limits.characterCount };
+          const before = getDocumentStats(state.doc, options);
+          const after = getDocumentStats(tr.doc, options);
           return enforced.every((key) => {
             const max = limits[MAX[key]] as number;
             return after[key] <= max || after[key] <= before[key];

@@ -1,6 +1,11 @@
 import type { AutosaveController, AutosaveStatus } from '../editor/autosave.js';
 import type { KelsonEditor } from '../editor/create-editor.js';
-import { limitStatus, type DocumentLimits, type LimitKey } from '../extensions/limits.js';
+import {
+  limitStatus,
+  type DocumentLimits,
+  type LimitKey,
+  type NumericLimit,
+} from '../extensions/limits.js';
 import { getDocumentStats } from '../utils/stats.js';
 
 const LABELS: Record<LimitKey, string> = {
@@ -8,12 +13,12 @@ const LABELS: Record<LimitKey, string> = {
   characters: 'editor.footer.characters',
   paragraphs: 'editor.footer.paragraphs',
 };
-const MAX: Record<LimitKey, keyof DocumentLimits> = {
+const MAX: Record<LimitKey, NumericLimit> = {
   characters: 'maxCharacters',
   words: 'maxWords',
   paragraphs: 'maxParagraphs',
 };
-const MIN: Record<LimitKey, keyof DocumentLimits> = {
+const MIN: Record<LimitKey, NumericLimit> = {
   characters: 'minCharacters',
   words: 'minWords',
   paragraphs: 'minParagraphs',
@@ -47,7 +52,10 @@ export class StatusBar {
 
   render(): void {
     const { i18n, editor } = this.kelson;
-    const status = limitStatus(getDocumentStats(editor.state.doc), this.limits);
+    const stats = getDocumentStats(editor.state.doc, {
+      characterCount: this.limits.characterCount,
+    });
+    const status = limitStatus(stats, this.limits);
     this.element.replaceChildren();
     for (const key of ['words', 'characters', 'paragraphs'] as const) {
       const item = document.createElement('span');

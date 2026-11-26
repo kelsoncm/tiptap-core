@@ -2,6 +2,17 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
+## [0.19.0] - 2026-11-26
+
+### Adicionado
+
+- Opção `limits.characterCount` (`'noSpaces'` | `'withSpaces'` | `'text'`) para escolher como os caracteres são contados nos limites `maxCharacters`/`minCharacters` e na barra de status. `'text'` conta o texto do documento com espaços, sem separador entre blocos e sem `\r`/`\n`. O padrão (`'noSpaces'`) não muda.
+- Função `countCharacters(doc, modo)` e opção `characterCount` em `getDocumentStats(doc, opções)`.
+
+### Corrigido
+
+- Colagem do Word: o regex de comentários condicionais apagava o texto entre a forma revelada (`<!--[if !supportLists]-->•<!--[endif]-->`) e o próximo `<![endif]-->`, cortando listas coladas. Agora só a forma oculta (`<!--[if …]>…<![endif]-->`) é removida.
+
 ## [0.18.5] - 2026-11-24
 
 ### Removido

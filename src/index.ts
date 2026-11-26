@@ -76,7 +76,13 @@ export {
   VERTICAL_ALIGN_OPTIONS,
   type OptionItem,
 } from './options.js';
-export { getDocumentStats, type DocumentStats } from './utils/stats.js';
+export {
+  countCharacters,
+  getDocumentStats,
+  type CharacterCountMode,
+  type DocumentStats,
+  type DocumentStatsOptions,
+} from './utils/stats.js';
 export {
   RESTRICTED_EDIT_BYPASS,
   RestrictedEdit,

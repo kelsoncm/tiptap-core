@@ -93,7 +93,9 @@ function semanticMarks(doc: Document): void {
  */
 export function cleanPastedHtml(html: string, options: CleanupOptions = {}): string {
   const source = html
-    .replace(/<!--\[if[\s\S]*?<!\[endif\]-->/gi, '')
+    // Only the hidden form (<!--[if x]>…<![endif]-->). The revealed form
+    // (<!--[if x]-->text<!--[endif]-->) keeps its text; its comments go in the next replace.
+    .replace(/<!--\[if[^\]]*\]>[\s\S]*?<!\[endif\]-->/gi, '')
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/<\/?o:p>/gi, '')
     .replace(/<\/?(w|m|v|st1):[^>]*>/gi, '');

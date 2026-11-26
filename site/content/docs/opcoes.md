@@ -72,12 +72,12 @@ createEditorUI(host, {
 
 ## Limites e salvamento
 
-| Opção          | Descrição                                                                            |
-| -------------- | ------------------------------------------------------------------------------------ |
-| `limits`       | `maxCharacters`, `maxWords`, `maxParagraphs` (aplicados) e `min*` (informados).      |
-| `autosave`     | `{ save, delay, storageKey }`: salva com atraso e guarda rascunho no `localStorage`. |
-| `restoreDraft` | Começa pelo rascunho local, quando houver (precisa de `autosave.storageKey`).        |
-| `autocorrect`  | Tipografia, substituições e maiúsculas; `false` desliga.                             |
+| Opção          | Descrição                                                                                                                                                                                                           |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `limits`       | `maxCharacters`, `maxWords`, `maxParagraphs` (aplicados) e `min*` (informados). `characterCount`: `'noSpaces'` (padrão), `'withSpaces'` ou `'text'` (com espaços, sem separador entre blocos nem quebras de linha). |
+| `autosave`     | `{ save, delay, storageKey }`: salva com atraso e guarda rascunho no `localStorage`.                                                                                                                                |
+| `restoreDraft` | Começa pelo rascunho local, quando houver (precisa de `autosave.storageKey`).                                                                                                                                       |
+| `autocorrect`  | Tipografia, substituições e maiúsculas; `false` desliga.                                                                                                                                                            |
 
 ```ts
 const ui = createEditorUI(host, {
