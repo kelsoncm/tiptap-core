@@ -241,6 +241,7 @@ export {
   type DocumentLimits,
   type LimitKey,
   type LimitStatus,
+  type NumericLimit,
 } from './extensions/limits.js';
 export {
   createAutosave,
